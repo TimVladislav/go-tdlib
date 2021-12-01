@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Arman92/go-tdlib/tdlib"
+	"github.com/TimVladislav/go-tdlib/tdlib"
 )
 
 // GetPaymentForm Returns an invoice payment form. This method should be called when the user presses inlineKeyboardButtonBuy

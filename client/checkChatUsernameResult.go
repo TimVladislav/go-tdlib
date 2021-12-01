@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Arman92/go-tdlib/tdlib"
+	"github.com/TimVladislav/go-tdlib/tdlib"
 )
 
 // CheckChatUsername Checks whether a username can be set for a chat

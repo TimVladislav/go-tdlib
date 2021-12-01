@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Arman92/go-tdlib/tdlib"
+	"github.com/TimVladislav/go-tdlib/tdlib"
 )
 
 // GetChatFilter Returns information about a chat filter by its identifier
