@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Arman92/go-tdlib"
+	"github.com/TimVladislav/go-tdlib"
 )
 
 var allChats []*tdlib.Chat
