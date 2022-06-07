@@ -1767,7 +1767,23 @@ func (tdlibParameters *TdlibParameters) MessageType() string {
 // @param applicationVersion Application version; must be non-empty
 // @param enableStorageOptimizer If set to true, old files will automatically be deleted
 // @param ignoreFileNames If set to true, original file names will be ignored. Otherwise, downloaded files will be saved under names as close as possible to the original name
-func NewTdlibParameters(useTestDc bool, databaseDirectory string, filesDirectory string, useFileDatabase bool, useChatInfoDatabase bool, useMessageDatabase bool, useSecretChats bool, aPIID int32, aPIHash string, systemLanguageCode string, deviceModel string, systemVersion string, applicationVersion string, enableStorageOptimizer bool, ignoreFileNames bool) *TdlibParameters {
+func NewTdlibParameters(
+	useTestDc bool,
+	databaseDirectory string,
+	filesDirectory string,
+	useFileDatabase bool,
+	useChatInfoDatabase bool,
+	useMessageDatabase bool,
+	useSecretChats bool,
+	aPIID int32,
+	aPIHash string,
+	systemLanguageCode string,
+	deviceModel string,
+	systemVersion string,
+	applicationVersion string,
+	enableStorageOptimizer bool,
+	ignoreFileNames bool,
+) *TdlibParameters {
 	tdlibParametersTemp := TdlibParameters{
 		tdCommon:               tdCommon{Type: "tdlibParameters"},
 		UseTestDc:              useTestDc,
@@ -1922,7 +1938,12 @@ func (authenticationCodeInfo *AuthenticationCodeInfo) MessageType() string {
 // @param typeParam Describes the way the code was sent to the user
 // @param nextType Describes the way the next code will be sent to the user; may be null
 // @param timeout Timeout before the code should be re-sent, in seconds
-func NewAuthenticationCodeInfo(phoneNumber string, typeParam AuthenticationCodeType, nextType AuthenticationCodeType, timeout int32) *AuthenticationCodeInfo {
+func NewAuthenticationCodeInfo(
+	phoneNumber string,
+	typeParam AuthenticationCodeType,
+	nextType AuthenticationCodeType,
+	timeout int32,
+) *AuthenticationCodeInfo {
 	authenticationCodeInfoTemp := AuthenticationCodeInfo{
 		tdCommon:    tdCommon{Type: "authenticationCodeInfo"},
 		PhoneNumber: phoneNumber,
@@ -1980,7 +2001,10 @@ func (emailAddressAuthenticationCodeInfo *EmailAddressAuthenticationCodeInfo) Me
 //
 // @param emailAddressPattern Pattern of the email address to which an authentication code was sent
 // @param length Length of the code; 0 if unknown
-func NewEmailAddressAuthenticationCodeInfo(emailAddressPattern string, length int32) *EmailAddressAuthenticationCodeInfo {
+func NewEmailAddressAuthenticationCodeInfo(
+	emailAddressPattern string,
+	length int32,
+) *EmailAddressAuthenticationCodeInfo {
 	emailAddressAuthenticationCodeInfoTemp := EmailAddressAuthenticationCodeInfo{
 		tdCommon:            tdCommon{Type: "emailAddressAuthenticationCodeInfo"},
 		EmailAddressPattern: emailAddressPattern,
@@ -2305,7 +2329,11 @@ func (authorizationStateWaitPassword *AuthorizationStateWaitPassword) MessageTyp
 // @param passwordHint Hint for the password; may be empty
 // @param hasRecoveryEmailAddress True, if a recovery email address has been set up
 // @param recoveryEmailAddressPattern Pattern of the email address to which the recovery email was sent; empty until a recovery email has been sent
-func NewAuthorizationStateWaitPassword(passwordHint string, hasRecoveryEmailAddress bool, recoveryEmailAddressPattern string) *AuthorizationStateWaitPassword {
+func NewAuthorizationStateWaitPassword(
+	passwordHint string,
+	hasRecoveryEmailAddress bool,
+	recoveryEmailAddressPattern string,
+) *AuthorizationStateWaitPassword {
 	authorizationStateWaitPasswordTemp := AuthorizationStateWaitPassword{
 		tdCommon:                    tdCommon{Type: "authorizationStateWaitPassword"},
 		PasswordHint:                passwordHint,
@@ -2443,7 +2471,13 @@ func (passwordState *PasswordState) MessageType() string {
 // @param hasRecoveryEmailAddress True, if a recovery email is set
 // @param hasPassportData True, if some Telegram Passport elements were saved
 // @param recoveryEmailAddressCodeInfo Information about the recovery email address to which the confirmation email was sent; may be null
-func NewPasswordState(hasPassword bool, passwordHint string, hasRecoveryEmailAddress bool, hasPassportData bool, recoveryEmailAddressCodeInfo *EmailAddressAuthenticationCodeInfo) *PasswordState {
+func NewPasswordState(
+	hasPassword bool,
+	passwordHint string,
+	hasRecoveryEmailAddress bool,
+	hasPassportData bool,
+	recoveryEmailAddressCodeInfo *EmailAddressAuthenticationCodeInfo,
+) *PasswordState {
 	passwordStateTemp := PasswordState{
 		tdCommon:                     tdCommon{Type: "passwordState"},
 		HasPassword:                  hasPassword,
@@ -2533,7 +2567,16 @@ func (localFile *LocalFile) MessageType() string {
 // @param downloadOffset Download will be started from this offset. downloaded_prefix_size is calculated from this offset
 // @param downloadedPrefixSize If is_downloading_completed is false, then only some prefix of the file starting from download_offset is ready to be read. downloaded_prefix_size is the size of that prefix
 // @param downloadedSize Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage
-func NewLocalFile(path string, canBeDownloaded bool, canBeDeleted bool, isDownloadingActive bool, isDownloadingCompleted bool, downloadOffset int32, downloadedPrefixSize int32, downloadedSize int32) *LocalFile {
+func NewLocalFile(
+	path string,
+	canBeDownloaded bool,
+	canBeDeleted bool,
+	isDownloadingActive bool,
+	isDownloadingCompleted bool,
+	downloadOffset int32,
+	downloadedPrefixSize int32,
+	downloadedSize int32,
+) *LocalFile {
 	localFileTemp := LocalFile{
 		tdCommon:               tdCommon{Type: "localFile"},
 		Path:                   path,
@@ -2571,7 +2614,13 @@ func (remoteFile *RemoteFile) MessageType() string {
 // @param isUploadingActive True, if the file is currently being uploaded (or a remote copy is being generated by some other means)
 // @param isUploadingCompleted True, if a remote copy is fully available
 // @param uploadedSize Size of the remote available part of the file; 0 if unknown
-func NewRemoteFile(iD string, uniqueID string, isUploadingActive bool, isUploadingCompleted bool, uploadedSize int32) *RemoteFile {
+func NewRemoteFile(
+	iD string,
+	uniqueID string,
+	isUploadingActive bool,
+	isUploadingCompleted bool,
+	uploadedSize int32,
+) *RemoteFile {
 	remoteFileTemp := RemoteFile{
 		tdCommon:             tdCommon{Type: "remoteFile"},
 		ID:                   iD,
@@ -3320,7 +3369,17 @@ func (animation *Animation) MessageType() string {
 // @param minithumbnail Animation minithumbnail; may be null
 // @param thumbnail Animation thumbnail in JPEG or MPEG4 format; may be null
 // @param animation File containing the animation
-func NewAnimation(duration int32, width int32, height int32, fileName string, mimeType string, hasStickers bool, minithumbnail *Minithumbnail, thumbnail *Thumbnail, animation *File) *Animation {
+func NewAnimation(
+	duration int32,
+	width int32,
+	height int32,
+	fileName string,
+	mimeType string,
+	hasStickers bool,
+	minithumbnail *Minithumbnail,
+	thumbnail *Thumbnail,
+	animation *File,
+) *Animation {
 	animationTemp := Animation{
 		tdCommon:      tdCommon{Type: "animation"},
 		Duration:      duration,
@@ -3365,7 +3424,16 @@ func (audio *Audio) MessageType() string {
 // @param albumCoverMinithumbnail The minithumbnail of the album cover; may be null
 // @param albumCoverThumbnail The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail should be extracted from the downloaded file; may be null
 // @param audio File containing the audio
-func NewAudio(duration int32, title string, performer string, fileName string, mimeType string, albumCoverMinithumbnail *Minithumbnail, albumCoverThumbnail *Thumbnail, audio *File) *Audio {
+func NewAudio(
+	duration int32,
+	title string,
+	performer string,
+	fileName string,
+	mimeType string,
+	albumCoverMinithumbnail *Minithumbnail,
+	albumCoverThumbnail *Thumbnail,
+	audio *File,
+) *Audio {
 	audioTemp := Audio{
 		tdCommon:                tdCommon{Type: "audio"},
 		Duration:                duration,
@@ -3403,7 +3471,13 @@ func (document *Document) MessageType() string {
 // @param minithumbnail Document minithumbnail; may be null
 // @param thumbnail Document thumbnail in JPEG or PNG format (PNG will be used only for background patterns); as defined by the sender; may be null
 // @param document File containing the document
-func NewDocument(fileName string, mimeType string, minithumbnail *Minithumbnail, thumbnail *Thumbnail, document *File) *Document {
+func NewDocument(
+	fileName string,
+	mimeType string,
+	minithumbnail *Minithumbnail,
+	thumbnail *Thumbnail,
+	document *File,
+) *Document {
 	documentTemp := Document{
 		tdCommon:      tdCommon{Type: "document"},
 		FileName:      fileName,
@@ -3477,7 +3551,18 @@ func (sticker *Sticker) MessageType() string {
 // @param outline Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner
 // @param thumbnail Sticker thumbnail in WEBP or JPEG format; may be null
 // @param sticker File containing the sticker
-func NewSticker(setID JSONInt64, width int32, height int32, emoji string, isAnimated bool, isMask bool, maskPosition *MaskPosition, outline []ClosedVectorPath, thumbnail *Thumbnail, sticker *File) *Sticker {
+func NewSticker(
+	setID JSONInt64,
+	width int32,
+	height int32,
+	emoji string,
+	isAnimated bool,
+	isMask bool,
+	maskPosition *MaskPosition,
+	outline []ClosedVectorPath,
+	thumbnail *Thumbnail,
+	sticker *File,
+) *Sticker {
 	stickerTemp := Sticker{
 		tdCommon:     tdCommon{Type: "sticker"},
 		SetID:        setID,
@@ -3527,7 +3612,18 @@ func (video *Video) MessageType() string {
 // @param minithumbnail Video minithumbnail; may be null
 // @param thumbnail Video thumbnail in JPEG or MPEG4 format; as defined by the sender; may be null
 // @param video File containing the video
-func NewVideo(duration int32, width int32, height int32, fileName string, mimeType string, hasStickers bool, supportsStreaming bool, minithumbnail *Minithumbnail, thumbnail *Thumbnail, video *File) *Video {
+func NewVideo(
+	duration int32,
+	width int32,
+	height int32,
+	fileName string,
+	mimeType string,
+	hasStickers bool,
+	supportsStreaming bool,
+	minithumbnail *Minithumbnail,
+	thumbnail *Thumbnail,
+	video *File,
+) *Video {
 	videoTemp := Video{
 		tdCommon:          tdCommon{Type: "video"},
 		Duration:          duration,
@@ -3567,7 +3663,13 @@ func (videoNote *VideoNote) MessageType() string {
 // @param minithumbnail Video minithumbnail; may be null
 // @param thumbnail Video thumbnail in JPEG format; as defined by the sender; may be null
 // @param video File containing the video
-func NewVideoNote(duration int32, length int32, minithumbnail *Minithumbnail, thumbnail *Thumbnail, video *File) *VideoNote {
+func NewVideoNote(
+	duration int32,
+	length int32,
+	minithumbnail *Minithumbnail,
+	thumbnail *Thumbnail,
+	video *File,
+) *VideoNote {
 	videoNoteTemp := VideoNote{
 		tdCommon:      tdCommon{Type: "videoNote"},
 		Duration:      duration,
@@ -3619,7 +3721,7 @@ type Contact struct {
 	FirstName   string `json:"first_name"`   // First name of the user; 1-255 characters in length
 	LastName    string `json:"last_name"`    // Last name of the user
 	Vcard       string `json:"vcard"`        // Additional data about the user in a form of vCard; 0-2048 bytes in length
-	UserID      int32  `json:"user_id"`      // Identifier of the user, if known; otherwise 0
+	UserID      int64  `json:"user_id"`      // Identifier of the user, if known; otherwise 0
 }
 
 // MessageType return the string telegram-type of Contact
@@ -3634,7 +3736,7 @@ func (contact *Contact) MessageType() string {
 // @param lastName Last name of the user
 // @param vcard Additional data about the user in a form of vCard; 0-2048 bytes in length
 // @param userID Identifier of the user, if known; otherwise 0
-func NewContact(phoneNumber string, firstName string, lastName string, vcard string, userID int32) *Contact {
+func NewContact(phoneNumber string, firstName string, lastName string, vcard string, userID int64) *Contact {
 	contactTemp := Contact{
 		tdCommon:    tdCommon{Type: "contact"},
 		PhoneNumber: phoneNumber,
@@ -3740,7 +3842,15 @@ func (game *Game) MessageType() string {
 // @param description
 // @param photo Game photo
 // @param animation Game animation; may be null
-func NewGame(iD JSONInt64, shortName string, title string, text *FormattedText, description string, photo *Photo, animation *Animation) *Game {
+func NewGame(
+	iD JSONInt64,
+	shortName string,
+	title string,
+	text *FormattedText,
+	description string,
+	photo *Photo,
+	animation *Animation,
+) *Game {
 	gameTemp := Game{
 		tdCommon:    tdCommon{Type: "game"},
 		ID:          iD,
@@ -3762,7 +3872,7 @@ type Poll struct {
 	Question           string       `json:"question"`              // Poll question; 1-300 characters
 	Options            []PollOption `json:"options"`               // List of poll answer options
 	TotalVoterCount    int32        `json:"total_voter_count"`     // Total number of voters, participating in the poll
-	RecentVoterUserIDs []int32      `json:"recent_voter_user_ids"` // User identifiers of recent voters, if the poll is non-anonymous
+	RecentVoterUserIDs []int64      `json:"recent_voter_user_ids"` // User identifiers of recent voters, if the poll is non-anonymous
 	IsAnonymous        bool         `json:"is_anonymous"`          // True, if the poll is anonymous
 	Type               PollType     `json:"type"`                  // Type of the poll
 	OpenPeriod         int32        `json:"open_period"`           // Amount of time the poll will be active after creation, in seconds
@@ -3787,7 +3897,18 @@ func (poll *Poll) MessageType() string {
 // @param openPeriod Amount of time the poll will be active after creation, in seconds
 // @param closeDate Point in time (Unix timestamp) when the poll will be automatically closed
 // @param isClosed True, if the poll is closed
-func NewPoll(iD JSONInt64, question string, options []PollOption, totalVoterCount int32, recentVoterUserIDs []int32, isAnonymous bool, typeParam PollType, openPeriod int32, closeDate int32, isClosed bool) *Poll {
+func NewPoll(
+	iD JSONInt64,
+	question string,
+	options []PollOption,
+	totalVoterCount int32,
+	recentVoterUserIDs []int64,
+	isAnonymous bool,
+	typeParam PollType,
+	openPeriod int32,
+	closeDate int32,
+	isClosed bool,
+) *Poll {
 	pollTemp := Poll{
 		tdCommon:           tdCommon{Type: "poll"},
 		ID:                 iD,
@@ -3818,7 +3939,7 @@ func (poll *Poll) UnmarshalJSON(b []byte) error {
 		Question           string       `json:"question"`              // Poll question; 1-300 characters
 		Options            []PollOption `json:"options"`               // List of poll answer options
 		TotalVoterCount    int32        `json:"total_voter_count"`     // Total number of voters, participating in the poll
-		RecentVoterUserIDs []int32      `json:"recent_voter_user_ids"` // User identifiers of recent voters, if the poll is non-anonymous
+		RecentVoterUserIDs []int64      `json:"recent_voter_user_ids"` // User identifiers of recent voters, if the poll is non-anonymous
 		IsAnonymous        bool         `json:"is_anonymous"`          // True, if the poll is anonymous
 		OpenPeriod         int32        `json:"open_period"`           // Amount of time the poll will be active after creation, in seconds
 		CloseDate          int32        `json:"close_date"`            // Point in time (Unix timestamp) when the poll will be automatically closed
@@ -3979,7 +4100,13 @@ func (userTypeBot *UserTypeBot) MessageType() string {
 // @param isInline True, if the bot supports inline queries
 // @param inlineQueryPlaceholder Placeholder for inline queries (displayed on the application input field)
 // @param needLocation True, if the location of the user should be sent with every inline query to this bot
-func NewUserTypeBot(canJoinGroups bool, canReadAllGroupMessages bool, isInline bool, inlineQueryPlaceholder string, needLocation bool) *UserTypeBot {
+func NewUserTypeBot(
+	canJoinGroups bool,
+	canReadAllGroupMessages bool,
+	isInline bool,
+	inlineQueryPlaceholder string,
+	needLocation bool,
+) *UserTypeBot {
 	userTypeBotTemp := UserTypeBot{
 		tdCommon:                tdCommon{Type: "userTypeBot"},
 		CanJoinGroups:           canJoinGroups,
@@ -4151,7 +4278,13 @@ func (chatPhoto *ChatPhoto) MessageType() string {
 // @param minithumbnail Photo minithumbnail; may be null
 // @param sizes Available variants of the photo in JPEG format, in different size
 // @param animation Animated variant of the photo in MPEG4 format; may be null
-func NewChatPhoto(iD JSONInt64, addedDate int32, minithumbnail *Minithumbnail, sizes []PhotoSize, animation *AnimatedChatPhoto) *ChatPhoto {
+func NewChatPhoto(
+	iD JSONInt64,
+	addedDate int32,
+	minithumbnail *Minithumbnail,
+	sizes []PhotoSize,
+	animation *AnimatedChatPhoto,
+) *ChatPhoto {
 	chatPhotoTemp := ChatPhoto{
 		tdCommon:      tdCommon{Type: "chatPhoto"},
 		ID:            iD,
@@ -4328,7 +4461,7 @@ func (inputChatPhotoAnimation *InputChatPhotoAnimation) GetInputChatPhotoEnum() 
 // User Represents a user
 type User struct {
 	tdCommon
-	ID                int32         `json:"id"`                 // User identifier
+	ID                int64         `json:"id"`                 // User identifier
 	FirstName         string        `json:"first_name"`         // First name of the user
 	LastName          string        `json:"last_name"`          // Last name of the user
 	Username          string        `json:"username"`           // Username of the user
@@ -4371,7 +4504,25 @@ func (user *User) MessageType() string {
 // @param haveAccess If false, the user is inaccessible, and the only information known about the user is inside this class. It can't be passed to any method except GetUser
 // @param typeParam Type of the user
 // @param languageCode IETF language tag of the user's language; only available to bots
-func NewUser(iD int32, firstName string, lastName string, username string, phoneNumber string, status UserStatus, profilePhoto *ProfilePhoto, isContact bool, isMutualContact bool, isVerified bool, isSupport bool, restrictionReason string, isScam bool, isFake bool, haveAccess bool, typeParam UserType, languageCode string) *User {
+func NewUser(
+	iD int64,
+	firstName string,
+	lastName string,
+	username string,
+	phoneNumber string,
+	status UserStatus,
+	profilePhoto *ProfilePhoto,
+	isContact bool,
+	isMutualContact bool,
+	isVerified bool,
+	isSupport bool,
+	restrictionReason string,
+	isScam bool,
+	isFake bool,
+	haveAccess bool,
+	typeParam UserType,
+	languageCode string,
+) *User {
 	userTemp := User{
 		tdCommon:          tdCommon{Type: "user"},
 		ID:                iD,
@@ -4405,7 +4556,7 @@ func (user *User) UnmarshalJSON(b []byte) error {
 	}
 	tempObj := struct {
 		tdCommon
-		ID                int32         `json:"id"`                 // User identifier
+		ID                int64         `json:"id"`                 // User identifier
 		FirstName         string        `json:"first_name"`         // First name of the user
 		LastName          string        `json:"last_name"`          // Last name of the user
 		Username          string        `json:"username"`           // Username of the user
@@ -4484,7 +4635,18 @@ func (userFullInfo *UserFullInfo) MessageType() string {
 // @param shareText For bots, the text that is included with the link when users share the bot
 // @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user
 // @param botInfo If the user is a bot, information about the bot; may be null
-func NewUserFullInfo(photo *ChatPhoto, isBlocked bool, canBeCalled bool, supportsVideoCalls bool, hasPrivateCalls bool, needPhoneNumberPrivacyException bool, bio string, shareText string, groupInCommonCount int32, botInfo *BotInfo) *UserFullInfo {
+func NewUserFullInfo(
+	photo *ChatPhoto,
+	isBlocked bool,
+	canBeCalled bool,
+	supportsVideoCalls bool,
+	hasPrivateCalls bool,
+	needPhoneNumberPrivacyException bool,
+	bio string,
+	shareText string,
+	groupInCommonCount int32,
+	botInfo *BotInfo,
+) *UserFullInfo {
 	userFullInfoTemp := UserFullInfo{
 		tdCommon:                        tdCommon{Type: "userFullInfo"},
 		Photo:                           photo,
@@ -4506,7 +4668,7 @@ func NewUserFullInfo(photo *ChatPhoto, isBlocked bool, canBeCalled bool, support
 type Users struct {
 	tdCommon
 	TotalCount int32   `json:"total_count"` // Approximate total count of users found
-	UserIDs    []int32 `json:"user_ids"`    // A list of user identifiers
+	UserIDs    []int64 `json:"user_ids"`    // A list of user identifiers
 }
 
 // MessageType return the string telegram-type of Users
@@ -4518,7 +4680,7 @@ func (users *Users) MessageType() string {
 //
 // @param totalCount Approximate total count of users found
 // @param userIDs A list of user identifiers
-func NewUsers(totalCount int32, userIDs []int32) *Users {
+func NewUsers(totalCount int32, userIDs []int64) *Users {
 	usersTemp := Users{
 		tdCommon:   tdCommon{Type: "users"},
 		TotalCount: totalCount,
@@ -4531,7 +4693,7 @@ func NewUsers(totalCount int32, userIDs []int32) *Users {
 // ChatAdministrator Contains information about a chat administrator
 type ChatAdministrator struct {
 	tdCommon
-	UserID      int32  `json:"user_id"`      // User identifier of the administrator
+	UserID      int64  `json:"user_id"`      // User identifier of the administrator
 	CustomTitle string `json:"custom_title"` // Custom title of the administrator
 	IsOwner     bool   `json:"is_owner"`     // True, if the user is the owner of the chat
 }
@@ -4546,7 +4708,7 @@ func (chatAdministrator *ChatAdministrator) MessageType() string {
 // @param userID User identifier of the administrator
 // @param customTitle Custom title of the administrator
 // @param isOwner True, if the user is the owner of the chat
-func NewChatAdministrator(userID int32, customTitle string, isOwner bool) *ChatAdministrator {
+func NewChatAdministrator(userID int64, customTitle string, isOwner bool) *ChatAdministrator {
 	chatAdministratorTemp := ChatAdministrator{
 		tdCommon:    tdCommon{Type: "chatAdministrator"},
 		UserID:      userID,
@@ -4608,7 +4770,16 @@ func (chatPermissions *ChatPermissions) MessageType() string {
 // @param canChangeInfo True, if the user can change the chat title, photo, and other settings
 // @param canInviteUsers True, if the user can invite new users to the chat
 // @param canPinMessages True, if the user can pin messages
-func NewChatPermissions(canSendMessages bool, canSendMediaMessages bool, canSendPolls bool, canSendOtherMessages bool, canAddWebPagePreviews bool, canChangeInfo bool, canInviteUsers bool, canPinMessages bool) *ChatPermissions {
+func NewChatPermissions(
+	canSendMessages bool,
+	canSendMediaMessages bool,
+	canSendPolls bool,
+	canSendOtherMessages bool,
+	canAddWebPagePreviews bool,
+	canChangeInfo bool,
+	canInviteUsers bool,
+	canPinMessages bool,
+) *ChatPermissions {
 	chatPermissionsTemp := ChatPermissions{
 		tdCommon:              tdCommon{Type: "chatPermissions"},
 		CanSendMessages:       canSendMessages,
@@ -4694,7 +4865,20 @@ func (chatMemberStatusAdministrator *ChatMemberStatusAdministrator) MessageType(
 // @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them
 // @param canManageVoiceChats True, if the administrator can manage voice chats; applicable to groups only
 // @param isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only
-func NewChatMemberStatusAdministrator(customTitle string, canBeEdited bool, canChangeInfo bool, canPostMessages bool, canEditMessages bool, canDeleteMessages bool, canInviteUsers bool, canRestrictMembers bool, canPinMessages bool, canPromoteMembers bool, canManageVoiceChats bool, isAnonymous bool) *ChatMemberStatusAdministrator {
+func NewChatMemberStatusAdministrator(
+	customTitle string,
+	canBeEdited bool,
+	canChangeInfo bool,
+	canPostMessages bool,
+	canEditMessages bool,
+	canDeleteMessages bool,
+	canInviteUsers bool,
+	canRestrictMembers bool,
+	canPinMessages bool,
+	canPromoteMembers bool,
+	canManageVoiceChats bool,
+	isAnonymous bool,
+) *ChatMemberStatusAdministrator {
 	chatMemberStatusAdministratorTemp := ChatMemberStatusAdministrator{
 		tdCommon:            tdCommon{Type: "chatMemberStatusAdministrator"},
 		CustomTitle:         customTitle,
@@ -4762,7 +4946,11 @@ func (chatMemberStatusRestricted *ChatMemberStatusRestricted) MessageType() stri
 // @param isMember True, if the user is a member of the chat
 // @param restrictedUntilDate Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever
 // @param permissions User permissions in the chat
-func NewChatMemberStatusRestricted(isMember bool, restrictedUntilDate int32, permissions *ChatPermissions) *ChatMemberStatusRestricted {
+func NewChatMemberStatusRestricted(
+	isMember bool,
+	restrictedUntilDate int32,
+	permissions *ChatPermissions,
+) *ChatMemberStatusRestricted {
 	chatMemberStatusRestrictedTemp := ChatMemberStatusRestricted{
 		tdCommon:            tdCommon{Type: "chatMemberStatusRestricted"},
 		IsMember:            isMember,
@@ -4834,8 +5022,8 @@ func (chatMemberStatusBanned *ChatMemberStatusBanned) GetChatMemberStatusEnum() 
 // ChatMember A user with information about joining/leaving a chat
 type ChatMember struct {
 	tdCommon
-	UserID         int32            `json:"user_id"`          // User identifier of the chat member
-	InviterUserID  int32            `json:"inviter_user_id"`  // Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown
+	UserID         int64            `json:"user_id"`          // User identifier of the chat member
+	InviterUserID  int64            `json:"inviter_user_id"`  // Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown
 	JoinedChatDate int32            `json:"joined_chat_date"` // Point in time (Unix timestamp) when the user joined the chat
 	Status         ChatMemberStatus `json:"status"`           // Status of the member in the chat
 	BotInfo        *BotInfo         `json:"bot_info"`         // If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not the chat member
@@ -4853,7 +5041,13 @@ func (chatMember *ChatMember) MessageType() string {
 // @param joinedChatDate Point in time (Unix timestamp) when the user joined the chat
 // @param status Status of the member in the chat
 // @param botInfo If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not the chat member
-func NewChatMember(userID int32, inviterUserID int32, joinedChatDate int32, status ChatMemberStatus, botInfo *BotInfo) *ChatMember {
+func NewChatMember(
+	userID int64,
+	inviterUserID int64,
+	joinedChatDate int32,
+	status ChatMemberStatus,
+	botInfo *BotInfo,
+) *ChatMember {
 	chatMemberTemp := ChatMember{
 		tdCommon:       tdCommon{Type: "chatMember"},
 		UserID:         userID,
@@ -4875,8 +5069,8 @@ func (chatMember *ChatMember) UnmarshalJSON(b []byte) error {
 	}
 	tempObj := struct {
 		tdCommon
-		UserID         int32    `json:"user_id"`          // User identifier of the chat member
-		InviterUserID  int32    `json:"inviter_user_id"`  // Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown
+		UserID         int64    `json:"user_id"`          // User identifier of the chat member
+		InviterUserID  int64    `json:"inviter_user_id"`  // Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown
 		JoinedChatDate int32    `json:"joined_chat_date"` // Point in time (Unix timestamp) when the user joined the chat
 		BotInfo        *BotInfo `json:"bot_info"`         // If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not the chat member
 	}{}
@@ -5323,7 +5517,7 @@ func (supergroupMembersFilterBots *SupergroupMembersFilterBots) GetSupergroupMem
 type ChatInviteLink struct {
 	tdCommon
 	InviteLink          string `json:"invite_link"`           // Chat invite link
-	AdministratorUserID int32  `json:"administrator_user_id"` // User identifier of an administrator created the link
+	AdministratorUserID int64  `json:"administrator_user_id"` // User identifier of an administrator created the link
 	Date                int32  `json:"date"`                  // Point in time (Unix timestamp) when the link was created
 	EditDate            int32  `json:"edit_date"`             // Point in time (Unix timestamp) when the link was last edited; 0 if never or unknown
 	ExpireDate          int32  `json:"expire_date"`           // Point in time (Unix timestamp) when the link will expire; 0 if never
@@ -5351,7 +5545,18 @@ func (chatInviteLink *ChatInviteLink) MessageType() string {
 // @param isPermanent True, if the link is permanent. Permanent invite link can't have expire date or usage limit. There is exactly one permanent invite link for each administrator with can_invite_users right at a given time
 // @param isExpired True, if the link is already expired
 // @param isRevoked True, if the link was revoked
-func NewChatInviteLink(inviteLink string, administratorUserID int32, date int32, editDate int32, expireDate int32, memberLimit int32, memberCount int32, isPermanent bool, isExpired bool, isRevoked bool) *ChatInviteLink {
+func NewChatInviteLink(
+	inviteLink string,
+	administratorUserID int64,
+	date int32,
+	editDate int32,
+	expireDate int32,
+	memberLimit int32,
+	memberCount int32,
+	isPermanent bool,
+	isExpired bool,
+	isRevoked bool,
+) *ChatInviteLink {
 	chatInviteLinkTemp := ChatInviteLink{
 		tdCommon:            tdCommon{Type: "chatInviteLink"},
 		InviteLink:          inviteLink,
@@ -5398,7 +5603,7 @@ func NewChatInviteLinks(totalCount int32, inviteLinks []ChatInviteLink) *ChatInv
 // ChatInviteLinkMember Describes a chat member joined a chat by an invite link
 type ChatInviteLinkMember struct {
 	tdCommon
-	UserID         int32 `json:"user_id"`          // User identifier
+	UserID         int64 `json:"user_id"`          // User identifier
 	JoinedChatDate int32 `json:"joined_chat_date"` // Point in time (Unix timestamp) when the user joined the chat
 }
 
@@ -5411,7 +5616,7 @@ func (chatInviteLinkMember *ChatInviteLinkMember) MessageType() string {
 //
 // @param userID User identifier
 // @param joinedChatDate Point in time (Unix timestamp) when the user joined the chat
-func NewChatInviteLinkMember(userID int32, joinedChatDate int32) *ChatInviteLinkMember {
+func NewChatInviteLinkMember(userID int64, joinedChatDate int32) *ChatInviteLinkMember {
 	chatInviteLinkMemberTemp := ChatInviteLinkMember{
 		tdCommon:       tdCommon{Type: "chatInviteLinkMember"},
 		UserID:         userID,
@@ -5456,7 +5661,7 @@ type ChatInviteLinkInfo struct {
 	Title         string         `json:"title"`           // Title of the chat
 	Photo         *ChatPhotoInfo `json:"photo"`           // Chat photo; may be null
 	MemberCount   int32          `json:"member_count"`    // Number of members in the chat
-	MemberUserIDs []int32        `json:"member_user_ids"` // User identifiers of some chat members that may be known to the current user
+	MemberUserIDs []int64        `json:"member_user_ids"` // User identifiers of some chat members that may be known to the current user
 	IsPublic      bool           `json:"is_public"`       // True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup
 }
 
@@ -5475,7 +5680,16 @@ func (chatInviteLinkInfo *ChatInviteLinkInfo) MessageType() string {
 // @param memberCount Number of members in the chat
 // @param memberUserIDs User identifiers of some chat members that may be known to the current user
 // @param isPublic True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup
-func NewChatInviteLinkInfo(chatID int64, accessibleFor int32, typeParam ChatType, title string, photo *ChatPhotoInfo, memberCount int32, memberUserIDs []int32, isPublic bool) *ChatInviteLinkInfo {
+func NewChatInviteLinkInfo(
+	chatID int64,
+	accessibleFor int32,
+	typeParam ChatType,
+	title string,
+	photo *ChatPhotoInfo,
+	memberCount int32,
+	memberUserIDs []int64,
+	isPublic bool,
+) *ChatInviteLinkInfo {
 	chatInviteLinkInfoTemp := ChatInviteLinkInfo{
 		tdCommon:      tdCommon{Type: "chatInviteLinkInfo"},
 		ChatID:        chatID,
@@ -5505,7 +5719,7 @@ func (chatInviteLinkInfo *ChatInviteLinkInfo) UnmarshalJSON(b []byte) error {
 		Title         string         `json:"title"`           // Title of the chat
 		Photo         *ChatPhotoInfo `json:"photo"`           // Chat photo; may be null
 		MemberCount   int32          `json:"member_count"`    // Number of members in the chat
-		MemberUserIDs []int32        `json:"member_user_ids"` // User identifiers of some chat members that may be known to the current user
+		MemberUserIDs []int64        `json:"member_user_ids"` // User identifiers of some chat members that may be known to the current user
 		IsPublic      bool           `json:"is_public"`       // True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -5550,7 +5764,13 @@ func (basicGroup *BasicGroup) MessageType() string {
 // @param status Status of the current user in the group
 // @param isActive True, if the group is active
 // @param upgradedToSupergroupID Identifier of the supergroup to which this group was upgraded; 0 if none
-func NewBasicGroup(iD int32, memberCount int32, status ChatMemberStatus, isActive bool, upgradedToSupergroupID int32) *BasicGroup {
+func NewBasicGroup(
+	iD int32,
+	memberCount int32,
+	status ChatMemberStatus,
+	isActive bool,
+	upgradedToSupergroupID int32,
+) *BasicGroup {
 	basicGroupTemp := BasicGroup{
 		tdCommon:               tdCommon{Type: "basicGroup"},
 		ID:                     iD,
@@ -5599,7 +5819,7 @@ type BasicGroupFullInfo struct {
 	tdCommon
 	Photo         *ChatPhoto      `json:"photo"`           // Chat photo; may be null
 	Description   string          `json:"description"`     //
-	CreatorUserID int32           `json:"creator_user_id"` // User identifier of the creator of the group; 0 if unknown
+	CreatorUserID int64           `json:"creator_user_id"` // User identifier of the creator of the group; 0 if unknown
 	Members       []ChatMember    `json:"members"`         // Group members
 	InviteLink    *ChatInviteLink `json:"invite_link"`     // Permanent invite link for this group; may be null. For chat administrators with can_invite_users right only. Updated only after the basic group is opened
 }
@@ -5616,7 +5836,13 @@ func (basicGroupFullInfo *BasicGroupFullInfo) MessageType() string {
 // @param creatorUserID User identifier of the creator of the group; 0 if unknown
 // @param members Group members
 // @param inviteLink Permanent invite link for this group; may be null. For chat administrators with can_invite_users right only. Updated only after the basic group is opened
-func NewBasicGroupFullInfo(photo *ChatPhoto, description string, creatorUserID int32, members []ChatMember, inviteLink *ChatInviteLink) *BasicGroupFullInfo {
+func NewBasicGroupFullInfo(
+	photo *ChatPhoto,
+	description string,
+	creatorUserID int64,
+	members []ChatMember,
+	inviteLink *ChatInviteLink,
+) *BasicGroupFullInfo {
 	basicGroupFullInfoTemp := BasicGroupFullInfo{
 		tdCommon:      tdCommon{Type: "basicGroupFullInfo"},
 		Photo:         photo,
@@ -5669,7 +5895,22 @@ func (supergroup *Supergroup) MessageType() string {
 // @param restrictionReason If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted
 // @param isScam True, if many users reported this supergroup or channel as a scam
 // @param isFake True, if many users reported this supergroup or channel as a fake account
-func NewSupergroup(iD int32, username string, date int32, status ChatMemberStatus, memberCount int32, hasLinkedChat bool, hasLocation bool, signMessages bool, isSlowModeEnabled bool, isChannel bool, isVerified bool, restrictionReason string, isScam bool, isFake bool) *Supergroup {
+func NewSupergroup(
+	iD int32,
+	username string,
+	date int32,
+	status ChatMemberStatus,
+	memberCount int32,
+	hasLinkedChat bool,
+	hasLocation bool,
+	signMessages bool,
+	isSlowModeEnabled bool,
+	isChannel bool,
+	isVerified bool,
+	restrictionReason string,
+	isScam bool,
+	isFake bool,
+) *Supergroup {
 	supergroupTemp := Supergroup{
 		tdCommon:          tdCommon{Type: "supergroup"},
 		ID:                iD,
@@ -5792,7 +6033,28 @@ func (supergroupFullInfo *SupergroupFullInfo) MessageType() string {
 // @param inviteLink Permanent invite link for this chat; may be null. For chat administrators with can_invite_users right only
 // @param upgradedFromBasicGroupID Identifier of the basic group from which supergroup was upgraded; 0 if none
 // @param upgradedFromMaxMessageID Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none
-func NewSupergroupFullInfo(photo *ChatPhoto, description string, memberCount int32, administratorCount int32, restrictedCount int32, bannedCount int32, linkedChatID int64, slowModeDelay int32, slowModeDelayExpiresIn float64, canGetMembers bool, canSetUsername bool, canSetStickerSet bool, canSetLocation bool, canGetStatistics bool, isAllHistoryAvailable bool, stickerSetID JSONInt64, location *ChatLocation, inviteLink *ChatInviteLink, upgradedFromBasicGroupID int32, upgradedFromMaxMessageID int64) *SupergroupFullInfo {
+func NewSupergroupFullInfo(
+	photo *ChatPhoto,
+	description string,
+	memberCount int32,
+	administratorCount int32,
+	restrictedCount int32,
+	bannedCount int32,
+	linkedChatID int64,
+	slowModeDelay int32,
+	slowModeDelayExpiresIn float64,
+	canGetMembers bool,
+	canSetUsername bool,
+	canSetStickerSet bool,
+	canSetLocation bool,
+	canGetStatistics bool,
+	isAllHistoryAvailable bool,
+	stickerSetID JSONInt64,
+	location *ChatLocation,
+	inviteLink *ChatInviteLink,
+	upgradedFromBasicGroupID int32,
+	upgradedFromMaxMessageID int64,
+) *SupergroupFullInfo {
 	supergroupFullInfoTemp := SupergroupFullInfo{
 		tdCommon:                 tdCommon{Type: "supergroupFullInfo"},
 		Photo:                    photo,
@@ -5899,7 +6161,7 @@ func (secretChatStateClosed *SecretChatStateClosed) GetSecretChatStateEnum() Sec
 type SecretChat struct {
 	tdCommon
 	ID         int32           `json:"id"`          // Secret chat identifier
-	UserID     int32           `json:"user_id"`     // Identifier of the chat partner
+	UserID     int64           `json:"user_id"`     // Identifier of the chat partner
 	State      SecretChatState `json:"state"`       // State of the secret chat
 	IsOutbound bool            `json:"is_outbound"` // True, if the chat was created by the current user; otherwise false
 	TTL        int32           `json:"ttl"`         // Current message Time To Live setting (self-destruct timer) for the chat, in seconds
@@ -5921,7 +6183,15 @@ func (secretChat *SecretChat) MessageType() string {
 // @param tTL Current message Time To Live setting (self-destruct timer) for the chat, in seconds
 // @param keyHash Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9.
 // @param layer Secret chat layer; determines features supported by the chat partner's application. Video notes are supported if the layer >= 66; nested text entities and underline and strikethrough entities are supported if the layer >= 101
-func NewSecretChat(iD int32, userID int32, state SecretChatState, isOutbound bool, tTL int32, keyHash []byte, layer int32) *SecretChat {
+func NewSecretChat(
+	iD int32,
+	userID int64,
+	state SecretChatState,
+	isOutbound bool,
+	tTL int32,
+	keyHash []byte,
+	layer int32,
+) *SecretChat {
 	secretChatTemp := SecretChat{
 		tdCommon:   tdCommon{Type: "secretChat"},
 		ID:         iD,
@@ -5946,7 +6216,7 @@ func (secretChat *SecretChat) UnmarshalJSON(b []byte) error {
 	tempObj := struct {
 		tdCommon
 		ID         int32  `json:"id"`          // Secret chat identifier
-		UserID     int32  `json:"user_id"`     // Identifier of the chat partner
+		UserID     int64  `json:"user_id"`     // Identifier of the chat partner
 		IsOutbound bool   `json:"is_outbound"` // True, if the chat was created by the current user; otherwise false
 		TTL        int32  `json:"ttl"`         // Current message Time To Live setting (self-destruct timer) for the chat, in seconds
 		KeyHash    []byte `json:"key_hash"`    // Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9.
@@ -5974,7 +6244,7 @@ func (secretChat *SecretChat) UnmarshalJSON(b []byte) error {
 // MessageSenderUser The message was sent by a known user
 type MessageSenderUser struct {
 	tdCommon
-	UserID int32 `json:"user_id"` // Identifier of the user that sent the message
+	UserID int64 `json:"user_id"` // Identifier of the user that sent the message
 }
 
 // MessageType return the string telegram-type of MessageSenderUser
@@ -5985,7 +6255,7 @@ func (messageSenderUser *MessageSenderUser) MessageType() string {
 // NewMessageSenderUser creates a new MessageSenderUser
 //
 // @param userID Identifier of the user that sent the message
-func NewMessageSenderUser(userID int32) *MessageSenderUser {
+func NewMessageSenderUser(userID int64) *MessageSenderUser {
 	messageSenderUserTemp := MessageSenderUser{
 		tdCommon: tdCommon{Type: "messageSenderUser"},
 		UserID:   userID,
@@ -6056,7 +6326,7 @@ func NewMessageSenders(totalCount int32, senders []MessageSender) *MessageSender
 // MessageForwardOriginUser The message was originally sent by a known user
 type MessageForwardOriginUser struct {
 	tdCommon
-	SenderUserID int32 `json:"sender_user_id"` // Identifier of the user that originally sent the message
+	SenderUserID int64 `json:"sender_user_id"` // Identifier of the user that originally sent the message
 }
 
 // MessageType return the string telegram-type of MessageForwardOriginUser
@@ -6067,7 +6337,7 @@ func (messageForwardOriginUser *MessageForwardOriginUser) MessageType() string {
 // NewMessageForwardOriginUser creates a new MessageForwardOriginUser
 //
 // @param senderUserID Identifier of the user that originally sent the message
-func NewMessageForwardOriginUser(senderUserID int32) *MessageForwardOriginUser {
+func NewMessageForwardOriginUser(senderUserID int64) *MessageForwardOriginUser {
 	messageForwardOriginUserTemp := MessageForwardOriginUser{
 		tdCommon:     tdCommon{Type: "messageForwardOriginUser"},
 		SenderUserID: senderUserID,
@@ -6158,7 +6428,11 @@ func (messageForwardOriginChannel *MessageForwardOriginChannel) MessageType() st
 // @param chatID Identifier of the chat from which the message was originally forwarded
 // @param messageID Message identifier of the original message
 // @param authorSignature Original post author signature
-func NewMessageForwardOriginChannel(chatID int64, messageID int64, authorSignature string) *MessageForwardOriginChannel {
+func NewMessageForwardOriginChannel(
+	chatID int64,
+	messageID int64,
+	authorSignature string,
+) *MessageForwardOriginChannel {
 	messageForwardOriginChannelTemp := MessageForwardOriginChannel{
 		tdCommon:        tdCommon{Type: "messageForwardOriginChannel"},
 		ChatID:          chatID,
@@ -6224,7 +6498,13 @@ func (messageForwardInfo *MessageForwardInfo) MessageType() string {
 // @param publicServiceAnnouncementType The type of a public service announcement for the forwarded message
 // @param fromChatID For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time; 0 if unknown
 // @param fromMessageID For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time; 0 if unknown
-func NewMessageForwardInfo(origin MessageForwardOrigin, date int32, publicServiceAnnouncementType string, fromChatID int64, fromMessageID int64) *MessageForwardInfo {
+func NewMessageForwardInfo(
+	origin MessageForwardOrigin,
+	date int32,
+	publicServiceAnnouncementType string,
+	fromChatID int64,
+	fromMessageID int64,
+) *MessageForwardInfo {
 	messageForwardInfoTemp := MessageForwardInfo{
 		tdCommon:                      tdCommon{Type: "messageForwardInfo"},
 		Origin:                        origin,
@@ -6290,7 +6570,13 @@ func (messageReplyInfo *MessageReplyInfo) MessageType() string {
 // @param lastReadInboxMessageID Identifier of the last read incoming reply to the message
 // @param lastReadOutboxMessageID Identifier of the last read outgoing reply to the message
 // @param lastMessageID Identifier of the last reply to the message
-func NewMessageReplyInfo(replyCount int32, recentRepliers []MessageSender, lastReadInboxMessageID int64, lastReadOutboxMessageID int64, lastMessageID int64) *MessageReplyInfo {
+func NewMessageReplyInfo(
+	replyCount int32,
+	recentRepliers []MessageSender,
+	lastReadInboxMessageID int64,
+	lastReadOutboxMessageID int64,
+	lastMessageID int64,
+) *MessageReplyInfo {
 	messageReplyInfoTemp := MessageReplyInfo{
 		tdCommon:                tdCommon{Type: "messageReplyInfo"},
 		ReplyCount:              replyCount,
@@ -6319,11 +6605,11 @@ func (messageInteractionInfo *MessageInteractionInfo) MessageType() string {
 // UnmarshalJSON unmarshal to json
 func (messageReplyInfo *MessageReplyInfo) UnmarshalJSON(data []byte) error {
 	var tmp struct {
-		ReplyCount              int32             `json:"reply_count"`
+		ReplyCount              int32              `json:"reply_count"`
 		RecentRepliers          []*json.RawMessage `json:"recent_repliers"`
-		LastReadInboxMessageId  int64             `json:"last_read_inbox_message_id"`
-		LastReadOutboxMessageId int64             `json:"last_read_outbox_message_id"`
-		LastMessageId           int64             `json:"last_message_id"`
+		LastReadInboxMessageId  int64              `json:"last_read_inbox_message_id"`
+		LastReadOutboxMessageId int64              `json:"last_read_outbox_message_id"`
+		LastMessageId           int64              `json:"last_message_id"`
 	}
 
 	err := json.Unmarshal(data, &tmp)
@@ -6347,7 +6633,11 @@ func (messageReplyInfo *MessageReplyInfo) UnmarshalJSON(data []byte) error {
 // @param viewCount Number of times the message was viewed
 // @param forwardCount Number of times the message was forwarded
 // @param replyInfo Contains information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself
-func NewMessageInteractionInfo(viewCount int32, forwardCount int32, replyInfo *MessageReplyInfo) *MessageInteractionInfo {
+func NewMessageInteractionInfo(
+	viewCount int32,
+	forwardCount int32,
+	replyInfo *MessageReplyInfo,
+) *MessageInteractionInfo {
 	messageInteractionInfoTemp := MessageInteractionInfo{
 		tdCommon:     tdCommon{Type: "messageInteractionInfo"},
 		ViewCount:    viewCount,
@@ -6403,7 +6693,12 @@ func (messageSendingStateFailed *MessageSendingStateFailed) MessageType() string
 // @param errorMessage Error message
 // @param canRetry True, if the message can be re-sent
 // @param retryAfter Time left before the message can be re-sent, in seconds. No update is sent when this field changes
-func NewMessageSendingStateFailed(errorCode int32, errorMessage string, canRetry bool, retryAfter float64) *MessageSendingStateFailed {
+func NewMessageSendingStateFailed(
+	errorCode int32,
+	errorMessage string,
+	canRetry bool,
+	retryAfter float64,
+) *MessageSendingStateFailed {
 	messageSendingStateFailedTemp := MessageSendingStateFailed{
 		tdCommon:     tdCommon{Type: "messageSendingStateFailed"},
 		ErrorCode:    errorCode,
@@ -6447,7 +6742,7 @@ type Message struct {
 	MessageThreadID         int64                   `json:"message_thread_id"`            // If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs
 	TTL                     int32                   `json:"ttl"`                          // For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
 	TTLExpiresIn            float64                 `json:"ttl_expires_in"`               // Time left before the message expires, in seconds
-	ViaBotUserID            int32                   `json:"via_bot_user_id"`              // If non-zero, the user identifier of the bot through which this message was sent
+	ViaBotUserID            int64                   `json:"via_bot_user_id"`              // If non-zero, the user identifier of the bot through which this message was sent
 	AuthorSignature         string                  `json:"author_signature"`             // For channel posts and anonymous group messages, optional author signature
 	MediaAlbumID            JSONInt64               `json:"media_album_id"`               // Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums
 	RestrictionReason       string                  `json:"restriction_reason"`           // If non-empty, contains a human-readable description of the reason why access to this message must be restricted
@@ -6492,7 +6787,38 @@ func (message *Message) MessageType() string {
 // @param restrictionReason If non-empty, contains a human-readable description of the reason why access to this message must be restricted
 // @param content Content of the message
 // @param replyMarkup Reply markup for the message; may be null
-func NewMessage(iD int64, sender MessageSender, chatID int64, sendingState MessageSendingState, schedulingState MessageSchedulingState, isOutgoing bool, isPinned bool, canBeEdited bool, canBeForwarded bool, canBeDeletedOnlyForSelf bool, canBeDeletedForAllUsers bool, canGetStatistics bool, canGetMessageThread bool, isChannelPost bool, containsUnreadMention bool, date int32, editDate int32, forwardInfo *MessageForwardInfo, interactionInfo *MessageInteractionInfo, replyInChatID int64, replyToMessageID int64, messageThreadID int64, tTL int32, tTLExpiresIn float64, viaBotUserID int32, authorSignature string, mediaAlbumID JSONInt64, restrictionReason string, content MessageContent, replyMarkup ReplyMarkup) *Message {
+func NewMessage(
+	iD int64,
+	sender MessageSender,
+	chatID int64,
+	sendingState MessageSendingState,
+	schedulingState MessageSchedulingState,
+	isOutgoing bool,
+	isPinned bool,
+	canBeEdited bool,
+	canBeForwarded bool,
+	canBeDeletedOnlyForSelf bool,
+	canBeDeletedForAllUsers bool,
+	canGetStatistics bool,
+	canGetMessageThread bool,
+	isChannelPost bool,
+	containsUnreadMention bool,
+	date int32,
+	editDate int32,
+	forwardInfo *MessageForwardInfo,
+	interactionInfo *MessageInteractionInfo,
+	replyInChatID int64,
+	replyToMessageID int64,
+	messageThreadID int64,
+	tTL int32,
+	tTLExpiresIn float64,
+	viaBotUserID int64,
+	authorSignature string,
+	mediaAlbumID JSONInt64,
+	restrictionReason string,
+	content MessageContent,
+	replyMarkup ReplyMarkup,
+) *Message {
 	messageTemp := Message{
 		tdCommon:                tdCommon{Type: "message"},
 		ID:                      iD,
@@ -6560,7 +6886,7 @@ func (message *Message) UnmarshalJSON(b []byte) error {
 		MessageThreadID         int64                   `json:"message_thread_id"`            // If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs
 		TTL                     int32                   `json:"ttl"`                          // For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
 		TTLExpiresIn            float64                 `json:"ttl_expires_in"`               // Time left before the message expires, in seconds
-		ViaBotUserID            int32                   `json:"via_bot_user_id"`              // If non-zero, the user identifier of the bot through which this message was sent
+		ViaBotUserID            int64                   `json:"via_bot_user_id"`              // If non-zero, the user identifier of the bot through which this message was sent
 		AuthorSignature         string                  `json:"author_signature"`             // For channel posts and anonymous group messages, optional author signature
 		MediaAlbumID            JSONInt64               `json:"media_album_id"`               // Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums
 		RestrictionReason       string                  `json:"restriction_reason"`           // If non-empty, contains a human-readable description of the reason why access to this message must be restricted
@@ -6778,7 +7104,18 @@ func (chatNotificationSettings *ChatNotificationSettings) MessageType() string {
 // @param disablePinnedMessageNotifications If true, notifications for incoming pinned messages will be created as for an ordinary unread message
 // @param useDefaultDisableMentionNotifications If true, disable_mention_notifications is ignored and the value for the relevant type of chat is used instead
 // @param disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message
-func NewChatNotificationSettings(useDefaultMuteFor bool, muteFor int32, useDefaultSound bool, sound string, useDefaultShowPreview bool, showPreview bool, useDefaultDisablePinnedMessageNotifications bool, disablePinnedMessageNotifications bool, useDefaultDisableMentionNotifications bool, disableMentionNotifications bool) *ChatNotificationSettings {
+func NewChatNotificationSettings(
+	useDefaultMuteFor bool,
+	muteFor int32,
+	useDefaultSound bool,
+	sound string,
+	useDefaultShowPreview bool,
+	showPreview bool,
+	useDefaultDisablePinnedMessageNotifications bool,
+	disablePinnedMessageNotifications bool,
+	useDefaultDisableMentionNotifications bool,
+	disableMentionNotifications bool,
+) *ChatNotificationSettings {
 	chatNotificationSettingsTemp := ChatNotificationSettings{
 		tdCommon:              tdCommon{Type: "chatNotificationSettings"},
 		UseDefaultMuteFor:     useDefaultMuteFor,
@@ -6818,7 +7155,13 @@ func (scopeNotificationSettings *ScopeNotificationSettings) MessageType() string
 // @param showPreview True, if message content should be displayed in notifications
 // @param disablePinnedMessageNotifications True, if notifications for incoming pinned messages will be created as for an ordinary unread message
 // @param disableMentionNotifications True, if notifications for messages with mentions will be created as for an ordinary unread message
-func NewScopeNotificationSettings(muteFor int32, sound string, showPreview bool, disablePinnedMessageNotifications bool, disableMentionNotifications bool) *ScopeNotificationSettings {
+func NewScopeNotificationSettings(
+	muteFor int32,
+	sound string,
+	showPreview bool,
+	disablePinnedMessageNotifications bool,
+	disableMentionNotifications bool,
+) *ScopeNotificationSettings {
 	scopeNotificationSettingsTemp := ScopeNotificationSettings{
 		tdCommon:                          tdCommon{Type: "scopeNotificationSettings"},
 		MuteFor:                           muteFor,
@@ -6891,7 +7234,7 @@ func (draftMessage *DraftMessage) UnmarshalJSON(b []byte) error {
 // ChatTypePrivate An ordinary chat with a user
 type ChatTypePrivate struct {
 	tdCommon
-	UserID int32 `json:"user_id"` // User identifier
+	UserID int64 `json:"user_id"` // User identifier
 }
 
 // MessageType return the string telegram-type of ChatTypePrivate
@@ -6902,7 +7245,7 @@ func (chatTypePrivate *ChatTypePrivate) MessageType() string {
 // NewChatTypePrivate creates a new ChatTypePrivate
 //
 // @param userID User identifier
-func NewChatTypePrivate(userID int32) *ChatTypePrivate {
+func NewChatTypePrivate(userID int64) *ChatTypePrivate {
 	chatTypePrivateTemp := ChatTypePrivate{
 		tdCommon: tdCommon{Type: "chatTypePrivate"},
 		UserID:   userID,
@@ -6979,7 +7322,7 @@ func (chatTypeSupergroup *ChatTypeSupergroup) GetChatTypeEnum() ChatTypeEnum {
 type ChatTypeSecret struct {
 	tdCommon
 	SecretChatID int32 `json:"secret_chat_id"` // Secret chat identifier
-	UserID       int32 `json:"user_id"`        // User identifier of the secret chat peer
+	UserID       int64 `json:"user_id"`        // User identifier of the secret chat peer
 }
 
 // MessageType return the string telegram-type of ChatTypeSecret
@@ -6991,7 +7334,7 @@ func (chatTypeSecret *ChatTypeSecret) MessageType() string {
 //
 // @param secretChatID Secret chat identifier
 // @param userID User identifier of the secret chat peer
-func NewChatTypeSecret(secretChatID int32, userID int32) *ChatTypeSecret {
+func NewChatTypeSecret(secretChatID int32, userID int64) *ChatTypeSecret {
 	chatTypeSecretTemp := ChatTypeSecret{
 		tdCommon:     tdCommon{Type: "chatTypeSecret"},
 		SecretChatID: secretChatID,
@@ -7044,7 +7387,21 @@ func (chatFilter *ChatFilter) MessageType() string {
 // @param includeBots True, if bots need to be included
 // @param includeGroups True, if basic groups and supergroups need to be included
 // @param includeChannels True, if channels need to be included
-func NewChatFilter(title string, iconName string, pinnedChatIDs []int64, includedChatIDs []int64, excludedChatIDs []int64, excludeMuted bool, excludeRead bool, excludeArchived bool, includeContacts bool, includeNonContacts bool, includeBots bool, includeGroups bool, includeChannels bool) *ChatFilter {
+func NewChatFilter(
+	title string,
+	iconName string,
+	pinnedChatIDs []int64,
+	includedChatIDs []int64,
+	excludedChatIDs []int64,
+	excludeMuted bool,
+	excludeRead bool,
+	excludeArchived bool,
+	includeContacts bool,
+	includeNonContacts bool,
+	includeBots bool,
+	includeGroups bool,
+	includeChannels bool,
+) *ChatFilter {
 	chatFilterTemp := ChatFilter{
 		tdCommon:           tdCommon{Type: "chatFilter"},
 		Title:              title,
@@ -7425,7 +7782,33 @@ func (chat *Chat) MessageType() string {
 // @param replyMarkupMessageID Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat
 // @param draftMessage A draft of a message in the chat; may be null
 // @param clientData Contains application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used
-func NewChat(iD int64, typeParam ChatType, title string, photo *ChatPhotoInfo, permissions *ChatPermissions, lastMessage *Message, positions []ChatPosition, isMarkedAsUnread bool, isBlocked bool, hasScheduledMessages bool, canBeDeletedOnlyForSelf bool, canBeDeletedForAllUsers bool, canBeReported bool, defaultDisableNotification bool, unreadCount int32, lastReadInboxMessageID int64, lastReadOutboxMessageID int64, unreadMentionCount int32, notificationSettings *ChatNotificationSettings, actionBar ChatActionBar, voiceChatGroupCallID int32, isVoiceChatEmpty bool, replyMarkupMessageID int64, draftMessage *DraftMessage, clientData string) *Chat {
+func NewChat(
+	iD int64,
+	typeParam ChatType,
+	title string,
+	photo *ChatPhotoInfo,
+	permissions *ChatPermissions,
+	lastMessage *Message,
+	positions []ChatPosition,
+	isMarkedAsUnread bool,
+	isBlocked bool,
+	hasScheduledMessages bool,
+	canBeDeletedOnlyForSelf bool,
+	canBeDeletedForAllUsers bool,
+	canBeReported bool,
+	defaultDisableNotification bool,
+	unreadCount int32,
+	lastReadInboxMessageID int64,
+	lastReadOutboxMessageID int64,
+	unreadMentionCount int32,
+	notificationSettings *ChatNotificationSettings,
+	actionBar ChatActionBar,
+	voiceChatGroupCallID int32,
+	isVoiceChatEmpty bool,
+	replyMarkupMessageID int64,
+	draftMessage *DraftMessage,
+	clientData string,
+) *Chat {
 	chatTemp := Chat{
 		tdCommon:                   tdCommon{Type: "chat"},
 		ID:                         iD,
@@ -8302,7 +8685,12 @@ func (replyMarkupShowKeyboard *ReplyMarkupShowKeyboard) MessageType() string {
 // @param resizeKeyboard True, if the application needs to resize the keyboard vertically
 // @param oneTime True, if the application needs to hide the keyboard after use
 // @param isPersonal True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply
-func NewReplyMarkupShowKeyboard(rows [][]KeyboardButton, resizeKeyboard bool, oneTime bool, isPersonal bool) *ReplyMarkupShowKeyboard {
+func NewReplyMarkupShowKeyboard(
+	rows [][]KeyboardButton,
+	resizeKeyboard bool,
+	oneTime bool,
+	isPersonal bool,
+) *ReplyMarkupShowKeyboard {
 	replyMarkupShowKeyboardTemp := ReplyMarkupShowKeyboard{
 		tdCommon:       tdCommon{Type: "replyMarkupShowKeyboard"},
 		Rows:           rows,
@@ -8383,7 +8771,7 @@ type LoginURLInfoRequestConfirmation struct {
 	tdCommon
 	URL                string `json:"url"`                  // An HTTP URL to be opened
 	Domain             string `json:"domain"`               // A domain of the URL
-	BotUserID          int32  `json:"bot_user_id"`          // User identifier of a bot linked with the website
+	BotUserID          int64  `json:"bot_user_id"`          // User identifier of a bot linked with the website
 	RequestWriteAccess bool   `json:"request_write_access"` // True, if the user needs to be requested to give the permission to the bot to send them messages
 }
 
@@ -8398,7 +8786,12 @@ func (loginURLInfoRequestConfirmation *LoginURLInfoRequestConfirmation) MessageT
 // @param domain A domain of the URL
 // @param botUserID User identifier of a bot linked with the website
 // @param requestWriteAccess True, if the user needs to be requested to give the permission to the bot to send them messages
-func NewLoginURLInfoRequestConfirmation(uRL string, domain string, botUserID int32, requestWriteAccess bool) *LoginURLInfoRequestConfirmation {
+func NewLoginURLInfoRequestConfirmation(
+	uRL string,
+	domain string,
+	botUserID int64,
+	requestWriteAccess bool,
+) *LoginURLInfoRequestConfirmation {
 	loginURLInfoRequestConfirmationTemp := LoginURLInfoRequestConfirmation{
 		tdCommon:           tdCommon{Type: "loginUrlInfoRequestConfirmation"},
 		URL:                uRL,
@@ -8437,7 +8830,13 @@ func (messageThreadInfo *MessageThreadInfo) MessageType() string {
 // @param replyInfo Contains information about the message thread
 // @param messages The messages from which the thread starts. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
 // @param draftMessage A draft of a message in the message thread; may be null
-func NewMessageThreadInfo(chatID int64, messageThreadID int64, replyInfo *MessageReplyInfo, messages []Message, draftMessage *DraftMessage) *MessageThreadInfo {
+func NewMessageThreadInfo(
+	chatID int64,
+	messageThreadID int64,
+	replyInfo *MessageReplyInfo,
+	messages []Message,
+	draftMessage *DraftMessage,
+) *MessageThreadInfo {
 	messageThreadInfoTemp := MessageThreadInfo{
 		tdCommon:        tdCommon{Type: "messageThreadInfo"},
 		ChatID:          chatID,
@@ -9523,7 +9922,14 @@ func (pageBlockTableCell *PageBlockTableCell) MessageType() string {
 // @param rowspan The number of rows the cell should span
 // @param align Horizontal cell content alignment
 // @param valign Vertical cell content alignment
-func NewPageBlockTableCell(text RichText, isHeader bool, colspan int32, rowspan int32, align PageBlockHorizontalAlignment, valign PageBlockVerticalAlignment) *PageBlockTableCell {
+func NewPageBlockTableCell(
+	text RichText,
+	isHeader bool,
+	colspan int32,
+	rowspan int32,
+	align PageBlockHorizontalAlignment,
+	valign PageBlockVerticalAlignment,
+) *PageBlockTableCell {
 	pageBlockTableCellTemp := PageBlockTableCell{
 		tdCommon: tdCommon{Type: "pageBlockTableCell"},
 		Text:     text,
@@ -9597,7 +10003,14 @@ func (pageBlockRelatedArticle *PageBlockRelatedArticle) MessageType() string {
 // @param photo Article photo; may be null
 // @param author Article author; may be empty
 // @param publishDate Point in time (Unix timestamp) when the article was published; 0 if unknown
-func NewPageBlockRelatedArticle(uRL string, title string, description string, photo *Photo, author string, publishDate int32) *PageBlockRelatedArticle {
+func NewPageBlockRelatedArticle(
+	uRL string,
+	title string,
+	description string,
+	photo *Photo,
+	author string,
+	publishDate int32,
+) *PageBlockRelatedArticle {
 	pageBlockRelatedArticleTemp := PageBlockRelatedArticle{
 		tdCommon:    tdCommon{Type: "pageBlockRelatedArticle"},
 		URL:         uRL,
@@ -10521,7 +10934,16 @@ func (pageBlockEmbedded *PageBlockEmbedded) MessageType() string {
 // @param caption Block caption
 // @param isFullWidth True, if the block should be full width
 // @param allowScrolling True, if scrolling should be allowed
-func NewPageBlockEmbedded(uRL string, hTML string, posterPhoto *Photo, width int32, height int32, caption *PageBlockCaption, isFullWidth bool, allowScrolling bool) *PageBlockEmbedded {
+func NewPageBlockEmbedded(
+	uRL string,
+	hTML string,
+	posterPhoto *Photo,
+	width int32,
+	height int32,
+	caption *PageBlockCaption,
+	isFullWidth bool,
+	allowScrolling bool,
+) *PageBlockEmbedded {
 	pageBlockEmbeddedTemp := PageBlockEmbedded{
 		tdCommon:       tdCommon{Type: "pageBlockEmbedded"},
 		URL:            uRL,
@@ -10566,7 +10988,14 @@ func (pageBlockEmbeddedPost *PageBlockEmbeddedPost) MessageType() string {
 // @param date Point in time (Unix timestamp) when the post was created; 0 if unknown
 // @param pageBlocks Post content
 // @param caption Post caption
-func NewPageBlockEmbeddedPost(uRL string, author string, authorPhoto *Photo, date int32, pageBlocks []PageBlock, caption *PageBlockCaption) *PageBlockEmbeddedPost {
+func NewPageBlockEmbeddedPost(
+	uRL string,
+	author string,
+	authorPhoto *Photo,
+	date int32,
+	pageBlocks []PageBlock,
+	caption *PageBlockCaption,
+) *PageBlockEmbeddedPost {
 	pageBlockEmbeddedPostTemp := PageBlockEmbeddedPost{
 		tdCommon:    tdCommon{Type: "pageBlockEmbeddedPost"},
 		URL:         uRL,
@@ -10701,7 +11130,12 @@ func (pageBlockTable *PageBlockTable) MessageType() string {
 // @param cells Table cells
 // @param isBordered True, if the table is bordered
 // @param isStriped True, if the table is striped
-func NewPageBlockTable(caption RichText, cells [][]PageBlockTableCell, isBordered bool, isStriped bool) *PageBlockTable {
+func NewPageBlockTable(
+	caption RichText,
+	cells [][]PageBlockTableCell,
+	isBordered bool,
+	isStriped bool,
+) *PageBlockTable {
 	pageBlockTableTemp := PageBlockTable{
 		tdCommon:   tdCommon{Type: "pageBlockTable"},
 		Caption:    caption,
@@ -10886,7 +11320,13 @@ func (pageBlockMap *PageBlockMap) MessageType() string {
 // @param width Map width
 // @param height Map height
 // @param caption Block caption
-func NewPageBlockMap(location *Location, zoom int32, width int32, height int32, caption *PageBlockCaption) *PageBlockMap {
+func NewPageBlockMap(
+	location *Location,
+	zoom int32,
+	width int32,
+	height int32,
+	caption *PageBlockCaption,
+) *PageBlockMap {
 	pageBlockMapTemp := PageBlockMap{
 		tdCommon: tdCommon{Type: "pageBlockMap"},
 		Location: location,
@@ -10926,7 +11366,13 @@ func (webPageInstantView *WebPageInstantView) MessageType() string {
 // @param version Version of the instant view, currently can be 1 or 2
 // @param isRtl True, if the instant view must be shown from right to left
 // @param isFull True, if the instant view contains the full page. A network request might be needed to get the full web page instant view
-func NewWebPageInstantView(pageBlocks []PageBlock, viewCount int32, version int32, isRtl bool, isFull bool) *WebPageInstantView {
+func NewWebPageInstantView(
+	pageBlocks []PageBlock,
+	viewCount int32,
+	version int32,
+	isRtl bool,
+	isFull bool,
+) *WebPageInstantView {
 	webPageInstantViewTemp := WebPageInstantView{
 		tdCommon:   tdCommon{Type: "webPageInstantView"},
 		PageBlocks: pageBlocks,
@@ -10993,7 +11439,29 @@ func (webPage *WebPage) MessageType() string {
 // @param videoNote Preview of the content as a video note, if available; may be null
 // @param voiceNote Preview of the content as a voice note, if available; may be null
 // @param instantViewVersion Version of instant view, available for the web page (currently can be 1 or 2), 0 if none
-func NewWebPage(uRL string, displayURL string, typeParam string, siteName string, title string, description *FormattedText, photo *Photo, embedURL string, embedType string, embedWidth int32, embedHeight int32, duration int32, author string, animation *Animation, audio *Audio, document *Document, sticker *Sticker, video *Video, videoNote *VideoNote, voiceNote *VoiceNote, instantViewVersion int32) *WebPage {
+func NewWebPage(
+	uRL string,
+	displayURL string,
+	typeParam string,
+	siteName string,
+	title string,
+	description *FormattedText,
+	photo *Photo,
+	embedURL string,
+	embedType string,
+	embedWidth int32,
+	embedHeight int32,
+	duration int32,
+	author string,
+	animation *Animation,
+	audio *Audio,
+	document *Document,
+	sticker *Sticker,
+	video *Video,
+	videoNote *VideoNote,
+	voiceNote *VoiceNote,
+	instantViewVersion int32,
+) *WebPage {
 	webPageTemp := WebPage{
 		tdCommon:           tdCommon{Type: "webPage"},
 		URL:                uRL,
@@ -11044,7 +11512,13 @@ func (countryInfo *CountryInfo) MessageType() string {
 // @param englishName English name of the country
 // @param isHidden True, if the country should be hidden from the list of all countries
 // @param callingCodes List of country calling codes
-func NewCountryInfo(countryCode string, name string, englishName string, isHidden bool, callingCodes []string) *CountryInfo {
+func NewCountryInfo(
+	countryCode string,
+	name string,
+	englishName string,
+	isHidden bool,
+	callingCodes []string,
+) *CountryInfo {
 	countryInfoTemp := CountryInfo{
 		tdCommon:     tdCommon{Type: "countryInfo"},
 		CountryCode:  countryCode,
@@ -11185,7 +11659,14 @@ func (address *Address) MessageType() string {
 // @param streetLine1 First line of the address
 // @param streetLine2 Second line of the address
 // @param postalCode Address postal code
-func NewAddress(countryCode string, state string, city string, streetLine1 string, streetLine2 string, postalCode string) *Address {
+func NewAddress(
+	countryCode string,
+	state string,
+	city string,
+	streetLine1 string,
+	streetLine2 string,
+	postalCode string,
+) *Address {
 	addressTemp := Address{
 		tdCommon:    tdCommon{Type: "address"},
 		CountryCode: countryCode,
@@ -11257,7 +11738,18 @@ func (invoice *Invoice) MessageType() string {
 // @param sendPhoneNumberToProvider True, if the user's phone number will be sent to the provider
 // @param sendEmailAddressToProvider True, if the user's email address will be sent to the provider
 // @param isFlexible True, if the total price depends on the shipping method
-func NewInvoice(currency string, priceParts []LabeledPricePart, isTest bool, needName bool, needPhoneNumber bool, needEmailAddress bool, needShippingAddress bool, sendPhoneNumberToProvider bool, sendEmailAddressToProvider bool, isFlexible bool) *Invoice {
+func NewInvoice(
+	currency string,
+	priceParts []LabeledPricePart,
+	isTest bool,
+	needName bool,
+	needPhoneNumber bool,
+	needEmailAddress bool,
+	needShippingAddress bool,
+	sendPhoneNumberToProvider bool,
+	sendEmailAddressToProvider bool,
+	isFlexible bool,
+) *Invoice {
 	invoiceTemp := Invoice{
 		tdCommon:                   tdCommon{Type: "invoice"},
 		Currency:                   currency,
@@ -11497,7 +11989,12 @@ func (paymentsProviderStripe *PaymentsProviderStripe) MessageType() string {
 // @param needCountry True, if the user country must be provided
 // @param needPostalCode True, if the user ZIP/postal code must be provided
 // @param needCardholderName True, if the cardholder name must be provided
-func NewPaymentsProviderStripe(publishableKey string, needCountry bool, needPostalCode bool, needCardholderName bool) *PaymentsProviderStripe {
+func NewPaymentsProviderStripe(
+	publishableKey string,
+	needCountry bool,
+	needPostalCode bool,
+	needCardholderName bool,
+) *PaymentsProviderStripe {
 	paymentsProviderStripeTemp := PaymentsProviderStripe{
 		tdCommon:           tdCommon{Type: "paymentsProviderStripe"},
 		PublishableKey:     publishableKey,
@@ -11535,7 +12032,15 @@ func (paymentForm *PaymentForm) MessageType() string {
 // @param savedCredentials Contains information about saved card credentials; may be null
 // @param canSaveCredentials True, if the user can choose to save credentials
 // @param needPassword True, if the user will be able to save credentials protected by a password they set up
-func NewPaymentForm(invoice *Invoice, uRL string, paymentsProvider *PaymentsProviderStripe, savedOrderInfo *OrderInfo, savedCredentials *SavedCredentials, canSaveCredentials bool, needPassword bool) *PaymentForm {
+func NewPaymentForm(
+	invoice *Invoice,
+	uRL string,
+	paymentsProvider *PaymentsProviderStripe,
+	savedOrderInfo *OrderInfo,
+	savedCredentials *SavedCredentials,
+	canSaveCredentials bool,
+	needPassword bool,
+) *PaymentForm {
 	paymentFormTemp := PaymentForm{
 		tdCommon:           tdCommon{Type: "paymentForm"},
 		Invoice:            invoice,
@@ -11606,7 +12111,7 @@ func NewPaymentResult(success bool, verificationURL string) *PaymentResult {
 type PaymentReceipt struct {
 	tdCommon
 	Date                   int32           `json:"date"`                      // Point in time (Unix timestamp) when the payment was made
-	PaymentsProviderUserID int32           `json:"payments_provider_user_id"` // User identifier of the payment provider bot
+	PaymentsProviderUserID int64           `json:"payments_provider_user_id"` // User identifier of the payment provider bot
 	Invoice                *Invoice        `json:"invoice"`                   // Contains information about the invoice
 	OrderInfo              *OrderInfo      `json:"order_info"`                // Contains order information; may be null
 	ShippingOption         *ShippingOption `json:"shipping_option"`           // Chosen shipping option; may be null
@@ -11626,7 +12131,14 @@ func (paymentReceipt *PaymentReceipt) MessageType() string {
 // @param orderInfo Contains order information; may be null
 // @param shippingOption Chosen shipping option; may be null
 // @param credentialsTitle Title of the saved credentials
-func NewPaymentReceipt(date int32, paymentsProviderUserID int32, invoice *Invoice, orderInfo *OrderInfo, shippingOption *ShippingOption, credentialsTitle string) *PaymentReceipt {
+func NewPaymentReceipt(
+	date int32,
+	paymentsProviderUserID int64,
+	invoice *Invoice,
+	orderInfo *OrderInfo,
+	shippingOption *ShippingOption,
+	credentialsTitle string,
+) *PaymentReceipt {
 	paymentReceiptTemp := PaymentReceipt{
 		tdCommon:               tdCommon{Type: "paymentReceipt"},
 		Date:                   date,
@@ -12052,7 +12564,18 @@ func (personalDetails *PersonalDetails) MessageType() string {
 // @param gender Gender of the user, "male" or "female"
 // @param countryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country
 // @param residenceCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's residence country
-func NewPersonalDetails(firstName string, middleName string, lastName string, nativeFirstName string, nativeMiddleName string, nativeLastName string, birthdate *Date, gender string, countryCode string, residenceCountryCode string) *PersonalDetails {
+func NewPersonalDetails(
+	firstName string,
+	middleName string,
+	lastName string,
+	nativeFirstName string,
+	nativeMiddleName string,
+	nativeLastName string,
+	birthdate *Date,
+	gender string,
+	countryCode string,
+	residenceCountryCode string,
+) *PersonalDetails {
 	personalDetailsTemp := PersonalDetails{
 		tdCommon:             tdCommon{Type: "personalDetails"},
 		FirstName:            firstName,
@@ -12094,7 +12617,14 @@ func (iDentityDocument *IDentityDocument) MessageType() string {
 // @param reverseSide Reverse side of the document; only for driver license and identity card
 // @param selfie Selfie with the document; may be null
 // @param translation List of files containing a certified English translation of the document
-func NewIDentityDocument(number string, expiryDate *Date, frontSide *DatedFile, reverseSide *DatedFile, selfie *DatedFile, translation []DatedFile) *IDentityDocument {
+func NewIDentityDocument(
+	number string,
+	expiryDate *Date,
+	frontSide *DatedFile,
+	reverseSide *DatedFile,
+	selfie *DatedFile,
+	translation []DatedFile,
+) *IDentityDocument {
 	iDentityDocumentTemp := IDentityDocument{
 		tdCommon:    tdCommon{Type: "identityDocument"},
 		Number:      number,
@@ -12132,7 +12662,14 @@ func (inputIDentityDocument *InputIDentityDocument) MessageType() string {
 // @param reverseSide Reverse side of the document; only for driver license and identity card
 // @param selfie Selfie with the document, if available
 // @param translation List of files containing a certified English translation of the document
-func NewInputIDentityDocument(number string, expiryDate *Date, frontSide InputFile, reverseSide InputFile, selfie InputFile, translation []InputFile) *InputIDentityDocument {
+func NewInputIDentityDocument(
+	number string,
+	expiryDate *Date,
+	frontSide InputFile,
+	reverseSide InputFile,
+	selfie InputFile,
+	translation []InputFile,
+) *InputIDentityDocument {
 	inputIDentityDocumentTemp := InputIDentityDocument{
 		tdCommon:    tdCommon{Type: "inputIdentityDocument"},
 		Number:      number,
@@ -13236,7 +13773,11 @@ func (passportElementError *PassportElementError) MessageType() string {
 // @param typeParam Type of the Telegram Passport element which has the error
 // @param message Error message
 // @param source Error source
-func NewPassportElementError(typeParam PassportElementType, message string, source PassportElementErrorSource) *PassportElementError {
+func NewPassportElementError(
+	typeParam PassportElementType,
+	message string,
+	source PassportElementErrorSource,
+) *PassportElementError {
 	passportElementErrorTemp := PassportElementError{
 		tdCommon: tdCommon{Type: "passportElementError"},
 		Type:     typeParam,
@@ -13296,7 +13837,12 @@ func (passportSuitableElement *PassportSuitableElement) MessageType() string {
 // @param isSelfieRequired True, if a selfie is required with the identity document
 // @param isTranslationRequired True, if a certified English translation is required with the document
 // @param isNativeNameRequired True, if personal details must include the user's name in the language of their country of residence
-func NewPassportSuitableElement(typeParam PassportElementType, isSelfieRequired bool, isTranslationRequired bool, isNativeNameRequired bool) *PassportSuitableElement {
+func NewPassportSuitableElement(
+	typeParam PassportElementType,
+	isSelfieRequired bool,
+	isTranslationRequired bool,
+	isNativeNameRequired bool,
+) *PassportSuitableElement {
 	passportSuitableElementTemp := PassportSuitableElement{
 		tdCommon:              tdCommon{Type: "passportSuitableElement"},
 		Type:                  typeParam,
@@ -13378,7 +13924,11 @@ func (passportAuthorizationForm *PassportAuthorizationForm) MessageType() string
 // @param iD Unique identifier of the authorization form
 // @param requiredElements Information about the Telegram Passport elements that must be provided to complete the form
 // @param privacyPolicyURL URL for the privacy policy of the service; may be empty
-func NewPassportAuthorizationForm(iD int32, requiredElements []PassportRequiredElement, privacyPolicyURL string) *PassportAuthorizationForm {
+func NewPassportAuthorizationForm(
+	iD int32,
+	requiredElements []PassportRequiredElement,
+	privacyPolicyURL string,
+) *PassportAuthorizationForm {
 	passportAuthorizationFormTemp := PassportAuthorizationForm{
 		tdCommon:         tdCommon{Type: "passportAuthorizationForm"},
 		ID:               iD,
@@ -13405,7 +13955,10 @@ func (passportElementsWithErrors *PassportElementsWithErrors) MessageType() stri
 //
 // @param elements Telegram Passport elements
 // @param errors Errors in the elements that are already available
-func NewPassportElementsWithErrors(elements []PassportElement, errors []PassportElementError) *PassportElementsWithErrors {
+func NewPassportElementsWithErrors(
+	elements []PassportElement,
+	errors []PassportElementError,
+) *PassportElementsWithErrors {
 	passportElementsWithErrorsTemp := PassportElementsWithErrors{
 		tdCommon: tdCommon{Type: "passportElementsWithErrors"},
 		Elements: elements,
@@ -13474,7 +14027,17 @@ func (encryptedPassportElement *EncryptedPassportElement) MessageType() string {
 // @param files List of attached files
 // @param value Unencrypted data, phone number or email address
 // @param hash Hash of the entire element
-func NewEncryptedPassportElement(typeParam PassportElementType, data []byte, frontSide *DatedFile, reverseSide *DatedFile, selfie *DatedFile, translation []DatedFile, files []DatedFile, value string, hash string) *EncryptedPassportElement {
+func NewEncryptedPassportElement(
+	typeParam PassportElementType,
+	data []byte,
+	frontSide *DatedFile,
+	reverseSide *DatedFile,
+	selfie *DatedFile,
+	translation []DatedFile,
+	files []DatedFile,
+	value string,
+	hash string,
+) *EncryptedPassportElement {
 	encryptedPassportElementTemp := EncryptedPassportElement{
 		tdCommon:    tdCommon{Type: "encryptedPassportElement"},
 		Type:        typeParam,
@@ -13574,7 +14137,10 @@ func (inputPassportElementErrorSourceDataField *InputPassportElementErrorSourceD
 //
 // @param fieldName Field name
 // @param dataHash Current data hash
-func NewInputPassportElementErrorSourceDataField(fieldName string, dataHash []byte) *InputPassportElementErrorSourceDataField {
+func NewInputPassportElementErrorSourceDataField(
+	fieldName string,
+	dataHash []byte,
+) *InputPassportElementErrorSourceDataField {
 	inputPassportElementErrorSourceDataFieldTemp := InputPassportElementErrorSourceDataField{
 		tdCommon:  tdCommon{Type: "inputPassportElementErrorSourceDataField"},
 		FieldName: fieldName,
@@ -13803,7 +14369,11 @@ func (inputPassportElementError *InputPassportElementError) MessageType() string
 // @param typeParam Type of Telegram Passport element that has the error
 // @param message Error message
 // @param source Error source
-func NewInputPassportElementError(typeParam PassportElementType, message string, source InputPassportElementErrorSource) *InputPassportElementError {
+func NewInputPassportElementError(
+	typeParam PassportElementType,
+	message string,
+	source InputPassportElementErrorSource,
+) *InputPassportElementError {
 	inputPassportElementErrorTemp := InputPassportElementError{
 		tdCommon: tdCommon{Type: "inputPassportElementError"},
 		Type:     typeParam,
@@ -14206,7 +14776,13 @@ func (messageLocation *MessageLocation) MessageType() string {
 // @param expiresIn Left time for which the location can be updated, in seconds. updateMessageContent is not sent when this field changes
 // @param heading For live locations, a direction in which the location moves, in degrees; 1-360. If 0 the direction is unknown
 // @param proximityAlertRadius For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled. Available only for the message sender
-func NewMessageLocation(location *Location, livePeriod int32, expiresIn int32, heading int32, proximityAlertRadius int32) *MessageLocation {
+func NewMessageLocation(
+	location *Location,
+	livePeriod int32,
+	expiresIn int32,
+	heading int32,
+	proximityAlertRadius int32,
+) *MessageLocation {
 	messageLocationTemp := MessageLocation{
 		tdCommon:             tdCommon{Type: "messageLocation"},
 		Location:             location,
@@ -14302,7 +14878,13 @@ func (messageDice *MessageDice) MessageType() string {
 // @param emoji Emoji on which the dice throw animation is based
 // @param value The dice value. If the value is 0, the dice don't have final state yet
 // @param successAnimationFrameNumber Number of frame after which a success animation like a shower of confetti needs to be shown on updateMessageSendSucceeded
-func NewMessageDice(initialState DiceStickers, finalState DiceStickers, emoji string, value int32, successAnimationFrameNumber int32) *MessageDice {
+func NewMessageDice(
+	initialState DiceStickers,
+	finalState DiceStickers,
+	emoji string,
+	value int32,
+	successAnimationFrameNumber int32,
+) *MessageDice {
 	messageDiceTemp := MessageDice{
 		tdCommon:                    tdCommon{Type: "messageDice"},
 		InitialState:                initialState,
@@ -14438,7 +15020,17 @@ func (messageInvoice *MessageInvoice) MessageType() string {
 // @param isTest True, if the invoice is a test invoice
 // @param needShippingAddress True, if the shipping address should be specified
 // @param receiptMessageID The identifier of the message with the receipt, after the product has been purchased
-func NewMessageInvoice(title string, description string, photo *Photo, currency string, totalAmount int64, startParameter string, isTest bool, needShippingAddress bool, receiptMessageID int64) *MessageInvoice {
+func NewMessageInvoice(
+	title string,
+	description string,
+	photo *Photo,
+	currency string,
+	totalAmount int64,
+	startParameter string,
+	isTest bool,
+	needShippingAddress bool,
+	receiptMessageID int64,
+) *MessageInvoice {
 	messageInvoiceTemp := MessageInvoice{
 		tdCommon:            tdCommon{Type: "messageInvoice"},
 		Title:               title,
@@ -14581,7 +15173,7 @@ func (messageVoiceChatEnded *MessageVoiceChatEnded) GetMessageContentEnum() Mess
 type MessageInviteVoiceChatParticipants struct {
 	tdCommon
 	GroupCallID int32   `json:"group_call_id"` // Identifier of the voice chat. The voice chat can be received through the method getGroupCall
-	UserIDs     []int32 `json:"user_ids"`      // Invited user identifiers
+	UserIDs     []int64 `json:"user_ids"`      // Invited user identifiers
 }
 
 // MessageType return the string telegram-type of MessageInviteVoiceChatParticipants
@@ -14593,7 +15185,7 @@ func (messageInviteVoiceChatParticipants *MessageInviteVoiceChatParticipants) Me
 //
 // @param groupCallID Identifier of the voice chat. The voice chat can be received through the method getGroupCall
 // @param userIDs Invited user identifiers
-func NewMessageInviteVoiceChatParticipants(groupCallID int32, userIDs []int32) *MessageInviteVoiceChatParticipants {
+func NewMessageInviteVoiceChatParticipants(groupCallID int32, userIDs []int64) *MessageInviteVoiceChatParticipants {
 	messageInviteVoiceChatParticipantsTemp := MessageInviteVoiceChatParticipants{
 		tdCommon:    tdCommon{Type: "messageInviteVoiceChatParticipants"},
 		GroupCallID: groupCallID,
@@ -14612,7 +15204,7 @@ func (messageInviteVoiceChatParticipants *MessageInviteVoiceChatParticipants) Ge
 type MessageBasicGroupChatCreate struct {
 	tdCommon
 	Title         string  `json:"title"`           // Title of the basic group
-	MemberUserIDs []int32 `json:"member_user_ids"` // User identifiers of members in the basic group
+	MemberUserIDs []int64 `json:"member_user_ids"` // User identifiers of members in the basic group
 }
 
 // MessageType return the string telegram-type of MessageBasicGroupChatCreate
@@ -14624,7 +15216,7 @@ func (messageBasicGroupChatCreate *MessageBasicGroupChatCreate) MessageType() st
 //
 // @param title Title of the basic group
 // @param memberUserIDs User identifiers of members in the basic group
-func NewMessageBasicGroupChatCreate(title string, memberUserIDs []int32) *MessageBasicGroupChatCreate {
+func NewMessageBasicGroupChatCreate(title string, memberUserIDs []int64) *MessageBasicGroupChatCreate {
 	messageBasicGroupChatCreateTemp := MessageBasicGroupChatCreate{
 		tdCommon:      tdCommon{Type: "messageBasicGroupChatCreate"},
 		Title:         title,
@@ -14751,7 +15343,7 @@ func (messageChatDeletePhoto *MessageChatDeletePhoto) GetMessageContentEnum() Me
 // MessageChatAddMembers New chat members were added
 type MessageChatAddMembers struct {
 	tdCommon
-	MemberUserIDs []int32 `json:"member_user_ids"` // User identifiers of the new members
+	MemberUserIDs []int64 `json:"member_user_ids"` // User identifiers of the new members
 }
 
 // MessageType return the string telegram-type of MessageChatAddMembers
@@ -14762,7 +15354,7 @@ func (messageChatAddMembers *MessageChatAddMembers) MessageType() string {
 // NewMessageChatAddMembers creates a new MessageChatAddMembers
 //
 // @param memberUserIDs User identifiers of the new members
-func NewMessageChatAddMembers(memberUserIDs []int32) *MessageChatAddMembers {
+func NewMessageChatAddMembers(memberUserIDs []int64) *MessageChatAddMembers {
 	messageChatAddMembersTemp := MessageChatAddMembers{
 		tdCommon:      tdCommon{Type: "messageChatAddMembers"},
 		MemberUserIDs: memberUserIDs,
@@ -14804,7 +15396,7 @@ func (messageChatJoinByLink *MessageChatJoinByLink) GetMessageContentEnum() Mess
 // MessageChatDeleteMember A chat member was deleted
 type MessageChatDeleteMember struct {
 	tdCommon
-	UserID int32 `json:"user_id"` // User identifier of the deleted chat member
+	UserID int64 `json:"user_id"` // User identifier of the deleted chat member
 }
 
 // MessageType return the string telegram-type of MessageChatDeleteMember
@@ -14815,7 +15407,7 @@ func (messageChatDeleteMember *MessageChatDeleteMember) MessageType() string {
 // NewMessageChatDeleteMember creates a new MessageChatDeleteMember
 //
 // @param userID User identifier of the deleted chat member
-func NewMessageChatDeleteMember(userID int32) *MessageChatDeleteMember {
+func NewMessageChatDeleteMember(userID int64) *MessageChatDeleteMember {
 	messageChatDeleteMemberTemp := MessageChatDeleteMember{
 		tdCommon: tdCommon{Type: "messageChatDeleteMember"},
 		UserID:   userID,
@@ -15093,7 +15685,16 @@ func (messagePaymentSuccessfulBot *MessagePaymentSuccessfulBot) MessageType() st
 // @param orderInfo Information about the order; may be null
 // @param telegramPaymentChargeID Telegram payment identifier
 // @param providerPaymentChargeID Provider payment identifier
-func NewMessagePaymentSuccessfulBot(invoiceMessageID int64, currency string, totalAmount int64, invoicePayload []byte, shippingOptionID string, orderInfo *OrderInfo, telegramPaymentChargeID string, providerPaymentChargeID string) *MessagePaymentSuccessfulBot {
+func NewMessagePaymentSuccessfulBot(
+	invoiceMessageID int64,
+	currency string,
+	totalAmount int64,
+	invoicePayload []byte,
+	shippingOptionID string,
+	orderInfo *OrderInfo,
+	telegramPaymentChargeID string,
+	providerPaymentChargeID string,
+) *MessagePaymentSuccessfulBot {
 	messagePaymentSuccessfulBotTemp := MessagePaymentSuccessfulBot{
 		tdCommon:                tdCommon{Type: "messagePaymentSuccessfulBot"},
 		InvoiceMessageID:        invoiceMessageID,
@@ -15211,7 +15812,10 @@ func (messagePassportDataReceived *MessagePassportDataReceived) MessageType() st
 //
 // @param elements List of received Telegram Passport elements
 // @param credentials Encrypted data credentials
-func NewMessagePassportDataReceived(elements []EncryptedPassportElement, credentials *EncryptedCredentials) *MessagePassportDataReceived {
+func NewMessagePassportDataReceived(
+	elements []EncryptedPassportElement,
+	credentials *EncryptedCredentials,
+) *MessagePassportDataReceived {
 	messagePassportDataReceivedTemp := MessagePassportDataReceived{
 		tdCommon:    tdCommon{Type: "messagePassportDataReceived"},
 		Elements:    elements,
@@ -15244,7 +15848,11 @@ func (messageProximityAlertTriggered *MessageProximityAlertTriggered) MessageTyp
 // @param traveler The user or chat, which triggered the proximity alert
 // @param watcher The user or chat, which subscribed for the proximity alert
 // @param distance The distance between the users
-func NewMessageProximityAlertTriggered(traveler MessageSender, watcher MessageSender, distance int32) *MessageProximityAlertTriggered {
+func NewMessageProximityAlertTriggered(
+	traveler MessageSender,
+	watcher MessageSender,
+	distance int32,
+) *MessageProximityAlertTriggered {
 	messageProximityAlertTriggeredTemp := MessageProximityAlertTriggered{
 		tdCommon: tdCommon{Type: "messageProximityAlertTriggered"},
 		Traveler: traveler,
@@ -15722,7 +16330,7 @@ func (textEntityTypeTextURL *TextEntityTypeTextURL) GetTextEntityTypeEnum() Text
 // TextEntityTypeMentionName A text shows instead of a raw mention of the user (e.g., when the user has no username)
 type TextEntityTypeMentionName struct {
 	tdCommon
-	UserID int32 `json:"user_id"` // Identifier of the mentioned user
+	UserID int64 `json:"user_id"` // Identifier of the mentioned user
 }
 
 // MessageType return the string telegram-type of TextEntityTypeMentionName
@@ -15733,7 +16341,7 @@ func (textEntityTypeMentionName *TextEntityTypeMentionName) MessageType() string
 // NewTextEntityTypeMentionName creates a new TextEntityTypeMentionName
 //
 // @param userID Identifier of the mentioned user
-func NewTextEntityTypeMentionName(userID int32) *TextEntityTypeMentionName {
+func NewTextEntityTypeMentionName(userID int64) *TextEntityTypeMentionName {
 	textEntityTypeMentionNameTemp := TextEntityTypeMentionName{
 		tdCommon: tdCommon{Type: "textEntityTypeMentionName"},
 		UserID:   userID,
@@ -15874,7 +16482,11 @@ func (messageSendOptions *MessageSendOptions) MessageType() string {
 // @param disableNotification Pass true to disable notification for the message
 // @param fromBackground Pass true if the message is sent from the background
 // @param schedulingState Message scheduling state. Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled
-func NewMessageSendOptions(disableNotification bool, fromBackground bool, schedulingState MessageSchedulingState) *MessageSendOptions {
+func NewMessageSendOptions(
+	disableNotification bool,
+	fromBackground bool,
+	schedulingState MessageSchedulingState,
+) *MessageSendOptions {
 	messageSendOptionsTemp := MessageSendOptions{
 		tdCommon:            tdCommon{Type: "messageSendOptions"},
 		DisableNotification: disableNotification,
@@ -16002,7 +16614,15 @@ func (inputMessageAnimation *InputMessageAnimation) MessageType() string {
 // @param width Width of the animation; may be replaced by the server
 // @param height Height of the animation; may be replaced by the server
 // @param caption Animation caption; 0-GetOption("message_caption_length_max") characters
-func NewInputMessageAnimation(animation InputFile, thumbnail *InputThumbnail, addedStickerFileIDs []int32, duration int32, width int32, height int32, caption *FormattedText) *InputMessageAnimation {
+func NewInputMessageAnimation(
+	animation InputFile,
+	thumbnail *InputThumbnail,
+	addedStickerFileIDs []int32,
+	duration int32,
+	width int32,
+	height int32,
+	caption *FormattedText,
+) *InputMessageAnimation {
 	inputMessageAnimationTemp := InputMessageAnimation{
 		tdCommon:            tdCommon{Type: "inputMessageAnimation"},
 		Animation:           animation,
@@ -16081,7 +16701,14 @@ func (inputMessageAudio *InputMessageAudio) MessageType() string {
 // @param title Title of the audio; 0-64 characters; may be replaced by the server
 // @param performer Performer of the audio; 0-64 characters, may be replaced by the server
 // @param caption Audio caption; 0-GetOption("message_caption_length_max") characters
-func NewInputMessageAudio(audio InputFile, albumCoverThumbnail *InputThumbnail, duration int32, title string, performer string, caption *FormattedText) *InputMessageAudio {
+func NewInputMessageAudio(
+	audio InputFile,
+	albumCoverThumbnail *InputThumbnail,
+	duration int32,
+	title string,
+	performer string,
+	caption *FormattedText,
+) *InputMessageAudio {
 	inputMessageAudioTemp := InputMessageAudio{
 		tdCommon:            tdCommon{Type: "inputMessageAudio"},
 		Audio:               audio,
@@ -16153,7 +16780,12 @@ func (inputMessageDocument *InputMessageDocument) MessageType() string {
 // @param thumbnail Document thumbnail, if available
 // @param disableContentTypeDetection If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats
 // @param caption Document caption; 0-GetOption("message_caption_length_max") characters
-func NewInputMessageDocument(document InputFile, thumbnail *InputThumbnail, disableContentTypeDetection bool, caption *FormattedText) *InputMessageDocument {
+func NewInputMessageDocument(
+	document InputFile,
+	thumbnail *InputThumbnail,
+	disableContentTypeDetection bool,
+	caption *FormattedText,
+) *InputMessageDocument {
 	inputMessageDocumentTemp := InputMessageDocument{
 		tdCommon:                    tdCommon{Type: "inputMessageDocument"},
 		Document:                    document,
@@ -16225,7 +16857,15 @@ func (inputMessagePhoto *InputMessagePhoto) MessageType() string {
 // @param height Photo height
 // @param caption Photo caption; 0-GetOption("message_caption_length_max") characters
 // @param tTL Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats
-func NewInputMessagePhoto(photo InputFile, thumbnail *InputThumbnail, addedStickerFileIDs []int32, width int32, height int32, caption *FormattedText, tTL int32) *InputMessagePhoto {
+func NewInputMessagePhoto(
+	photo InputFile,
+	thumbnail *InputThumbnail,
+	addedStickerFileIDs []int32,
+	width int32,
+	height int32,
+	caption *FormattedText,
+	tTL int32,
+) *InputMessagePhoto {
 	inputMessagePhotoTemp := InputMessagePhoto{
 		tdCommon:            tdCommon{Type: "inputMessagePhoto"},
 		Photo:               photo,
@@ -16302,7 +16942,13 @@ func (inputMessageSticker *InputMessageSticker) MessageType() string {
 // @param width Sticker width
 // @param height Sticker height
 // @param emoji Emoji used to choose the sticker
-func NewInputMessageSticker(sticker InputFile, thumbnail *InputThumbnail, width int32, height int32, emoji string) *InputMessageSticker {
+func NewInputMessageSticker(
+	sticker InputFile,
+	thumbnail *InputThumbnail,
+	width int32,
+	height int32,
+	emoji string,
+) *InputMessageSticker {
 	inputMessageStickerTemp := InputMessageSticker{
 		tdCommon:  tdCommon{Type: "inputMessageSticker"},
 		Sticker:   sticker,
@@ -16381,7 +17027,17 @@ func (inputMessageVideo *InputMessageVideo) MessageType() string {
 // @param supportsStreaming True, if the video should be tried to be streamed
 // @param caption Video caption; 0-GetOption("message_caption_length_max") characters
 // @param tTL Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats
-func NewInputMessageVideo(video InputFile, thumbnail *InputThumbnail, addedStickerFileIDs []int32, duration int32, width int32, height int32, supportsStreaming bool, caption *FormattedText, tTL int32) *InputMessageVideo {
+func NewInputMessageVideo(
+	video InputFile,
+	thumbnail *InputThumbnail,
+	addedStickerFileIDs []int32,
+	duration int32,
+	width int32,
+	height int32,
+	supportsStreaming bool,
+	caption *FormattedText,
+	tTL int32,
+) *InputMessageVideo {
 	inputMessageVideoTemp := InputMessageVideo{
 		tdCommon:            tdCommon{Type: "inputMessageVideo"},
 		Video:               video,
@@ -16462,7 +17118,12 @@ func (inputMessageVideoNote *InputMessageVideoNote) MessageType() string {
 // @param thumbnail Video thumbnail, if available
 // @param duration Duration of the video, in seconds
 // @param length Video width and height; must be positive and not greater than 640
-func NewInputMessageVideoNote(videoNote InputFile, thumbnail *InputThumbnail, duration int32, length int32) *InputMessageVideoNote {
+func NewInputMessageVideoNote(
+	videoNote InputFile,
+	thumbnail *InputThumbnail,
+	duration int32,
+	length int32,
+) *InputMessageVideoNote {
 	inputMessageVideoNoteTemp := InputMessageVideoNote{
 		tdCommon:  tdCommon{Type: "inputMessageVideoNote"},
 		VideoNote: videoNote,
@@ -16528,7 +17189,12 @@ func (inputMessageVoiceNote *InputMessageVoiceNote) MessageType() string {
 // @param duration Duration of the voice note, in seconds
 // @param waveform Waveform representation of the voice note, in 5-bit format
 // @param caption Voice note caption; 0-GetOption("message_caption_length_max") characters
-func NewInputMessageVoiceNote(voiceNote InputFile, duration int32, waveform []byte, caption *FormattedText) *InputMessageVoiceNote {
+func NewInputMessageVoiceNote(
+	voiceNote InputFile,
+	duration int32,
+	waveform []byte,
+	caption *FormattedText,
+) *InputMessageVoiceNote {
 	inputMessageVoiceNoteTemp := InputMessageVoiceNote{
 		tdCommon:  tdCommon{Type: "inputMessageVoiceNote"},
 		VoiceNote: voiceNote,
@@ -16594,7 +17260,12 @@ func (inputMessageLocation *InputMessageLocation) MessageType() string {
 // @param livePeriod Period for which the location can be updated, in seconds; should be between 60 and 86400 for a live location and 0 otherwise
 // @param heading For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0 if unknown
 // @param proximityAlertRadius For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled. Can't be enabled in channels and Saved Messages
-func NewInputMessageLocation(location *Location, livePeriod int32, heading int32, proximityAlertRadius int32) *InputMessageLocation {
+func NewInputMessageLocation(
+	location *Location,
+	livePeriod int32,
+	heading int32,
+	proximityAlertRadius int32,
+) *InputMessageLocation {
 	inputMessageLocationTemp := InputMessageLocation{
 		tdCommon:             tdCommon{Type: "inputMessageLocation"},
 		Location:             location,
@@ -16701,7 +17372,7 @@ func (inputMessageDice *InputMessageDice) GetInputMessageContentEnum() InputMess
 // InputMessageGame A message with a game; not supported for channels or secret chats
 type InputMessageGame struct {
 	tdCommon
-	BotUserID     int32  `json:"bot_user_id"`     // User identifier of the bot that owns the game
+	BotUserID     int64  `json:"bot_user_id"`     // User identifier of the bot that owns the game
 	GameShortName string `json:"game_short_name"` // Short name of the game
 }
 
@@ -16714,7 +17385,7 @@ func (inputMessageGame *InputMessageGame) MessageType() string {
 //
 // @param botUserID User identifier of the bot that owns the game
 // @param gameShortName Short name of the game
-func NewInputMessageGame(botUserID int32, gameShortName string) *InputMessageGame {
+func NewInputMessageGame(botUserID int64, gameShortName string) *InputMessageGame {
 	inputMessageGameTemp := InputMessageGame{
 		tdCommon:      tdCommon{Type: "inputMessageGame"},
 		BotUserID:     botUserID,
@@ -16763,7 +17434,19 @@ func (inputMessageInvoice *InputMessageInvoice) MessageType() string {
 // @param providerToken Payment provider token
 // @param providerData JSON-encoded data about the invoice, which will be shared with the payment provider
 // @param startParameter Unique invoice bot start_parameter for the generation of this invoice
-func NewInputMessageInvoice(invoice *Invoice, title string, description string, photoURL string, photoSize int32, photoWidth int32, photoHeight int32, payload []byte, providerToken string, providerData string, startParameter string) *InputMessageInvoice {
+func NewInputMessageInvoice(
+	invoice *Invoice,
+	title string,
+	description string,
+	photoURL string,
+	photoSize int32,
+	photoWidth int32,
+	photoHeight int32,
+	payload []byte,
+	providerToken string,
+	providerData string,
+	startParameter string,
+) *InputMessageInvoice {
 	inputMessageInvoiceTemp := InputMessageInvoice{
 		tdCommon:       tdCommon{Type: "inputMessageInvoice"},
 		Invoice:        invoice,
@@ -16813,7 +17496,15 @@ func (inputMessagePoll *InputMessagePoll) MessageType() string {
 // @param openPeriod Amount of time the poll will be active after creation, in seconds; for bots only
 // @param closeDate Point in time (Unix timestamp) when the poll will be automatically closed; for bots only
 // @param isClosed True, if the poll needs to be sent already closed; for bots only
-func NewInputMessagePoll(question string, options []string, isAnonymous bool, typeParam PollType, openPeriod int32, closeDate int32, isClosed bool) *InputMessagePoll {
+func NewInputMessagePoll(
+	question string,
+	options []string,
+	isAnonymous bool,
+	typeParam PollType,
+	openPeriod int32,
+	closeDate int32,
+	isClosed bool,
+) *InputMessagePoll {
 	inputMessagePollTemp := InputMessagePoll{
 		tdCommon:    tdCommon{Type: "inputMessagePoll"},
 		Question:    question,
@@ -16888,7 +17579,12 @@ func (inputMessageForwarded *InputMessageForwarded) MessageType() string {
 // @param messageID Identifier of the message to forward
 // @param inGameShare True, if a game message should be shared within a launched game; applies only to game messages
 // @param copyOptions Options to be used to copy content of the message without a link to the original message
-func NewInputMessageForwarded(fromChatID int64, messageID int64, inGameShare bool, copyOptions *MessageCopyOptions) *InputMessageForwarded {
+func NewInputMessageForwarded(
+	fromChatID int64,
+	messageID int64,
+	inGameShare bool,
+	copyOptions *MessageCopyOptions,
+) *InputMessageForwarded {
 	inputMessageForwardedTemp := InputMessageForwarded{
 		tdCommon:    tdCommon{Type: "inputMessageForwarded"},
 		FromChatID:  fromChatID,
@@ -17935,7 +18631,21 @@ func (stickerSet *StickerSet) MessageType() string {
 // @param isViewed True for already viewed trending sticker sets
 // @param stickers List of stickers in this set
 // @param emojis A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object
-func NewStickerSet(iD JSONInt64, title string, name string, thumbnail *Thumbnail, thumbnailOutline []ClosedVectorPath, isInstalled bool, isArchived bool, isOfficial bool, isAnimated bool, isMasks bool, isViewed bool, stickers []Sticker, emojis []Emojis) *StickerSet {
+func NewStickerSet(
+	iD JSONInt64,
+	title string,
+	name string,
+	thumbnail *Thumbnail,
+	thumbnailOutline []ClosedVectorPath,
+	isInstalled bool,
+	isArchived bool,
+	isOfficial bool,
+	isAnimated bool,
+	isMasks bool,
+	isViewed bool,
+	stickers []Sticker,
+	emojis []Emojis,
+) *StickerSet {
 	stickerSetTemp := StickerSet{
 		tdCommon:         tdCommon{Type: "stickerSet"},
 		ID:               iD,
@@ -17994,7 +18704,21 @@ func (stickerSetInfo *StickerSetInfo) MessageType() string {
 // @param isViewed True for already viewed trending sticker sets
 // @param size Total number of stickers in the set
 // @param covers Contains up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full set should be requested
-func NewStickerSetInfo(iD JSONInt64, title string, name string, thumbnail *Thumbnail, thumbnailOutline []ClosedVectorPath, isInstalled bool, isArchived bool, isOfficial bool, isAnimated bool, isMasks bool, isViewed bool, size int32, covers []Sticker) *StickerSetInfo {
+func NewStickerSetInfo(
+	iD JSONInt64,
+	title string,
+	name string,
+	thumbnail *Thumbnail,
+	thumbnailOutline []ClosedVectorPath,
+	isInstalled bool,
+	isArchived bool,
+	isOfficial bool,
+	isAnimated bool,
+	isMasks bool,
+	isViewed bool,
+	size int32,
+	covers []Sticker,
+) *StickerSetInfo {
 	stickerSetInfoTemp := StickerSetInfo{
 		tdCommon:         tdCommon{Type: "stickerSetInfo"},
 		ID:               iD,
@@ -18188,7 +18912,13 @@ func (callProtocol *CallProtocol) MessageType() string {
 // @param minLayer The minimum supported API layer; use 65
 // @param maxLayer The maximum supported API layer; use 65
 // @param libraryVersions List of supported tgcalls versions
-func NewCallProtocol(uDPP2p bool, uDPReflector bool, minLayer int32, maxLayer int32, libraryVersions []string) *CallProtocol {
+func NewCallProtocol(
+	uDPP2p bool,
+	uDPReflector bool,
+	minLayer int32,
+	maxLayer int32,
+	libraryVersions []string,
+) *CallProtocol {
 	callProtocolTemp := CallProtocol{
 		tdCommon:        tdCommon{Type: "callProtocol"},
 		UDPP2p:          uDPP2p,
@@ -18249,7 +18979,12 @@ func (callServerTypeWebrtc *CallServerTypeWebrtc) MessageType() string {
 // @param password Authentication password
 // @param supportsTurn True, if the server supports TURN
 // @param supportsStun True, if the server supports STUN
-func NewCallServerTypeWebrtc(username string, password string, supportsTurn bool, supportsStun bool) *CallServerTypeWebrtc {
+func NewCallServerTypeWebrtc(
+	username string,
+	password string,
+	supportsTurn bool,
+	supportsStun bool,
+) *CallServerTypeWebrtc {
 	callServerTypeWebrtcTemp := CallServerTypeWebrtc{
 		tdCommon:     tdCommon{Type: "callServerTypeWebrtc"},
 		Username:     username,
@@ -18288,7 +19023,13 @@ func (callServer *CallServer) MessageType() string {
 // @param iPv6Address Server IPv6 address
 // @param port Server port number
 // @param typeParam Server type
-func NewCallServer(iD JSONInt64, iPAddress string, iPv6Address string, port int32, typeParam CallServerType) *CallServer {
+func NewCallServer(
+	iD JSONInt64,
+	iPAddress string,
+	iPv6Address string,
+	port int32,
+	typeParam CallServerType,
+) *CallServer {
 	callServerTemp := CallServer{
 		tdCommon:    tdCommon{Type: "callServer"},
 		ID:          iD,
@@ -18459,7 +19200,14 @@ func (callStateReady *CallStateReady) MessageType() string {
 // @param encryptionKey Call encryption key
 // @param emojis Encryption key emojis fingerprint
 // @param allowP2p True, if peer-to-peer connection is allowed by users privacy settings
-func NewCallStateReady(protocol *CallProtocol, servers []CallServer, config string, encryptionKey []byte, emojis []string, allowP2p bool) *CallStateReady {
+func NewCallStateReady(
+	protocol *CallProtocol,
+	servers []CallServer,
+	config string,
+	encryptionKey []byte,
+	emojis []string,
+	allowP2p bool,
+) *CallStateReady {
 	callStateReadyTemp := CallStateReady{
 		tdCommon:      tdCommon{Type: "callStateReady"},
 		Protocol:      protocol,
@@ -18595,7 +19343,7 @@ func (callStateError *CallStateError) GetCallStateEnum() CallStateEnum {
 // GroupCallRecentSpeaker Describes a recently speaking user in a group call
 type GroupCallRecentSpeaker struct {
 	tdCommon
-	UserID     int32 `json:"user_id"`     // User identifier
+	UserID     int64 `json:"user_id"`     // User identifier
 	IsSpeaking bool  `json:"is_speaking"` // True, is the user has spoken recently
 }
 
@@ -18608,7 +19356,7 @@ func (groupCallRecentSpeaker *GroupCallRecentSpeaker) MessageType() string {
 //
 // @param userID User identifier
 // @param isSpeaking True, is the user has spoken recently
-func NewGroupCallRecentSpeaker(userID int32, isSpeaking bool) *GroupCallRecentSpeaker {
+func NewGroupCallRecentSpeaker(userID int64, isSpeaking bool) *GroupCallRecentSpeaker {
 	groupCallRecentSpeakerTemp := GroupCallRecentSpeaker{
 		tdCommon:   tdCommon{Type: "groupCallRecentSpeaker"},
 		UserID:     userID,
@@ -18654,7 +19402,20 @@ func (groupCall *GroupCall) MessageType() string {
 // @param muteNewParticipants True, if only group call administrators can unmute new participants
 // @param canChangeMuteNewParticipants True, if the current user can enable or disable mute_new_participants setting
 // @param duration Call duration; for ended calls only
-func NewGroupCall(iD int32, isActive bool, isJoined bool, needRejoin bool, canUnmuteSelf bool, canBeManaged bool, participantCount int32, loadedAllParticipants bool, recentSpeakers []GroupCallRecentSpeaker, muteNewParticipants bool, canChangeMuteNewParticipants bool, duration int32) *GroupCall {
+func NewGroupCall(
+	iD int32,
+	isActive bool,
+	isJoined bool,
+	needRejoin bool,
+	canUnmuteSelf bool,
+	canBeManaged bool,
+	participantCount int32,
+	loadedAllParticipants bool,
+	recentSpeakers []GroupCallRecentSpeaker,
+	muteNewParticipants bool,
+	canChangeMuteNewParticipants bool,
+	duration int32,
+) *GroupCall {
 	groupCallTemp := GroupCall{
 		tdCommon:                     tdCommon{Type: "groupCall"},
 		ID:                           iD,
@@ -18770,7 +19531,21 @@ func (groupCallJoinResponseCandidate *GroupCallJoinResponseCandidate) MessageTyp
 // @param tcpType Value of the field tcp_type
 // @param relAddr Value of the field rel_addr
 // @param relPort Value of the field rel_port
-func NewGroupCallJoinResponseCandidate(port string, protocol string, network string, generation string, iD string, component string, foundation string, priority string, iP string, typeParam string, tcpType string, relAddr string, relPort string) *GroupCallJoinResponseCandidate {
+func NewGroupCallJoinResponseCandidate(
+	port string,
+	protocol string,
+	network string,
+	generation string,
+	iD string,
+	component string,
+	foundation string,
+	priority string,
+	iP string,
+	typeParam string,
+	tcpType string,
+	relAddr string,
+	relPort string,
+) *GroupCallJoinResponseCandidate {
 	groupCallJoinResponseCandidateTemp := GroupCallJoinResponseCandidate{
 		tdCommon:   tdCommon{Type: "groupCallJoinResponseCandidate"},
 		Port:       port,
@@ -18807,7 +19582,10 @@ func (groupCallJoinResponse *GroupCallJoinResponse) MessageType() string {
 //
 // @param payload Join response payload to pass to tgcalls
 // @param candidates Join response candidates to pass to tgcalls
-func NewGroupCallJoinResponse(payload *GroupCallPayload, candidates []GroupCallJoinResponseCandidate) *GroupCallJoinResponse {
+func NewGroupCallJoinResponse(
+	payload *GroupCallPayload,
+	candidates []GroupCallJoinResponseCandidate,
+) *GroupCallJoinResponse {
 	groupCallJoinResponseTemp := GroupCallJoinResponse{
 		tdCommon:   tdCommon{Type: "groupCallJoinResponse"},
 		Payload:    payload,
@@ -18820,7 +19598,7 @@ func NewGroupCallJoinResponse(payload *GroupCallPayload, candidates []GroupCallJ
 // GroupCallParticipant Represents a group call participant
 type GroupCallParticipant struct {
 	tdCommon
-	UserID                     int32     `json:"user_id"`                         // Identifier of the user
+	UserID                     int64     `json:"user_id"`                         // Identifier of the user
 	Source                     int32     `json:"source"`                          // User's synchronization source
 	IsSpeaking                 bool      `json:"is_speaking"`                     // True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking
 	CanBeMutedForAllUsers      bool      `json:"can_be_muted_for_all_users"`      // True, if the current user can mute the participant for all other group call participants
@@ -18853,7 +19631,20 @@ func (groupCallParticipant *GroupCallParticipant) MessageType() string {
 // @param canUnmuteSelf True, if the participant is muted for all users, but can unmute themself
 // @param volumeLevel Participant's volume level; 1-20000 in hundreds of percents
 // @param order User's order in the group call participant list. The bigger is order, the higher is user in the list. If order is 0, the user must be removed from the participant list
-func NewGroupCallParticipant(userID int32, source int32, isSpeaking bool, canBeMutedForAllUsers bool, canBeUnmutedForAllUsers bool, canBeMutedForCurrentUser bool, canBeUnmutedForCurrentUser bool, isMutedForAllUsers bool, isMutedForCurrentUser bool, canUnmuteSelf bool, volumeLevel int32, order JSONInt64) *GroupCallParticipant {
+func NewGroupCallParticipant(
+	userID int64,
+	source int32,
+	isSpeaking bool,
+	canBeMutedForAllUsers bool,
+	canBeUnmutedForAllUsers bool,
+	canBeMutedForCurrentUser bool,
+	canBeUnmutedForCurrentUser bool,
+	isMutedForAllUsers bool,
+	isMutedForCurrentUser bool,
+	canUnmuteSelf bool,
+	volumeLevel int32,
+	order JSONInt64,
+) *GroupCallParticipant {
 	groupCallParticipantTemp := GroupCallParticipant{
 		tdCommon:                   tdCommon{Type: "groupCallParticipant"},
 		UserID:                     userID,
@@ -19102,7 +19893,7 @@ func (callProblemPixelatedVideo *CallProblemPixelatedVideo) GetCallProblemEnum()
 type Call struct {
 	tdCommon
 	ID         int32     `json:"id"`          // Call identifier, not persistent
-	UserID     int32     `json:"user_id"`     // Peer user identifier
+	UserID     int64     `json:"user_id"`     // Peer user identifier
 	IsOutgoing bool      `json:"is_outgoing"` // True, if the call is outgoing
 	IsVideo    bool      `json:"is_video"`    // True, if the call is a video call
 	State      CallState `json:"state"`       // Call state
@@ -19120,7 +19911,7 @@ func (call *Call) MessageType() string {
 // @param isOutgoing True, if the call is outgoing
 // @param isVideo True, if the call is a video call
 // @param state Call state
-func NewCall(iD int32, userID int32, isOutgoing bool, isVideo bool, state CallState) *Call {
+func NewCall(iD int32, userID int64, isOutgoing bool, isVideo bool, state CallState) *Call {
 	callTemp := Call{
 		tdCommon:   tdCommon{Type: "call"},
 		ID:         iD,
@@ -19143,7 +19934,7 @@ func (call *Call) UnmarshalJSON(b []byte) error {
 	tempObj := struct {
 		tdCommon
 		ID         int32 `json:"id"`          // Call identifier, not persistent
-		UserID     int32 `json:"user_id"`     // Peer user identifier
+		UserID     int64 `json:"user_id"`     // Peer user identifier
 		IsOutgoing bool  `json:"is_outgoing"` // True, if the call is outgoing
 		IsVideo    bool  `json:"is_video"`    // True, if the call is a video call
 
@@ -19183,7 +19974,11 @@ func (phoneNumberAuthenticationSettings *PhoneNumberAuthenticationSettings) Mess
 // @param allowFlashCall Pass true if the authentication code may be sent via flash call to the specified phone number
 // @param isCurrentPhoneNumber Pass true if the authenticated phone number is used on the current device
 // @param allowSmsRetrieverAPI For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details
-func NewPhoneNumberAuthenticationSettings(allowFlashCall bool, isCurrentPhoneNumber bool, allowSmsRetrieverAPI bool) *PhoneNumberAuthenticationSettings {
+func NewPhoneNumberAuthenticationSettings(
+	allowFlashCall bool,
+	isCurrentPhoneNumber bool,
+	allowSmsRetrieverAPI bool,
+) *PhoneNumberAuthenticationSettings {
 	phoneNumberAuthenticationSettingsTemp := PhoneNumberAuthenticationSettings{
 		tdCommon:             tdCommon{Type: "phoneNumberAuthenticationSettings"},
 		AllowFlashCall:       allowFlashCall,
@@ -19267,7 +20062,13 @@ func (diceStickersSlotMachine *DiceStickersSlotMachine) MessageType() string {
 // @param leftReel The animated sticker with the left reel
 // @param centerReel The animated sticker with the center reel
 // @param rightReel The animated sticker with the right reel
-func NewDiceStickersSlotMachine(background *Sticker, lever *Sticker, leftReel *Sticker, centerReel *Sticker, rightReel *Sticker) *DiceStickersSlotMachine {
+func NewDiceStickersSlotMachine(
+	background *Sticker,
+	lever *Sticker,
+	leftReel *Sticker,
+	centerReel *Sticker,
+	rightReel *Sticker,
+) *DiceStickersSlotMachine {
 	diceStickersSlotMachineTemp := DiceStickersSlotMachine{
 		tdCommon:   tdCommon{Type: "diceStickersSlotMachine"},
 		Background: background,
@@ -19288,7 +20089,7 @@ func (diceStickersSlotMachine *DiceStickersSlotMachine) GetDiceStickersEnum() Di
 // ImportedContacts Represents the result of an ImportContacts request
 type ImportedContacts struct {
 	tdCommon
-	UserIDs       []int32 `json:"user_ids"`       // User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user
+	UserIDs       []int64 `json:"user_ids"`       // User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user
 	ImporterCount []int32 `json:"importer_count"` // The number of users that imported the corresponding contact; 0 for already registered users or if unavailable
 }
 
@@ -19301,7 +20102,7 @@ func (importedContacts *ImportedContacts) MessageType() string {
 //
 // @param userIDs User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user
 // @param importerCount The number of users that imported the corresponding contact; 0 for already registered users or if unavailable
-func NewImportedContacts(userIDs []int32, importerCount []int32) *ImportedContacts {
+func NewImportedContacts(userIDs []int64, importerCount []int32) *ImportedContacts {
 	importedContactsTemp := ImportedContacts{
 		tdCommon:      tdCommon{Type: "importedContacts"},
 		UserIDs:       userIDs,
@@ -19368,7 +20169,19 @@ func (inputInlineQueryResultAnimation *InputInlineQueryResultAnimation) MessageT
 // @param videoHeight Height of the video
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultAnimation(iD string, title string, thumbnailURL string, thumbnailMimeType string, videoURL string, videoMimeType string, videoDuration int32, videoWidth int32, videoHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultAnimation {
+func NewInputInlineQueryResultAnimation(
+	iD string,
+	title string,
+	thumbnailURL string,
+	thumbnailMimeType string,
+	videoURL string,
+	videoMimeType string,
+	videoDuration int32,
+	videoWidth int32,
+	videoHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultAnimation {
 	inputInlineQueryResultAnimationTemp := InputInlineQueryResultAnimation{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultAnimation"},
 		ID:                  iD,
@@ -19469,7 +20282,18 @@ func (inputInlineQueryResultArticle *InputInlineQueryResultArticle) MessageType(
 // @param thumbnailHeight Thumbnail height, if known
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultArticle(iD string, uRL string, hideURL bool, title string, description string, thumbnailURL string, thumbnailWidth int32, thumbnailHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultArticle {
+func NewInputInlineQueryResultArticle(
+	iD string,
+	uRL string,
+	hideURL bool,
+	title string,
+	description string,
+	thumbnailURL string,
+	thumbnailWidth int32,
+	thumbnailHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultArticle {
 	inputInlineQueryResultArticleTemp := InputInlineQueryResultArticle{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultArticle"},
 		ID:                  iD,
@@ -19561,7 +20385,15 @@ func (inputInlineQueryResultAudio *InputInlineQueryResultAudio) MessageType() st
 // @param audioDuration Audio file duration, in seconds
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAudio, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultAudio(iD string, title string, performer string, audioURL string, audioDuration int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultAudio {
+func NewInputInlineQueryResultAudio(
+	iD string,
+	title string,
+	performer string,
+	audioURL string,
+	audioDuration int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultAudio {
 	inputInlineQueryResultAudioTemp := InputInlineQueryResultAudio{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultAudio"},
 		ID:                  iD,
@@ -19644,7 +20476,15 @@ func (inputInlineQueryResultContact *InputInlineQueryResultContact) MessageType(
 // @param thumbnailHeight Thumbnail height, if known
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultContact(iD string, contact *Contact, thumbnailURL string, thumbnailWidth int32, thumbnailHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultContact {
+func NewInputInlineQueryResultContact(
+	iD string,
+	contact *Contact,
+	thumbnailURL string,
+	thumbnailWidth int32,
+	thumbnailHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultContact {
 	inputInlineQueryResultContactTemp := InputInlineQueryResultContact{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultContact"},
 		ID:                  iD,
@@ -19733,7 +20573,18 @@ func (inputInlineQueryResultDocument *InputInlineQueryResultDocument) MessageTyp
 // @param thumbnailHeight Height of the thumbnail
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageDocument, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultDocument(iD string, title string, description string, documentURL string, mimeType string, thumbnailURL string, thumbnailWidth int32, thumbnailHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultDocument {
+func NewInputInlineQueryResultDocument(
+	iD string,
+	title string,
+	description string,
+	documentURL string,
+	mimeType string,
+	thumbnailURL string,
+	thumbnailWidth int32,
+	thumbnailHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultDocument {
 	inputInlineQueryResultDocumentTemp := InputInlineQueryResultDocument{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultDocument"},
 		ID:                  iD,
@@ -19817,7 +20668,11 @@ func (inputInlineQueryResultGame *InputInlineQueryResultGame) MessageType() stri
 // @param iD Unique identifier of the query result
 // @param gameShortName Short name of the game
 // @param replyMarkup Message reply markup. Must be of type replyMarkupInlineKeyboard or null
-func NewInputInlineQueryResultGame(iD string, gameShortName string, replyMarkup ReplyMarkup) *InputInlineQueryResultGame {
+func NewInputInlineQueryResultGame(
+	iD string,
+	gameShortName string,
+	replyMarkup ReplyMarkup,
+) *InputInlineQueryResultGame {
 	inputInlineQueryResultGameTemp := InputInlineQueryResultGame{
 		tdCommon:      tdCommon{Type: "inputInlineQueryResultGame"},
 		ID:            iD,
@@ -19891,7 +20746,17 @@ func (inputInlineQueryResultLocation *InputInlineQueryResultLocation) MessageTyp
 // @param thumbnailHeight Thumbnail height, if known
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultLocation(iD string, location *Location, livePeriod int32, title string, thumbnailURL string, thumbnailWidth int32, thumbnailHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultLocation {
+func NewInputInlineQueryResultLocation(
+	iD string,
+	location *Location,
+	livePeriod int32,
+	title string,
+	thumbnailURL string,
+	thumbnailWidth int32,
+	thumbnailHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultLocation {
 	inputInlineQueryResultLocationTemp := InputInlineQueryResultLocation{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultLocation"},
 		ID:                  iD,
@@ -19984,7 +20849,17 @@ func (inputInlineQueryResultPhoto *InputInlineQueryResultPhoto) MessageType() st
 // @param photoHeight Height of the photo
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessagePhoto, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultPhoto(iD string, title string, description string, thumbnailURL string, photoURL string, photoWidth int32, photoHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultPhoto {
+func NewInputInlineQueryResultPhoto(
+	iD string,
+	title string,
+	description string,
+	thumbnailURL string,
+	photoURL string,
+	photoWidth int32,
+	photoHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultPhoto {
 	inputInlineQueryResultPhotoTemp := InputInlineQueryResultPhoto{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultPhoto"},
 		ID:                  iD,
@@ -20073,7 +20948,15 @@ func (inputInlineQueryResultSticker *InputInlineQueryResultSticker) MessageType(
 // @param stickerHeight Height of the sticker
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, inputMessageSticker, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultSticker(iD string, thumbnailURL string, stickerURL string, stickerWidth int32, stickerHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultSticker {
+func NewInputInlineQueryResultSticker(
+	iD string,
+	thumbnailURL string,
+	stickerURL string,
+	stickerWidth int32,
+	stickerHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultSticker {
 	inputInlineQueryResultStickerTemp := InputInlineQueryResultSticker{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultSticker"},
 		ID:                  iD,
@@ -20156,7 +21039,15 @@ func (inputInlineQueryResultVenue *InputInlineQueryResultVenue) MessageType() st
 // @param thumbnailHeight Thumbnail height, if known
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultVenue(iD string, venue *Venue, thumbnailURL string, thumbnailWidth int32, thumbnailHeight int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultVenue {
+func NewInputInlineQueryResultVenue(
+	iD string,
+	venue *Venue,
+	thumbnailURL string,
+	thumbnailWidth int32,
+	thumbnailHeight int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultVenue {
 	inputInlineQueryResultVenueTemp := InputInlineQueryResultVenue{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultVenue"},
 		ID:                  iD,
@@ -20247,7 +21138,19 @@ func (inputInlineQueryResultVideo *InputInlineQueryResultVideo) MessageType() st
 // @param videoDuration Video duration, in seconds
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVideo, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultVideo(iD string, title string, description string, thumbnailURL string, videoURL string, mimeType string, videoWidth int32, videoHeight int32, videoDuration int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultVideo {
+func NewInputInlineQueryResultVideo(
+	iD string,
+	title string,
+	description string,
+	thumbnailURL string,
+	videoURL string,
+	mimeType string,
+	videoWidth int32,
+	videoHeight int32,
+	videoDuration int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultVideo {
 	inputInlineQueryResultVideoTemp := InputInlineQueryResultVideo{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultVideo"},
 		ID:                  iD,
@@ -20340,7 +21243,14 @@ func (inputInlineQueryResultVoiceNote *InputInlineQueryResultVoiceNote) MessageT
 // @param voiceNoteDuration Duration of the voice note, in seconds
 // @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null
 // @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVoiceNote, InputMessageLocation, InputMessageVenue or InputMessageContact
-func NewInputInlineQueryResultVoiceNote(iD string, title string, voiceNoteURL string, voiceNoteDuration int32, replyMarkup ReplyMarkup, inputMessageContent InputMessageContent) *InputInlineQueryResultVoiceNote {
+func NewInputInlineQueryResultVoiceNote(
+	iD string,
+	title string,
+	voiceNoteURL string,
+	voiceNoteDuration int32,
+	replyMarkup ReplyMarkup,
+	inputMessageContent InputMessageContent,
+) *InputInlineQueryResultVoiceNote {
 	inputInlineQueryResultVoiceNoteTemp := InputInlineQueryResultVoiceNote{
 		tdCommon:            tdCommon{Type: "inputInlineQueryResultVoiceNote"},
 		ID:                  iD,
@@ -20418,7 +21328,14 @@ func (inlineQueryResultArticle *InlineQueryResultArticle) MessageType() string {
 // @param title Title of the result
 // @param description
 // @param thumbnail Result thumbnail in JPEG format; may be null
-func NewInlineQueryResultArticle(iD string, uRL string, hideURL bool, title string, description string, thumbnail *Thumbnail) *InlineQueryResultArticle {
+func NewInlineQueryResultArticle(
+	iD string,
+	uRL string,
+	hideURL bool,
+	title string,
+	description string,
+	thumbnail *Thumbnail,
+) *InlineQueryResultArticle {
 	inlineQueryResultArticleTemp := InlineQueryResultArticle{
 		tdCommon:    tdCommon{Type: "inlineQueryResultArticle"},
 		ID:          iD,
@@ -20491,7 +21408,12 @@ func (inlineQueryResultLocation *InlineQueryResultLocation) MessageType() string
 // @param location Location result
 // @param title Title of the result
 // @param thumbnail Result thumbnail in JPEG format; may be null
-func NewInlineQueryResultLocation(iD string, location *Location, title string, thumbnail *Thumbnail) *InlineQueryResultLocation {
+func NewInlineQueryResultLocation(
+	iD string,
+	location *Location,
+	title string,
+	thumbnail *Thumbnail,
+) *InlineQueryResultLocation {
 	inlineQueryResultLocationTemp := InlineQueryResultLocation{
 		tdCommon:  tdCommon{Type: "inlineQueryResultLocation"},
 		ID:        iD,
@@ -20658,7 +21580,12 @@ func (inlineQueryResultDocument *InlineQueryResultDocument) MessageType() string
 // @param document Document
 // @param title Document title
 // @param description
-func NewInlineQueryResultDocument(iD string, document *Document, title string, description string) *InlineQueryResultDocument {
+func NewInlineQueryResultDocument(
+	iD string,
+	document *Document,
+	title string,
+	description string,
+) *InlineQueryResultDocument {
 	inlineQueryResultDocumentTemp := InlineQueryResultDocument{
 		tdCommon:    tdCommon{Type: "inlineQueryResultDocument"},
 		ID:          iD,
@@ -20836,7 +21763,13 @@ func (inlineQueryResults *InlineQueryResults) MessageType() string {
 // @param results Results of the query
 // @param switchPmText If non-empty, this text should be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switch_pm_parameter
 // @param switchPmParameter Parameter for the bot start message
-func NewInlineQueryResults(inlineQueryID JSONInt64, nextOffset string, results []InlineQueryResult, switchPmText string, switchPmParameter string) *InlineQueryResults {
+func NewInlineQueryResults(
+	inlineQueryID JSONInt64,
+	nextOffset string,
+	results []InlineQueryResult,
+	switchPmText string,
+	switchPmParameter string,
+) *InlineQueryResults {
 	inlineQueryResultsTemp := InlineQueryResults{
 		tdCommon:          tdCommon{Type: "inlineQueryResults"},
 		InlineQueryID:     inlineQueryID,
@@ -20992,7 +21925,7 @@ func NewCustomRequestResult(result string) *CustomRequestResult {
 type GameHighScore struct {
 	tdCommon
 	Position int32 `json:"position"` // Position in the high score table
-	UserID   int32 `json:"user_id"`  // User identifier
+	UserID   int64 `json:"user_id"`  // User identifier
 	Score    int32 `json:"score"`    // User score
 }
 
@@ -21006,7 +21939,7 @@ func (gameHighScore *GameHighScore) MessageType() string {
 // @param position Position in the high score table
 // @param userID User identifier
 // @param score User score
-func NewGameHighScore(position int32, userID int32, score int32) *GameHighScore {
+func NewGameHighScore(position int32, userID int64, score int32) *GameHighScore {
 	gameHighScoreTemp := GameHighScore{
 		tdCommon: tdCommon{Type: "gameHighScore"},
 		Position: position,
@@ -21236,7 +22169,7 @@ func (chatEventMemberLeft *ChatEventMemberLeft) GetChatEventActionEnum() ChatEve
 // ChatEventMemberInvited A new chat member was invited
 type ChatEventMemberInvited struct {
 	tdCommon
-	UserID int32            `json:"user_id"` // New member user identifier
+	UserID int64            `json:"user_id"` // New member user identifier
 	Status ChatMemberStatus `json:"status"`  // New member status
 }
 
@@ -21249,7 +22182,7 @@ func (chatEventMemberInvited *ChatEventMemberInvited) MessageType() string {
 //
 // @param userID New member user identifier
 // @param status New member status
-func NewChatEventMemberInvited(userID int32, status ChatMemberStatus) *ChatEventMemberInvited {
+func NewChatEventMemberInvited(userID int64, status ChatMemberStatus) *ChatEventMemberInvited {
 	chatEventMemberInvitedTemp := ChatEventMemberInvited{
 		tdCommon: tdCommon{Type: "chatEventMemberInvited"},
 		UserID:   userID,
@@ -21268,7 +22201,7 @@ func (chatEventMemberInvited *ChatEventMemberInvited) UnmarshalJSON(b []byte) er
 	}
 	tempObj := struct {
 		tdCommon
-		UserID int32 `json:"user_id"` // New member user identifier
+		UserID int64 `json:"user_id"` // New member user identifier
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -21293,7 +22226,7 @@ func (chatEventMemberInvited *ChatEventMemberInvited) GetChatEventActionEnum() C
 // ChatEventMemberPromoted A chat member has gained/lost administrator status, or the list of their administrator privileges has changed
 type ChatEventMemberPromoted struct {
 	tdCommon
-	UserID    int32            `json:"user_id"`    // Chat member user identifier
+	UserID    int64            `json:"user_id"`    // Chat member user identifier
 	OldStatus ChatMemberStatus `json:"old_status"` // Previous status of the chat member
 	NewStatus ChatMemberStatus `json:"new_status"` // New status of the chat member
 }
@@ -21308,7 +22241,11 @@ func (chatEventMemberPromoted *ChatEventMemberPromoted) MessageType() string {
 // @param userID Chat member user identifier
 // @param oldStatus Previous status of the chat member
 // @param newStatus New status of the chat member
-func NewChatEventMemberPromoted(userID int32, oldStatus ChatMemberStatus, newStatus ChatMemberStatus) *ChatEventMemberPromoted {
+func NewChatEventMemberPromoted(
+	userID int64,
+	oldStatus ChatMemberStatus,
+	newStatus ChatMemberStatus,
+) *ChatEventMemberPromoted {
 	chatEventMemberPromotedTemp := ChatEventMemberPromoted{
 		tdCommon:  tdCommon{Type: "chatEventMemberPromoted"},
 		UserID:    userID,
@@ -21328,7 +22265,7 @@ func (chatEventMemberPromoted *ChatEventMemberPromoted) UnmarshalJSON(b []byte) 
 	}
 	tempObj := struct {
 		tdCommon
-		UserID int32 `json:"user_id"` // Chat member user identifier
+		UserID int64 `json:"user_id"` // Chat member user identifier
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -21356,7 +22293,7 @@ func (chatEventMemberPromoted *ChatEventMemberPromoted) GetChatEventActionEnum()
 // ChatEventMemberRestricted A chat member was restricted/unrestricted or banned/unbanned, or the list of their restrictions has changed
 type ChatEventMemberRestricted struct {
 	tdCommon
-	UserID    int32            `json:"user_id"`    // Chat member user identifier
+	UserID    int64            `json:"user_id"`    // Chat member user identifier
 	OldStatus ChatMemberStatus `json:"old_status"` // Previous status of the chat member
 	NewStatus ChatMemberStatus `json:"new_status"` // New status of the chat member
 }
@@ -21371,7 +22308,11 @@ func (chatEventMemberRestricted *ChatEventMemberRestricted) MessageType() string
 // @param userID Chat member user identifier
 // @param oldStatus Previous status of the chat member
 // @param newStatus New status of the chat member
-func NewChatEventMemberRestricted(userID int32, oldStatus ChatMemberStatus, newStatus ChatMemberStatus) *ChatEventMemberRestricted {
+func NewChatEventMemberRestricted(
+	userID int64,
+	oldStatus ChatMemberStatus,
+	newStatus ChatMemberStatus,
+) *ChatEventMemberRestricted {
 	chatEventMemberRestrictedTemp := ChatEventMemberRestricted{
 		tdCommon:  tdCommon{Type: "chatEventMemberRestricted"},
 		UserID:    userID,
@@ -21391,7 +22332,7 @@ func (chatEventMemberRestricted *ChatEventMemberRestricted) UnmarshalJSON(b []by
 	}
 	tempObj := struct {
 		tdCommon
-		UserID int32 `json:"user_id"` // Chat member user identifier
+		UserID int64 `json:"user_id"` // Chat member user identifier
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -21463,7 +22404,10 @@ func (chatEventPermissionsChanged *ChatEventPermissionsChanged) MessageType() st
 //
 // @param oldPermissions Previous chat permissions
 // @param newPermissions New chat permissions
-func NewChatEventPermissionsChanged(oldPermissions *ChatPermissions, newPermissions *ChatPermissions) *ChatEventPermissionsChanged {
+func NewChatEventPermissionsChanged(
+	oldPermissions *ChatPermissions,
+	newPermissions *ChatPermissions,
+) *ChatEventPermissionsChanged {
 	chatEventPermissionsChangedTemp := ChatEventPermissionsChanged{
 		tdCommon:       tdCommon{Type: "chatEventPermissionsChanged"},
 		OldPermissions: oldPermissions,
@@ -21838,7 +22782,7 @@ func (chatEventVoiceChatDiscarded *ChatEventVoiceChatDiscarded) GetChatEventActi
 // ChatEventVoiceChatParticipantIsMutedToggled A voice chat participant was muted or unmuted
 type ChatEventVoiceChatParticipantIsMutedToggled struct {
 	tdCommon
-	UserID  int32 `json:"user_id"`  // Identifier of the affected user
+	UserID  int64 `json:"user_id"`  // Identifier of the affected user
 	IsMuted bool  `json:"is_muted"` // New value of is_muted
 }
 
@@ -21851,7 +22795,10 @@ func (chatEventVoiceChatParticipantIsMutedToggled *ChatEventVoiceChatParticipant
 //
 // @param userID Identifier of the affected user
 // @param isMuted New value of is_muted
-func NewChatEventVoiceChatParticipantIsMutedToggled(userID int32, isMuted bool) *ChatEventVoiceChatParticipantIsMutedToggled {
+func NewChatEventVoiceChatParticipantIsMutedToggled(
+	userID int64,
+	isMuted bool,
+) *ChatEventVoiceChatParticipantIsMutedToggled {
 	chatEventVoiceChatParticipantIsMutedToggledTemp := ChatEventVoiceChatParticipantIsMutedToggled{
 		tdCommon: tdCommon{Type: "chatEventVoiceChatParticipantIsMutedToggled"},
 		UserID:   userID,
@@ -21899,7 +22846,7 @@ type ChatEvent struct {
 	tdCommon
 	ID     JSONInt64       `json:"id"`      // Chat event identifier
 	Date   int32           `json:"date"`    // Point in time (Unix timestamp) when the event happened
-	UserID int32           `json:"user_id"` // Identifier of the user who performed the action that triggered the event
+	UserID int64           `json:"user_id"` // Identifier of the user who performed the action that triggered the event
 	Action ChatEventAction `json:"action"`  // Action performed by the user
 }
 
@@ -21914,7 +22861,7 @@ func (chatEvent *ChatEvent) MessageType() string {
 // @param date Point in time (Unix timestamp) when the event happened
 // @param userID Identifier of the user who performed the action that triggered the event
 // @param action Action performed by the user
-func NewChatEvent(iD JSONInt64, date int32, userID int32, action ChatEventAction) *ChatEvent {
+func NewChatEvent(iD JSONInt64, date int32, userID int64, action ChatEventAction) *ChatEvent {
 	chatEventTemp := ChatEvent{
 		tdCommon: tdCommon{Type: "chatEvent"},
 		ID:       iD,
@@ -21937,7 +22884,7 @@ func (chatEvent *ChatEvent) UnmarshalJSON(b []byte) error {
 		tdCommon
 		ID     JSONInt64 `json:"id"`      // Chat event identifier
 		Date   int32     `json:"date"`    // Point in time (Unix timestamp) when the event happened
-		UserID int32     `json:"user_id"` // Identifier of the user who performed the action that triggered the event
+		UserID int64     `json:"user_id"` // Identifier of the user who performed the action that triggered the event
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -22013,7 +22960,19 @@ func (chatEventLogFilters *ChatEventLogFilters) MessageType() string {
 // @param infoChanges True, if changes in chat information should be returned
 // @param settingChanges True, if changes in chat settings should be returned
 // @param voiceChatChanges True, if voice chat actions should be returned
-func NewChatEventLogFilters(messageEdits bool, messageDeletions bool, messagePins bool, memberJoins bool, memberLeaves bool, memberInvites bool, memberPromotions bool, memberRestrictions bool, infoChanges bool, settingChanges bool, voiceChatChanges bool) *ChatEventLogFilters {
+func NewChatEventLogFilters(
+	messageEdits bool,
+	messageDeletions bool,
+	messagePins bool,
+	memberJoins bool,
+	memberLeaves bool,
+	memberInvites bool,
+	memberPromotions bool,
+	memberRestrictions bool,
+	infoChanges bool,
+	settingChanges bool,
+	voiceChatChanges bool,
+) *ChatEventLogFilters {
 	chatEventLogFiltersTemp := ChatEventLogFilters{
 		tdCommon:           tdCommon{Type: "chatEventLogFilters"},
 		MessageEdits:       messageEdits,
@@ -22084,7 +23043,14 @@ func (languagePackStringValuePluralized *LanguagePackStringValuePluralized) Mess
 // @param fewValue Value for few objects
 // @param manyValue Value for many objects
 // @param otherValue Default value
-func NewLanguagePackStringValuePluralized(zeroValue string, oneValue string, twoValue string, fewValue string, manyValue string, otherValue string) *LanguagePackStringValuePluralized {
+func NewLanguagePackStringValuePluralized(
+	zeroValue string,
+	oneValue string,
+	twoValue string,
+	fewValue string,
+	manyValue string,
+	otherValue string,
+) *LanguagePackStringValuePluralized {
 	languagePackStringValuePluralizedTemp := LanguagePackStringValuePluralized{
 		tdCommon:   tdCommon{Type: "languagePackStringValuePluralized"},
 		ZeroValue:  zeroValue,
@@ -22241,7 +23207,21 @@ func (languagePackInfo *LanguagePackInfo) MessageType() string {
 // @param translatedStringCount Total number of translated strings from the language pack
 // @param localStringCount Total number of non-deleted strings from the language pack available locally
 // @param translationURL Link to language translation interface; empty for custom local language packs
-func NewLanguagePackInfo(iD string, baseLanguagePackID string, name string, nativeName string, pluralCode string, isOfficial bool, isRtl bool, isBeta bool, isInstalled bool, totalStringCount int32, translatedStringCount int32, localStringCount int32, translationURL string) *LanguagePackInfo {
+func NewLanguagePackInfo(
+	iD string,
+	baseLanguagePackID string,
+	name string,
+	nativeName string,
+	pluralCode string,
+	isOfficial bool,
+	isRtl bool,
+	isBeta bool,
+	isInstalled bool,
+	totalStringCount int32,
+	translatedStringCount int32,
+	localStringCount int32,
+	translationURL string,
+) *LanguagePackInfo {
 	languagePackInfoTemp := LanguagePackInfo{
 		tdCommon:              tdCommon{Type: "languagePackInfo"},
 		ID:                    iD,
@@ -22863,7 +23843,14 @@ func (background *Background) MessageType() string {
 // @param name Unique background name
 // @param document Document with the background; may be null. Null only for filled backgrounds
 // @param typeParam Type of the background
-func NewBackground(iD JSONInt64, isDefault bool, isDark bool, name string, document *Document, typeParam BackgroundType) *Background {
+func NewBackground(
+	iD JSONInt64,
+	isDefault bool,
+	isDark bool,
+	name string,
+	document *Document,
+	typeParam BackgroundType,
+) *Background {
 	backgroundTemp := Background{
 		tdCommon:  tdCommon{Type: "background"},
 		ID:        iD,
@@ -23958,7 +24945,11 @@ func (pushMessageContentChatAddMembers *PushMessageContentChatAddMembers) Messag
 // @param memberName Name of the added member
 // @param isCurrentUser True, if the current user was added to the group
 // @param isReturned True, if the user has returned to the group themself
-func NewPushMessageContentChatAddMembers(memberName string, isCurrentUser bool, isReturned bool) *PushMessageContentChatAddMembers {
+func NewPushMessageContentChatAddMembers(
+	memberName string,
+	isCurrentUser bool,
+	isReturned bool,
+) *PushMessageContentChatAddMembers {
 	pushMessageContentChatAddMembersTemp := PushMessageContentChatAddMembers{
 		tdCommon:      tdCommon{Type: "pushMessageContentChatAddMembers"},
 		MemberName:    memberName,
@@ -24045,7 +25036,11 @@ func (pushMessageContentChatDeleteMember *PushMessageContentChatDeleteMember) Me
 // @param memberName Name of the deleted member
 // @param isCurrentUser True, if the current user was deleted from the group
 // @param isLeft True, if the user has left the group themself
-func NewPushMessageContentChatDeleteMember(memberName string, isCurrentUser bool, isLeft bool) *PushMessageContentChatDeleteMember {
+func NewPushMessageContentChatDeleteMember(
+	memberName string,
+	isCurrentUser bool,
+	isLeft bool,
+) *PushMessageContentChatDeleteMember {
 	pushMessageContentChatDeleteMemberTemp := PushMessageContentChatDeleteMember{
 		tdCommon:      tdCommon{Type: "pushMessageContentChatDeleteMember"},
 		MemberName:    memberName,
@@ -24136,7 +25131,13 @@ func (pushMessageContentMediaAlbum *PushMessageContentMediaAlbum) MessageType() 
 // @param hasVideos True, if the album has at least one video
 // @param hasAudios True, if the album has at least one audio file
 // @param hasDocuments True, if the album has at least one document
-func NewPushMessageContentMediaAlbum(totalCount int32, hasPhotos bool, hasVideos bool, hasAudios bool, hasDocuments bool) *PushMessageContentMediaAlbum {
+func NewPushMessageContentMediaAlbum(
+	totalCount int32,
+	hasPhotos bool,
+	hasVideos bool,
+	hasAudios bool,
+	hasDocuments bool,
+) *PushMessageContentMediaAlbum {
 	pushMessageContentMediaAlbumTemp := PushMessageContentMediaAlbum{
 		tdCommon:     tdCommon{Type: "pushMessageContentMediaAlbum"},
 		TotalCount:   totalCount,
@@ -24257,7 +25258,13 @@ func (notificationTypeNewPushMessage *NotificationTypeNewPushMessage) MessageTyp
 // @param senderName Name of the sender
 // @param isOutgoing True, if the message is outgoing
 // @param content Push message content
-func NewNotificationTypeNewPushMessage(messageID int64, sender MessageSender, senderName string, isOutgoing bool, content PushMessageContent) *NotificationTypeNewPushMessage {
+func NewNotificationTypeNewPushMessage(
+	messageID int64,
+	sender MessageSender,
+	senderName string,
+	isOutgoing bool,
+	content PushMessageContent,
+) *NotificationTypeNewPushMessage {
 	notificationTypeNewPushMessageTemp := NotificationTypeNewPushMessage{
 		tdCommon:   tdCommon{Type: "notificationTypeNewPushMessage"},
 		MessageID:  messageID,
@@ -24492,7 +25499,13 @@ func (notificationGroup *NotificationGroup) MessageType() string {
 // @param chatID Identifier of a chat to which all notifications in the group belong
 // @param totalCount Total number of active notifications in the group
 // @param notifications The list of active notifications
-func NewNotificationGroup(iD int32, typeParam NotificationGroupType, chatID int64, totalCount int32, notifications []Notification) *NotificationGroup {
+func NewNotificationGroup(
+	iD int32,
+	typeParam NotificationGroupType,
+	chatID int64,
+	totalCount int32,
+	notifications []Notification,
+) *NotificationGroup {
 	notificationGroupTemp := NotificationGroup{
 		tdCommon:      tdCommon{Type: "notificationGroup"},
 		ID:            iD,
@@ -24915,7 +25928,7 @@ func (userPrivacySettingRuleAllowContacts *UserPrivacySettingRuleAllowContacts) 
 // UserPrivacySettingRuleAllowUsers A rule to allow certain specified users to do something
 type UserPrivacySettingRuleAllowUsers struct {
 	tdCommon
-	UserIDs []int32 `json:"user_ids"` // The user identifiers, total number of users in all rules must not exceed 1000
+	UserIDs []int64 `json:"user_ids"` // The user identifiers, total number of users in all rules must not exceed 1000
 }
 
 // MessageType return the string telegram-type of UserPrivacySettingRuleAllowUsers
@@ -24926,7 +25939,7 @@ func (userPrivacySettingRuleAllowUsers *UserPrivacySettingRuleAllowUsers) Messag
 // NewUserPrivacySettingRuleAllowUsers creates a new UserPrivacySettingRuleAllowUsers
 //
 // @param userIDs The user identifiers, total number of users in all rules must not exceed 1000
-func NewUserPrivacySettingRuleAllowUsers(userIDs []int32) *UserPrivacySettingRuleAllowUsers {
+func NewUserPrivacySettingRuleAllowUsers(userIDs []int64) *UserPrivacySettingRuleAllowUsers {
 	userPrivacySettingRuleAllowUsersTemp := UserPrivacySettingRuleAllowUsers{
 		tdCommon: tdCommon{Type: "userPrivacySettingRuleAllowUsers"},
 		UserIDs:  userIDs,
@@ -25021,7 +26034,7 @@ func (userPrivacySettingRuleRestrictContacts *UserPrivacySettingRuleRestrictCont
 // UserPrivacySettingRuleRestrictUsers A rule to restrict all specified users from doing something
 type UserPrivacySettingRuleRestrictUsers struct {
 	tdCommon
-	UserIDs []int32 `json:"user_ids"` // The user identifiers, total number of users in all rules must not exceed 1000
+	UserIDs []int64 `json:"user_ids"` // The user identifiers, total number of users in all rules must not exceed 1000
 }
 
 // MessageType return the string telegram-type of UserPrivacySettingRuleRestrictUsers
@@ -25032,7 +26045,7 @@ func (userPrivacySettingRuleRestrictUsers *UserPrivacySettingRuleRestrictUsers) 
 // NewUserPrivacySettingRuleRestrictUsers creates a new UserPrivacySettingRuleRestrictUsers
 //
 // @param userIDs The user identifiers, total number of users in all rules must not exceed 1000
-func NewUserPrivacySettingRuleRestrictUsers(userIDs []int32) *UserPrivacySettingRuleRestrictUsers {
+func NewUserPrivacySettingRuleRestrictUsers(userIDs []int64) *UserPrivacySettingRuleRestrictUsers {
 	userPrivacySettingRuleRestrictUsersTemp := UserPrivacySettingRuleRestrictUsers{
 		tdCommon: tdCommon{Type: "userPrivacySettingRuleRestrictUsers"},
 		UserIDs:  userIDs,
@@ -25362,7 +26375,23 @@ func (session *Session) MessageType() string {
 // @param iP IP address from which the session was created, in human-readable format
 // @param country A two-letter country code for the country from which the session was created, based on the IP address
 // @param region Region code from which the session was created, based on the IP address
-func NewSession(iD JSONInt64, isCurrent bool, isPasswordPending bool, aPIID int32, applicationName string, applicationVersion string, isOfficialApplication bool, deviceModel string, platform string, systemVersion string, logInDate int32, lastActiveDate int32, iP string, country string, region string) *Session {
+func NewSession(
+	iD JSONInt64,
+	isCurrent bool,
+	isPasswordPending bool,
+	aPIID int32,
+	applicationName string,
+	applicationVersion string,
+	isOfficialApplication bool,
+	deviceModel string,
+	platform string,
+	systemVersion string,
+	logInDate int32,
+	lastActiveDate int32,
+	iP string,
+	country string,
+	region string,
+) *Session {
 	sessionTemp := Session{
 		tdCommon:              tdCommon{Type: "session"},
 		ID:                    iD,
@@ -25413,7 +26442,7 @@ type ConnectedWebsite struct {
 	tdCommon
 	ID             JSONInt64 `json:"id"`               // Website identifier
 	DomainName     string    `json:"domain_name"`      // The domain name of the website
-	BotUserID      int32     `json:"bot_user_id"`      // User identifier of a bot linked with the website
+	BotUserID      int64     `json:"bot_user_id"`      // User identifier of a bot linked with the website
 	Browser        string    `json:"browser"`          // The version of a browser used to log in
 	Platform       string    `json:"platform"`         // Operating system the browser is running on
 	LogInDate      int32     `json:"log_in_date"`      // Point in time (Unix timestamp) when the user was logged in
@@ -25438,7 +26467,17 @@ func (connectedWebsite *ConnectedWebsite) MessageType() string {
 // @param lastActiveDate Point in time (Unix timestamp) when obtained authorization was last used
 // @param iP IP address from which the user was logged in, in human-readable format
 // @param location Human-readable description of a country and a region, from which the user was logged in, based on the IP address
-func NewConnectedWebsite(iD JSONInt64, domainName string, botUserID int32, browser string, platform string, logInDate int32, lastActiveDate int32, iP string, location string) *ConnectedWebsite {
+func NewConnectedWebsite(
+	iD JSONInt64,
+	domainName string,
+	botUserID int64,
+	browser string,
+	platform string,
+	logInDate int32,
+	lastActiveDate int32,
+	iP string,
+	location string,
+) *ConnectedWebsite {
 	connectedWebsiteTemp := ConnectedWebsite{
 		tdCommon:       tdCommon{Type: "connectedWebsite"},
 		ID:             iD,
@@ -25729,7 +26768,13 @@ func (messageLinkInfo *MessageLinkInfo) MessageType() string {
 // @param message If found, the linked message; may be null
 // @param forAlbum True, if the whole media album to which the message belongs is linked
 // @param forComment True, if the message is linked as a channel post comment or from a message thread
-func NewMessageLinkInfo(isPublic bool, chatID int64, message *Message, forAlbum bool, forComment bool) *MessageLinkInfo {
+func NewMessageLinkInfo(
+	isPublic bool,
+	chatID int64,
+	message *Message,
+	forAlbum bool,
+	forComment bool,
+) *MessageLinkInfo {
 	messageLinkInfoTemp := MessageLinkInfo{
 		tdCommon:   tdCommon{Type: "messageLinkInfo"},
 		IsPublic:   isPublic,
@@ -26241,7 +27286,12 @@ func (storageStatisticsByChat *StorageStatisticsByChat) MessageType() string {
 // @param size Total size of the files in the chat
 // @param count Total number of files in the chat
 // @param byFileType Statistics split by file types
-func NewStorageStatisticsByChat(chatID int64, size int64, count int32, byFileType []StorageStatisticsByFileType) *StorageStatisticsByChat {
+func NewStorageStatisticsByChat(
+	chatID int64,
+	size int64,
+	count int32,
+	byFileType []StorageStatisticsByFileType,
+) *StorageStatisticsByChat {
 	storageStatisticsByChatTemp := StorageStatisticsByChat{
 		tdCommon:   tdCommon{Type: "storageStatisticsByChat"},
 		ChatID:     chatID,
@@ -26304,7 +27354,13 @@ func (storageStatisticsFast *StorageStatisticsFast) MessageType() string {
 // @param databaseSize Size of the database
 // @param languagePackDatabaseSize Size of the language pack database
 // @param logSize Size of the TDLib internal log
-func NewStorageStatisticsFast(filesSize int64, fileCount int32, databaseSize int64, languagePackDatabaseSize int64, logSize int64) *StorageStatisticsFast {
+func NewStorageStatisticsFast(
+	filesSize int64,
+	fileCount int32,
+	databaseSize int64,
+	languagePackDatabaseSize int64,
+	logSize int64,
+) *StorageStatisticsFast {
 	storageStatisticsFastTemp := StorageStatisticsFast{
 		tdCommon:                 tdCommon{Type: "storageStatisticsFast"},
 		FilesSize:                filesSize,
@@ -26485,7 +27541,12 @@ func (networkStatisticsEntryFile *NetworkStatisticsEntryFile) MessageType() stri
 // @param networkType Type of the network the data was sent through. Call setNetworkType to maintain the actual network type
 // @param sentBytes Total number of bytes sent
 // @param receivedBytes Total number of bytes received
-func NewNetworkStatisticsEntryFile(fileType FileType, networkType NetworkType, sentBytes int64, receivedBytes int64) *NetworkStatisticsEntryFile {
+func NewNetworkStatisticsEntryFile(
+	fileType FileType,
+	networkType NetworkType,
+	sentBytes int64,
+	receivedBytes int64,
+) *NetworkStatisticsEntryFile {
 	networkStatisticsEntryFileTemp := NetworkStatisticsEntryFile{
 		tdCommon:      tdCommon{Type: "networkStatisticsEntryFile"},
 		FileType:      fileType,
@@ -26552,7 +27613,12 @@ func (networkStatisticsEntryCall *NetworkStatisticsEntryCall) MessageType() stri
 // @param sentBytes Total number of bytes sent
 // @param receivedBytes Total number of bytes received
 // @param duration Total call duration, in seconds
-func NewNetworkStatisticsEntryCall(networkType NetworkType, sentBytes int64, receivedBytes int64, duration float64) *NetworkStatisticsEntryCall {
+func NewNetworkStatisticsEntryCall(
+	networkType NetworkType,
+	sentBytes int64,
+	receivedBytes int64,
+	duration float64,
+) *NetworkStatisticsEntryCall {
 	networkStatisticsEntryCallTemp := NetworkStatisticsEntryCall{
 		tdCommon:      tdCommon{Type: "networkStatisticsEntryCall"},
 		NetworkType:   networkType,
@@ -26652,7 +27718,16 @@ func (autoDownloadSettings *AutoDownloadSettings) MessageType() string {
 // @param preloadLargeVideos True, if the beginning of video files needs to be preloaded for instant playback
 // @param preloadNextAudio True, if the next audio track needs to be preloaded while the user is listening to an audio file
 // @param useLessDataForCalls True, if "use less data for calls" option needs to be enabled
-func NewAutoDownloadSettings(isAutoDownloadEnabled bool, maxPhotoFileSize int32, maxVideoFileSize int32, maxOtherFileSize int32, videoUploadBitrate int32, preloadLargeVideos bool, preloadNextAudio bool, useLessDataForCalls bool) *AutoDownloadSettings {
+func NewAutoDownloadSettings(
+	isAutoDownloadEnabled bool,
+	maxPhotoFileSize int32,
+	maxVideoFileSize int32,
+	maxOtherFileSize int32,
+	videoUploadBitrate int32,
+	preloadLargeVideos bool,
+	preloadNextAudio bool,
+	useLessDataForCalls bool,
+) *AutoDownloadSettings {
 	autoDownloadSettingsTemp := AutoDownloadSettings{
 		tdCommon:              tdCommon{Type: "autoDownloadSettings"},
 		IsAutoDownloadEnabled: isAutoDownloadEnabled,
@@ -26686,7 +27761,11 @@ func (autoDownloadSettingsPresets *AutoDownloadSettingsPresets) MessageType() st
 // @param low Preset with lowest settings; supposed to be used by default when roaming
 // @param medium Preset with medium settings; supposed to be used by default when using mobile data
 // @param high Preset with highest settings; supposed to be used by default when connected on Wi-Fi
-func NewAutoDownloadSettingsPresets(low *AutoDownloadSettings, medium *AutoDownloadSettings, high *AutoDownloadSettings) *AutoDownloadSettingsPresets {
+func NewAutoDownloadSettingsPresets(
+	low *AutoDownloadSettings,
+	medium *AutoDownloadSettings,
+	high *AutoDownloadSettings,
+) *AutoDownloadSettingsPresets {
 	autoDownloadSettingsPresetsTemp := AutoDownloadSettingsPresets{
 		tdCommon: tdCommon{Type: "autoDownloadSettingsPresets"},
 		Low:      low,
@@ -27000,7 +28079,7 @@ func (topChatCategoryForwardChats *TopChatCategoryForwardChats) GetTopChatCatego
 // TMeURLTypeUser A URL linking to a user
 type TMeURLTypeUser struct {
 	tdCommon
-	UserID int32 `json:"user_id"` // Identifier of the user
+	UserID int64 `json:"user_id"` // Identifier of the user
 }
 
 // MessageType return the string telegram-type of TMeURLTypeUser
@@ -27011,7 +28090,7 @@ func (tMeURLTypeUser *TMeURLTypeUser) MessageType() string {
 // NewTMeURLTypeUser creates a new TMeURLTypeUser
 //
 // @param userID Identifier of the user
-func NewTMeURLTypeUser(userID int32) *TMeURLTypeUser {
+func NewTMeURLTypeUser(userID int64) *TMeURLTypeUser {
 	tMeURLTypeUserTemp := TMeURLTypeUser{
 		tdCommon: tdCommon{Type: "tMeUrlTypeUser"},
 		UserID:   userID,
@@ -27872,7 +28951,11 @@ func (chatStatisticsMessageInteractionInfo *ChatStatisticsMessageInteractionInfo
 // @param messageID Message identifier
 // @param viewCount Number of times the message was viewed
 // @param forwardCount Number of times the message was forwarded
-func NewChatStatisticsMessageInteractionInfo(messageID int64, viewCount int32, forwardCount int32) *ChatStatisticsMessageInteractionInfo {
+func NewChatStatisticsMessageInteractionInfo(
+	messageID int64,
+	viewCount int32,
+	forwardCount int32,
+) *ChatStatisticsMessageInteractionInfo {
 	chatStatisticsMessageInteractionInfoTemp := ChatStatisticsMessageInteractionInfo{
 		tdCommon:     tdCommon{Type: "chatStatisticsMessageInteractionInfo"},
 		MessageID:    messageID,
@@ -27886,7 +28969,7 @@ func NewChatStatisticsMessageInteractionInfo(messageID int64, viewCount int32, f
 // ChatStatisticsMessageSenderInfo Contains statistics about messages sent by a user
 type ChatStatisticsMessageSenderInfo struct {
 	tdCommon
-	UserID                int32 `json:"user_id"`                 // User identifier
+	UserID                int64 `json:"user_id"`                 // User identifier
 	SentMessageCount      int32 `json:"sent_message_count"`      // Number of sent messages
 	AverageCharacterCount int32 `json:"average_character_count"` // Average number of characters in sent messages
 }
@@ -27901,7 +28984,11 @@ func (chatStatisticsMessageSenderInfo *ChatStatisticsMessageSenderInfo) MessageT
 // @param userID User identifier
 // @param sentMessageCount Number of sent messages
 // @param averageCharacterCount Average number of characters in sent messages
-func NewChatStatisticsMessageSenderInfo(userID int32, sentMessageCount int32, averageCharacterCount int32) *ChatStatisticsMessageSenderInfo {
+func NewChatStatisticsMessageSenderInfo(
+	userID int64,
+	sentMessageCount int32,
+	averageCharacterCount int32,
+) *ChatStatisticsMessageSenderInfo {
 	chatStatisticsMessageSenderInfoTemp := ChatStatisticsMessageSenderInfo{
 		tdCommon:              tdCommon{Type: "chatStatisticsMessageSenderInfo"},
 		UserID:                userID,
@@ -27915,7 +29002,7 @@ func NewChatStatisticsMessageSenderInfo(userID int32, sentMessageCount int32, av
 // ChatStatisticsAdministratorActionsInfo Contains statistics about administrator actions done by a user
 type ChatStatisticsAdministratorActionsInfo struct {
 	tdCommon
-	UserID              int32 `json:"user_id"`               // Administrator user identifier
+	UserID              int64 `json:"user_id"`               // Administrator user identifier
 	DeletedMessageCount int32 `json:"deleted_message_count"` // Number of messages deleted by the administrator
 	BannedUserCount     int32 `json:"banned_user_count"`     // Number of users banned by the administrator
 	RestrictedUserCount int32 `json:"restricted_user_count"` // Number of users restricted by the administrator
@@ -27932,7 +29019,12 @@ func (chatStatisticsAdministratorActionsInfo *ChatStatisticsAdministratorActions
 // @param deletedMessageCount Number of messages deleted by the administrator
 // @param bannedUserCount Number of users banned by the administrator
 // @param restrictedUserCount Number of users restricted by the administrator
-func NewChatStatisticsAdministratorActionsInfo(userID int32, deletedMessageCount int32, bannedUserCount int32, restrictedUserCount int32) *ChatStatisticsAdministratorActionsInfo {
+func NewChatStatisticsAdministratorActionsInfo(
+	userID int64,
+	deletedMessageCount int32,
+	bannedUserCount int32,
+	restrictedUserCount int32,
+) *ChatStatisticsAdministratorActionsInfo {
 	chatStatisticsAdministratorActionsInfoTemp := ChatStatisticsAdministratorActionsInfo{
 		tdCommon:            tdCommon{Type: "chatStatisticsAdministratorActionsInfo"},
 		UserID:              userID,
@@ -27947,7 +29039,7 @@ func NewChatStatisticsAdministratorActionsInfo(userID int32, deletedMessageCount
 // ChatStatisticsInviterInfo Contains statistics about number of new members invited by a user
 type ChatStatisticsInviterInfo struct {
 	tdCommon
-	UserID           int32 `json:"user_id"`            // User identifier
+	UserID           int64 `json:"user_id"`            // User identifier
 	AddedMemberCount int32 `json:"added_member_count"` // Number of new members invited by the user
 }
 
@@ -27960,7 +29052,7 @@ func (chatStatisticsInviterInfo *ChatStatisticsInviterInfo) MessageType() string
 //
 // @param userID User identifier
 // @param addedMemberCount Number of new members invited by the user
-func NewChatStatisticsInviterInfo(userID int32, addedMemberCount int32) *ChatStatisticsInviterInfo {
+func NewChatStatisticsInviterInfo(userID int64, addedMemberCount int32) *ChatStatisticsInviterInfo {
 	chatStatisticsInviterInfoTemp := ChatStatisticsInviterInfo{
 		tdCommon:         tdCommon{Type: "chatStatisticsInviterInfo"},
 		UserID:           userID,
@@ -28014,7 +29106,24 @@ func (chatStatisticsSupergroup *ChatStatisticsSupergroup) MessageType() string {
 // @param topSenders List of users sent most messages in the last week
 // @param topAdministrators List of most active administrators in the last week
 // @param topInviters List of most active inviters of new members in the last week
-func NewChatStatisticsSupergroup(period *DateRange, memberCount *StatisticalValue, messageCount *StatisticalValue, viewerCount *StatisticalValue, senderCount *StatisticalValue, memberCountGraph StatisticalGraph, joinGraph StatisticalGraph, joinBySourceGraph StatisticalGraph, languageGraph StatisticalGraph, messageContentGraph StatisticalGraph, actionGraph StatisticalGraph, dayGraph StatisticalGraph, weekGraph StatisticalGraph, topSenders []ChatStatisticsMessageSenderInfo, topAdministrators []ChatStatisticsAdministratorActionsInfo, topInviters []ChatStatisticsInviterInfo) *ChatStatisticsSupergroup {
+func NewChatStatisticsSupergroup(
+	period *DateRange,
+	memberCount *StatisticalValue,
+	messageCount *StatisticalValue,
+	viewerCount *StatisticalValue,
+	senderCount *StatisticalValue,
+	memberCountGraph StatisticalGraph,
+	joinGraph StatisticalGraph,
+	joinBySourceGraph StatisticalGraph,
+	languageGraph StatisticalGraph,
+	messageContentGraph StatisticalGraph,
+	actionGraph StatisticalGraph,
+	dayGraph StatisticalGraph,
+	weekGraph StatisticalGraph,
+	topSenders []ChatStatisticsMessageSenderInfo,
+	topAdministrators []ChatStatisticsAdministratorActionsInfo,
+	topInviters []ChatStatisticsInviterInfo,
+) *ChatStatisticsSupergroup {
 	chatStatisticsSupergroupTemp := ChatStatisticsSupergroup{
 		tdCommon:            tdCommon{Type: "chatStatisticsSupergroup"},
 		Period:              period,
@@ -28145,7 +29254,23 @@ func (chatStatisticsChannel *ChatStatisticsChannel) MessageType() string {
 // @param messageInteractionGraph A graph containing number of chat message views and shares
 // @param instantViewInteractionGraph A graph containing number of views of associated with the chat instant views
 // @param recentMessageInteractions Detailed statistics about number of views and shares of recently sent messages
-func NewChatStatisticsChannel(period *DateRange, memberCount *StatisticalValue, meanViewCount *StatisticalValue, meanShareCount *StatisticalValue, enabledNotificationsPercentage float64, memberCountGraph StatisticalGraph, joinGraph StatisticalGraph, muteGraph StatisticalGraph, viewCountByHourGraph StatisticalGraph, viewCountBySourceGraph StatisticalGraph, joinBySourceGraph StatisticalGraph, languageGraph StatisticalGraph, messageInteractionGraph StatisticalGraph, instantViewInteractionGraph StatisticalGraph, recentMessageInteractions []ChatStatisticsMessageInteractionInfo) *ChatStatisticsChannel {
+func NewChatStatisticsChannel(
+	period *DateRange,
+	memberCount *StatisticalValue,
+	meanViewCount *StatisticalValue,
+	meanShareCount *StatisticalValue,
+	enabledNotificationsPercentage float64,
+	memberCountGraph StatisticalGraph,
+	joinGraph StatisticalGraph,
+	muteGraph StatisticalGraph,
+	viewCountByHourGraph StatisticalGraph,
+	viewCountBySourceGraph StatisticalGraph,
+	joinBySourceGraph StatisticalGraph,
+	languageGraph StatisticalGraph,
+	messageInteractionGraph StatisticalGraph,
+	instantViewInteractionGraph StatisticalGraph,
+	recentMessageInteractions []ChatStatisticsMessageInteractionInfo,
+) *ChatStatisticsChannel {
 	chatStatisticsChannelTemp := ChatStatisticsChannel{
 		tdCommon:                       tdCommon{Type: "chatStatisticsChannel"},
 		Period:                         period,
@@ -28350,7 +29475,11 @@ func (vectorPathCommandCubicBezierCurve *VectorPathCommandCubicBezierCurve) Mess
 // @param startControlPoint The start control point of the curve
 // @param endControlPoint The end control point of the curve
 // @param endPoint The end point of the curve
-func NewVectorPathCommandCubicBezierCurve(startControlPoint *Point, endControlPoint *Point, endPoint *Point) *VectorPathCommandCubicBezierCurve {
+func NewVectorPathCommandCubicBezierCurve(
+	startControlPoint *Point,
+	endControlPoint *Point,
+	endPoint *Point,
+) *VectorPathCommandCubicBezierCurve {
 	vectorPathCommandCubicBezierCurveTemp := VectorPathCommandCubicBezierCurve{
 		tdCommon:          tdCommon{Type: "vectorPathCommandCubicBezierCurve"},
 		StartControlPoint: startControlPoint,
@@ -28527,7 +29656,12 @@ func (updateMessageSendFailed *UpdateMessageSendFailed) MessageType() string {
 // @param oldMessageID The previous temporary message identifier
 // @param errorCode An error code
 // @param errorMessage Error message
-func NewUpdateMessageSendFailed(message *Message, oldMessageID int64, errorCode int32, errorMessage string) *UpdateMessageSendFailed {
+func NewUpdateMessageSendFailed(
+	message *Message,
+	oldMessageID int64,
+	errorCode int32,
+	errorMessage string,
+) *UpdateMessageSendFailed {
 	updateMessageSendFailedTemp := UpdateMessageSendFailed{
 		tdCommon:     tdCommon{Type: "updateMessageSendFailed"},
 		Message:      message,
@@ -28626,7 +29760,12 @@ func (updateMessageEdited *UpdateMessageEdited) MessageType() string {
 // @param messageID Message identifier
 // @param editDate Point in time (Unix timestamp) when the message was edited
 // @param replyMarkup New message reply markup; may be null
-func NewUpdateMessageEdited(chatID int64, messageID int64, editDate int32, replyMarkup ReplyMarkup) *UpdateMessageEdited {
+func NewUpdateMessageEdited(
+	chatID int64,
+	messageID int64,
+	editDate int32,
+	replyMarkup ReplyMarkup,
+) *UpdateMessageEdited {
 	updateMessageEditedTemp := UpdateMessageEdited{
 		tdCommon:    tdCommon{Type: "updateMessageEdited"},
 		ChatID:      chatID,
@@ -28725,7 +29864,11 @@ func (updateMessageInteractionInfo *UpdateMessageInteractionInfo) MessageType() 
 // @param chatID Chat identifier
 // @param messageID Message identifier
 // @param interactionInfo New information about interactions with the message; may be null
-func NewUpdateMessageInteractionInfo(chatID int64, messageID int64, interactionInfo *MessageInteractionInfo) *UpdateMessageInteractionInfo {
+func NewUpdateMessageInteractionInfo(
+	chatID int64,
+	messageID int64,
+	interactionInfo *MessageInteractionInfo,
+) *UpdateMessageInteractionInfo {
 	updateMessageInteractionInfoTemp := UpdateMessageInteractionInfo{
 		tdCommon:        tdCommon{Type: "updateMessageInteractionInfo"},
 		ChatID:          chatID,
@@ -29166,7 +30309,10 @@ func (updateChatDefaultDisableNotification *UpdateChatDefaultDisableNotification
 //
 // @param chatID Chat identifier
 // @param defaultDisableNotification The new default_disable_notification value
-func NewUpdateChatDefaultDisableNotification(chatID int64, defaultDisableNotification bool) *UpdateChatDefaultDisableNotification {
+func NewUpdateChatDefaultDisableNotification(
+	chatID int64,
+	defaultDisableNotification bool,
+) *UpdateChatDefaultDisableNotification {
 	updateChatDefaultDisableNotificationTemp := UpdateChatDefaultDisableNotification{
 		tdCommon:                   tdCommon{Type: "updateChatDefaultDisableNotification"},
 		ChatID:                     chatID,
@@ -29293,7 +30439,10 @@ func (updateChatNotificationSettings *UpdateChatNotificationSettings) MessageTyp
 //
 // @param chatID Chat identifier
 // @param notificationSettings The new notification settings
-func NewUpdateChatNotificationSettings(chatID int64, notificationSettings *ChatNotificationSettings) *UpdateChatNotificationSettings {
+func NewUpdateChatNotificationSettings(
+	chatID int64,
+	notificationSettings *ChatNotificationSettings,
+) *UpdateChatNotificationSettings {
 	updateChatNotificationSettingsTemp := UpdateChatNotificationSettings{
 		tdCommon:             tdCommon{Type: "updateChatNotificationSettings"},
 		ChatID:               chatID,
@@ -29324,7 +30473,10 @@ func (updateScopeNotificationSettings *UpdateScopeNotificationSettings) MessageT
 //
 // @param scope Types of chats for which notification settings were updated
 // @param notificationSettings The new notification settings
-func NewUpdateScopeNotificationSettings(scope NotificationSettingsScope, notificationSettings *ScopeNotificationSettings) *UpdateScopeNotificationSettings {
+func NewUpdateScopeNotificationSettings(
+	scope NotificationSettingsScope,
+	notificationSettings *ScopeNotificationSettings,
+) *UpdateScopeNotificationSettings {
 	updateScopeNotificationSettingsTemp := UpdateScopeNotificationSettings{
 		tdCommon:             tdCommon{Type: "updateScopeNotificationSettings"},
 		Scope:                scope,
@@ -29470,7 +30622,11 @@ func (updateChatDraftMessage *UpdateChatDraftMessage) MessageType() string {
 // @param chatID Chat identifier
 // @param draftMessage The new draft message; may be null
 // @param positions The new chat positions in the chat lists
-func NewUpdateChatDraftMessage(chatID int64, draftMessage *DraftMessage, positions []ChatPosition) *UpdateChatDraftMessage {
+func NewUpdateChatDraftMessage(
+	chatID int64,
+	draftMessage *DraftMessage,
+	positions []ChatPosition,
+) *UpdateChatDraftMessage {
 	updateChatDraftMessageTemp := UpdateChatDraftMessage{
 		tdCommon:     tdCommon{Type: "updateChatDraftMessage"},
 		ChatID:       chatID,
@@ -29604,7 +30760,16 @@ func (updateNotificationGroup *UpdateNotificationGroup) MessageType() string {
 // @param totalCount Total number of unread notifications in the group, can be bigger than number of active notifications
 // @param addedNotifications List of added group notifications, sorted by notification ID
 // @param removedNotificationIDs Identifiers of removed group notifications, sorted by notification ID
-func NewUpdateNotificationGroup(notificationGroupID int32, typeParam NotificationGroupType, chatID int64, notificationSettingsChatID int64, isSilent bool, totalCount int32, addedNotifications []Notification, removedNotificationIDs []int32) *UpdateNotificationGroup {
+func NewUpdateNotificationGroup(
+	notificationGroupID int32,
+	typeParam NotificationGroupType,
+	chatID int64,
+	notificationSettingsChatID int64,
+	isSilent bool,
+	totalCount int32,
+	addedNotifications []Notification,
+	removedNotificationIDs []int32,
+) *UpdateNotificationGroup {
 	updateNotificationGroupTemp := UpdateNotificationGroup{
 		tdCommon:                   tdCommon{Type: "updateNotificationGroup"},
 		NotificationGroupID:        notificationGroupID,
@@ -29706,7 +30871,10 @@ func (updateHavePendingNotifications *UpdateHavePendingNotifications) MessageTyp
 //
 // @param haveDelayedNotifications True, if there are some delayed notification updates, which will be sent soon
 // @param haveUnreceivedNotifications True, if there can be some yet unreceived notifications, which are being fetched from the server
-func NewUpdateHavePendingNotifications(haveDelayedNotifications bool, haveUnreceivedNotifications bool) *UpdateHavePendingNotifications {
+func NewUpdateHavePendingNotifications(
+	haveDelayedNotifications bool,
+	haveUnreceivedNotifications bool,
+) *UpdateHavePendingNotifications {
 	updateHavePendingNotificationsTemp := UpdateHavePendingNotifications{
 		tdCommon:                    tdCommon{Type: "updateHavePendingNotifications"},
 		HaveDelayedNotifications:    haveDelayedNotifications,
@@ -29763,7 +30931,7 @@ type UpdateUserChatAction struct {
 	tdCommon
 	ChatID          int64      `json:"chat_id"`           // Chat identifier
 	MessageThreadID int64      `json:"message_thread_id"` // If not 0, a message thread identifier in which the action was performed
-	UserID          int32      `json:"user_id"`           // Identifier of a user performing an action
+	UserID          int64      `json:"user_id"`           // Identifier of a user performing an action
 	Action          ChatAction `json:"action"`            // The action description
 }
 
@@ -29778,7 +30946,12 @@ func (updateUserChatAction *UpdateUserChatAction) MessageType() string {
 // @param messageThreadID If not 0, a message thread identifier in which the action was performed
 // @param userID Identifier of a user performing an action
 // @param action The action description
-func NewUpdateUserChatAction(chatID int64, messageThreadID int64, userID int32, action ChatAction) *UpdateUserChatAction {
+func NewUpdateUserChatAction(
+	chatID int64,
+	messageThreadID int64,
+	userID int64,
+	action ChatAction,
+) *UpdateUserChatAction {
 	updateUserChatActionTemp := UpdateUserChatAction{
 		tdCommon:        tdCommon{Type: "updateUserChatAction"},
 		ChatID:          chatID,
@@ -29801,7 +30974,7 @@ func (updateUserChatAction *UpdateUserChatAction) UnmarshalJSON(b []byte) error 
 		tdCommon
 		ChatID          int64 `json:"chat_id"`           // Chat identifier
 		MessageThreadID int64 `json:"message_thread_id"` // If not 0, a message thread identifier in which the action was performed
-		UserID          int32 `json:"user_id"`           // Identifier of a user performing an action
+		UserID          int64 `json:"user_id"`           // Identifier of a user performing an action
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -29828,7 +31001,7 @@ func (updateUserChatAction *UpdateUserChatAction) GetUpdateEnum() UpdateEnum {
 // UpdateUserStatus The user went online or offline
 type UpdateUserStatus struct {
 	tdCommon
-	UserID int32      `json:"user_id"` // User identifier
+	UserID int64      `json:"user_id"` // User identifier
 	Status UserStatus `json:"status"`  // New status of the user
 }
 
@@ -29841,7 +31014,7 @@ func (updateUserStatus *UpdateUserStatus) MessageType() string {
 //
 // @param userID User identifier
 // @param status New status of the user
-func NewUpdateUserStatus(userID int32, status UserStatus) *UpdateUserStatus {
+func NewUpdateUserStatus(userID int64, status UserStatus) *UpdateUserStatus {
 	updateUserStatusTemp := UpdateUserStatus{
 		tdCommon: tdCommon{Type: "updateUserStatus"},
 		UserID:   userID,
@@ -29860,7 +31033,7 @@ func (updateUserStatus *UpdateUserStatus) UnmarshalJSON(b []byte) error {
 	}
 	tempObj := struct {
 		tdCommon
-		UserID int32 `json:"user_id"` // User identifier
+		UserID int64 `json:"user_id"` // User identifier
 
 	}{}
 	err = json.Unmarshal(b, &tempObj)
@@ -29997,7 +31170,7 @@ func (updateSecretChat *UpdateSecretChat) GetUpdateEnum() UpdateEnum {
 // UpdateUserFullInfo Some data from userFullInfo has been changed
 type UpdateUserFullInfo struct {
 	tdCommon
-	UserID       int32         `json:"user_id"`        // User identifier
+	UserID       int64         `json:"user_id"`        // User identifier
 	UserFullInfo *UserFullInfo `json:"user_full_info"` // New full information about the user
 }
 
@@ -30010,7 +31183,7 @@ func (updateUserFullInfo *UpdateUserFullInfo) MessageType() string {
 //
 // @param userID User identifier
 // @param userFullInfo New full information about the user
-func NewUpdateUserFullInfo(userID int32, userFullInfo *UserFullInfo) *UpdateUserFullInfo {
+func NewUpdateUserFullInfo(userID int64, userFullInfo *UserFullInfo) *UpdateUserFullInfo {
 	updateUserFullInfoTemp := UpdateUserFullInfo{
 		tdCommon:     tdCommon{Type: "updateUserFullInfo"},
 		UserID:       userID,
@@ -30192,7 +31365,12 @@ func (updateFileGenerationStart *UpdateFileGenerationStart) MessageType() string
 // @param originalPath The path to a file from which a new file is generated; may be empty
 // @param destinationPath The path to a file that should be created and where the new file should be generated
 // @param conversion String specifying the conversion applied to the original file. If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which should be downloaded by the application
-func NewUpdateFileGenerationStart(generationID JSONInt64, originalPath string, destinationPath string, conversion string) *UpdateFileGenerationStart {
+func NewUpdateFileGenerationStart(
+	generationID JSONInt64,
+	originalPath string,
+	destinationPath string,
+	conversion string,
+) *UpdateFileGenerationStart {
 	updateFileGenerationStartTemp := UpdateFileGenerationStart{
 		tdCommon:        tdCommon{Type: "updateFileGenerationStart"},
 		GenerationID:    generationID,
@@ -30371,7 +31549,10 @@ func (updateUserPrivacySettingRules *UpdateUserPrivacySettingRules) MessageType(
 //
 // @param setting The privacy setting
 // @param rules New privacy rules
-func NewUpdateUserPrivacySettingRules(setting UserPrivacySetting, rules *UserPrivacySettingRules) *UpdateUserPrivacySettingRules {
+func NewUpdateUserPrivacySettingRules(
+	setting UserPrivacySetting,
+	rules *UserPrivacySettingRules,
+) *UpdateUserPrivacySettingRules {
 	updateUserPrivacySettingRulesTemp := UpdateUserPrivacySettingRules{
 		tdCommon: tdCommon{Type: "updateUserPrivacySettingRules"},
 		Setting:  setting,
@@ -30429,7 +31610,11 @@ func (updateUnreadMessageCount *UpdateUnreadMessageCount) MessageType() string {
 // @param chatList The chat list with changed number of unread messages
 // @param unreadCount Total number of unread messages
 // @param unreadUnmutedCount Total number of unread messages in unmuted chats
-func NewUpdateUnreadMessageCount(chatList ChatList, unreadCount int32, unreadUnmutedCount int32) *UpdateUnreadMessageCount {
+func NewUpdateUnreadMessageCount(
+	chatList ChatList,
+	unreadCount int32,
+	unreadUnmutedCount int32,
+) *UpdateUnreadMessageCount {
 	updateUnreadMessageCountTemp := UpdateUnreadMessageCount{
 		tdCommon:           tdCommon{Type: "updateUnreadMessageCount"},
 		ChatList:           chatList,
@@ -30496,7 +31681,14 @@ func (updateUnreadChatCount *UpdateUnreadChatCount) MessageType() string {
 // @param unreadUnmutedCount Total number of unread unmuted chats
 // @param markedAsUnreadCount Total number of chats marked as unread
 // @param markedAsUnreadUnmutedCount Total number of unmuted chats marked as unread
-func NewUpdateUnreadChatCount(chatList ChatList, totalCount int32, unreadCount int32, unreadUnmutedCount int32, markedAsUnreadCount int32, markedAsUnreadUnmutedCount int32) *UpdateUnreadChatCount {
+func NewUpdateUnreadChatCount(
+	chatList ChatList,
+	totalCount int32,
+	unreadCount int32,
+	unreadUnmutedCount int32,
+	markedAsUnreadCount int32,
+	markedAsUnreadUnmutedCount int32,
+) *UpdateUnreadChatCount {
 	updateUnreadChatCountTemp := UpdateUnreadChatCount{
 		tdCommon:                   tdCommon{Type: "updateUnreadChatCount"},
 		ChatList:                   chatList,
@@ -30828,7 +32020,11 @@ func (updateLanguagePackStrings *UpdateLanguagePackStrings) MessageType() string
 // @param localizationTarget Localization target to which the language pack belongs
 // @param languagePackID Identifier of the updated language pack
 // @param strings List of changed language pack strings
-func NewUpdateLanguagePackStrings(localizationTarget string, languagePackID string, strings []LanguagePackString) *UpdateLanguagePackStrings {
+func NewUpdateLanguagePackStrings(
+	localizationTarget string,
+	languagePackID string,
+	strings []LanguagePackString,
+) *UpdateLanguagePackStrings {
 	updateLanguagePackStringsTemp := UpdateLanguagePackStrings{
 		tdCommon:           tdCommon{Type: "updateLanguagePackStrings"},
 		LocalizationTarget: localizationTarget,
@@ -31029,7 +32225,10 @@ func (updateSuggestedActions *UpdateSuggestedActions) MessageType() string {
 //
 // @param addedActions Added suggested actions
 // @param removedActions Removed suggested actions
-func NewUpdateSuggestedActions(addedActions []SuggestedAction, removedActions []SuggestedAction) *UpdateSuggestedActions {
+func NewUpdateSuggestedActions(
+	addedActions []SuggestedAction,
+	removedActions []SuggestedAction,
+) *UpdateSuggestedActions {
 	updateSuggestedActionsTemp := UpdateSuggestedActions{
 		tdCommon:       tdCommon{Type: "updateSuggestedActions"},
 		AddedActions:   addedActions,
@@ -31048,7 +32247,7 @@ func (updateSuggestedActions *UpdateSuggestedActions) GetUpdateEnum() UpdateEnum
 type UpdateNewInlineQuery struct {
 	tdCommon
 	ID           JSONInt64 `json:"id"`             // Unique query identifier
-	SenderUserID int32     `json:"sender_user_id"` // Identifier of the user who sent the query
+	SenderUserID int64     `json:"sender_user_id"` // Identifier of the user who sent the query
 	UserLocation *Location `json:"user_location"`  // User location; may be null
 	ChatType     ChatType  `json:"chat_type"`      // Contains information about the type of the chat, from which the query originated; may be null if unknown
 	Query        string    `json:"query"`          // Text of the query
@@ -31068,7 +32267,14 @@ func (updateNewInlineQuery *UpdateNewInlineQuery) MessageType() string {
 // @param chatType Contains information about the type of the chat, from which the query originated; may be null if unknown
 // @param query Text of the query
 // @param offset Offset of the first entry to return
-func NewUpdateNewInlineQuery(iD JSONInt64, senderUserID int32, userLocation *Location, chatType ChatType, query string, offset string) *UpdateNewInlineQuery {
+func NewUpdateNewInlineQuery(
+	iD JSONInt64,
+	senderUserID int64,
+	userLocation *Location,
+	chatType ChatType,
+	query string,
+	offset string,
+) *UpdateNewInlineQuery {
 	updateNewInlineQueryTemp := UpdateNewInlineQuery{
 		tdCommon:     tdCommon{Type: "updateNewInlineQuery"},
 		ID:           iD,
@@ -31092,7 +32298,7 @@ func (updateNewInlineQuery *UpdateNewInlineQuery) UnmarshalJSON(b []byte) error 
 	tempObj := struct {
 		tdCommon
 		ID           JSONInt64 `json:"id"`             // Unique query identifier
-		SenderUserID int32     `json:"sender_user_id"` // Identifier of the user who sent the query
+		SenderUserID int64     `json:"sender_user_id"` // Identifier of the user who sent the query
 		UserLocation *Location `json:"user_location"`  // User location; may be null
 		Query        string    `json:"query"`          // Text of the query
 		Offset       string    `json:"offset"`         // Offset of the first entry to return
@@ -31123,7 +32329,7 @@ func (updateNewInlineQuery *UpdateNewInlineQuery) GetUpdateEnum() UpdateEnum {
 // UpdateNewChosenInlineResult The user has chosen a result of an inline query; for bots only
 type UpdateNewChosenInlineResult struct {
 	tdCommon
-	SenderUserID    int32     `json:"sender_user_id"`    // Identifier of the user who sent the query
+	SenderUserID    int64     `json:"sender_user_id"`    // Identifier of the user who sent the query
 	UserLocation    *Location `json:"user_location"`     // User location; may be null
 	Query           string    `json:"query"`             // Text of the query
 	ResultID        string    `json:"result_id"`         // Identifier of the chosen result
@@ -31142,7 +32348,13 @@ func (updateNewChosenInlineResult *UpdateNewChosenInlineResult) MessageType() st
 // @param query Text of the query
 // @param resultID Identifier of the chosen result
 // @param inlineMessageID Identifier of the sent inline message, if known
-func NewUpdateNewChosenInlineResult(senderUserID int32, userLocation *Location, query string, resultID string, inlineMessageID string) *UpdateNewChosenInlineResult {
+func NewUpdateNewChosenInlineResult(
+	senderUserID int64,
+	userLocation *Location,
+	query string,
+	resultID string,
+	inlineMessageID string,
+) *UpdateNewChosenInlineResult {
 	updateNewChosenInlineResultTemp := UpdateNewChosenInlineResult{
 		tdCommon:        tdCommon{Type: "updateNewChosenInlineResult"},
 		SenderUserID:    senderUserID,
@@ -31164,7 +32376,7 @@ func (updateNewChosenInlineResult *UpdateNewChosenInlineResult) GetUpdateEnum() 
 type UpdateNewCallbackQuery struct {
 	tdCommon
 	ID           JSONInt64            `json:"id"`             // Unique query identifier
-	SenderUserID int32                `json:"sender_user_id"` // Identifier of the user who sent the query
+	SenderUserID int64                `json:"sender_user_id"` // Identifier of the user who sent the query
 	ChatID       int64                `json:"chat_id"`        // Identifier of the chat where the query was sent
 	MessageID    int64                `json:"message_id"`     // Identifier of the message, from which the query originated
 	ChatInstance JSONInt64            `json:"chat_instance"`  // Identifier that uniquely corresponds to the chat to which the message was sent
@@ -31184,7 +32396,14 @@ func (updateNewCallbackQuery *UpdateNewCallbackQuery) MessageType() string {
 // @param messageID Identifier of the message, from which the query originated
 // @param chatInstance Identifier that uniquely corresponds to the chat to which the message was sent
 // @param payload Query payload
-func NewUpdateNewCallbackQuery(iD JSONInt64, senderUserID int32, chatID int64, messageID int64, chatInstance JSONInt64, payload CallbackQueryPayload) *UpdateNewCallbackQuery {
+func NewUpdateNewCallbackQuery(
+	iD JSONInt64,
+	senderUserID int64,
+	chatID int64,
+	messageID int64,
+	chatInstance JSONInt64,
+	payload CallbackQueryPayload,
+) *UpdateNewCallbackQuery {
 	updateNewCallbackQueryTemp := UpdateNewCallbackQuery{
 		tdCommon:     tdCommon{Type: "updateNewCallbackQuery"},
 		ID:           iD,
@@ -31208,7 +32427,7 @@ func (updateNewCallbackQuery *UpdateNewCallbackQuery) UnmarshalJSON(b []byte) er
 	tempObj := struct {
 		tdCommon
 		ID           JSONInt64 `json:"id"`             // Unique query identifier
-		SenderUserID int32     `json:"sender_user_id"` // Identifier of the user who sent the query
+		SenderUserID int64     `json:"sender_user_id"` // Identifier of the user who sent the query
 		ChatID       int64     `json:"chat_id"`        // Identifier of the chat where the query was sent
 		MessageID    int64     `json:"message_id"`     // Identifier of the message, from which the query originated
 		ChatInstance JSONInt64 `json:"chat_instance"`  // Identifier that uniquely corresponds to the chat to which the message was sent
@@ -31241,7 +32460,7 @@ func (updateNewCallbackQuery *UpdateNewCallbackQuery) GetUpdateEnum() UpdateEnum
 type UpdateNewInlineCallbackQuery struct {
 	tdCommon
 	ID              JSONInt64            `json:"id"`                // Unique query identifier
-	SenderUserID    int32                `json:"sender_user_id"`    // Identifier of the user who sent the query
+	SenderUserID    int64                `json:"sender_user_id"`    // Identifier of the user who sent the query
 	InlineMessageID string               `json:"inline_message_id"` // Identifier of the inline message, from which the query originated
 	ChatInstance    JSONInt64            `json:"chat_instance"`     // An identifier uniquely corresponding to the chat a message was sent to
 	Payload         CallbackQueryPayload `json:"payload"`           // Query payload
@@ -31259,7 +32478,13 @@ func (updateNewInlineCallbackQuery *UpdateNewInlineCallbackQuery) MessageType() 
 // @param inlineMessageID Identifier of the inline message, from which the query originated
 // @param chatInstance An identifier uniquely corresponding to the chat a message was sent to
 // @param payload Query payload
-func NewUpdateNewInlineCallbackQuery(iD JSONInt64, senderUserID int32, inlineMessageID string, chatInstance JSONInt64, payload CallbackQueryPayload) *UpdateNewInlineCallbackQuery {
+func NewUpdateNewInlineCallbackQuery(
+	iD JSONInt64,
+	senderUserID int64,
+	inlineMessageID string,
+	chatInstance JSONInt64,
+	payload CallbackQueryPayload,
+) *UpdateNewInlineCallbackQuery {
 	updateNewInlineCallbackQueryTemp := UpdateNewInlineCallbackQuery{
 		tdCommon:        tdCommon{Type: "updateNewInlineCallbackQuery"},
 		ID:              iD,
@@ -31282,7 +32507,7 @@ func (updateNewInlineCallbackQuery *UpdateNewInlineCallbackQuery) UnmarshalJSON(
 	tempObj := struct {
 		tdCommon
 		ID              JSONInt64 `json:"id"`                // Unique query identifier
-		SenderUserID    int32     `json:"sender_user_id"`    // Identifier of the user who sent the query
+		SenderUserID    int64     `json:"sender_user_id"`    // Identifier of the user who sent the query
 		InlineMessageID string    `json:"inline_message_id"` // Identifier of the inline message, from which the query originated
 		ChatInstance    JSONInt64 `json:"chat_instance"`     // An identifier uniquely corresponding to the chat a message was sent to
 
@@ -31313,7 +32538,7 @@ func (updateNewInlineCallbackQuery *UpdateNewInlineCallbackQuery) GetUpdateEnum(
 type UpdateNewShippingQuery struct {
 	tdCommon
 	ID              JSONInt64 `json:"id"`               // Unique query identifier
-	SenderUserID    int32     `json:"sender_user_id"`   // Identifier of the user who sent the query
+	SenderUserID    int64     `json:"sender_user_id"`   // Identifier of the user who sent the query
 	InvoicePayload  string    `json:"invoice_payload"`  // Invoice payload
 	ShippingAddress *Address  `json:"shipping_address"` // User shipping address
 }
@@ -31329,7 +32554,12 @@ func (updateNewShippingQuery *UpdateNewShippingQuery) MessageType() string {
 // @param senderUserID Identifier of the user who sent the query
 // @param invoicePayload Invoice payload
 // @param shippingAddress User shipping address
-func NewUpdateNewShippingQuery(iD JSONInt64, senderUserID int32, invoicePayload string, shippingAddress *Address) *UpdateNewShippingQuery {
+func NewUpdateNewShippingQuery(
+	iD JSONInt64,
+	senderUserID int64,
+	invoicePayload string,
+	shippingAddress *Address,
+) *UpdateNewShippingQuery {
 	updateNewShippingQueryTemp := UpdateNewShippingQuery{
 		tdCommon:        tdCommon{Type: "updateNewShippingQuery"},
 		ID:              iD,
@@ -31350,7 +32580,7 @@ func (updateNewShippingQuery *UpdateNewShippingQuery) GetUpdateEnum() UpdateEnum
 type UpdateNewPreCheckoutQuery struct {
 	tdCommon
 	ID               JSONInt64  `json:"id"`                 // Unique query identifier
-	SenderUserID     int32      `json:"sender_user_id"`     // Identifier of the user who sent the query
+	SenderUserID     int64      `json:"sender_user_id"`     // Identifier of the user who sent the query
 	Currency         string     `json:"currency"`           // Currency for the product price
 	TotalAmount      int64      `json:"total_amount"`       // Total price for the product, in the minimal quantity of the currency
 	InvoicePayload   []byte     `json:"invoice_payload"`    // Invoice payload
@@ -31372,7 +32602,15 @@ func (updateNewPreCheckoutQuery *UpdateNewPreCheckoutQuery) MessageType() string
 // @param invoicePayload Invoice payload
 // @param shippingOptionID Identifier of a shipping option chosen by the user; may be empty if not applicable
 // @param orderInfo Information about the order; may be null
-func NewUpdateNewPreCheckoutQuery(iD JSONInt64, senderUserID int32, currency string, totalAmount int64, invoicePayload []byte, shippingOptionID string, orderInfo *OrderInfo) *UpdateNewPreCheckoutQuery {
+func NewUpdateNewPreCheckoutQuery(
+	iD JSONInt64,
+	senderUserID int64,
+	currency string,
+	totalAmount int64,
+	invoicePayload []byte,
+	shippingOptionID string,
+	orderInfo *OrderInfo,
+) *UpdateNewPreCheckoutQuery {
 	updateNewPreCheckoutQueryTemp := UpdateNewPreCheckoutQuery{
 		tdCommon:         tdCommon{Type: "updateNewPreCheckoutQuery"},
 		ID:               iD,
@@ -31486,7 +32724,7 @@ func (updatePoll *UpdatePoll) GetUpdateEnum() UpdateEnum {
 type UpdatePollAnswer struct {
 	tdCommon
 	PollID    JSONInt64 `json:"poll_id"`    // Unique poll identifier
-	UserID    int32     `json:"user_id"`    // The user, who changed the answer to the poll
+	UserID    int64     `json:"user_id"`    // The user, who changed the answer to the poll
 	OptionIDs []int32   `json:"option_ids"` // 0-based identifiers of answer options, chosen by the user
 }
 
@@ -31500,7 +32738,7 @@ func (updatePollAnswer *UpdatePollAnswer) MessageType() string {
 // @param pollID Unique poll identifier
 // @param userID The user, who changed the answer to the poll
 // @param optionIDs 0-based identifiers of answer options, chosen by the user
-func NewUpdatePollAnswer(pollID JSONInt64, userID int32, optionIDs []int32) *UpdatePollAnswer {
+func NewUpdatePollAnswer(pollID JSONInt64, userID int64, optionIDs []int32) *UpdatePollAnswer {
 	updatePollAnswerTemp := UpdatePollAnswer{
 		tdCommon:  tdCommon{Type: "updatePollAnswer"},
 		PollID:    pollID,
