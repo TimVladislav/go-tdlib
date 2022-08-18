@@ -576,7 +576,7 @@ const (
 	TextEntityTypeCodeType           TextEntityTypeEnum = "textEntityTypeCode"
 	TextEntityTypePreType            TextEntityTypeEnum = "textEntityTypePre"
 	TextEntityTypePreCodeType        TextEntityTypeEnum = "textEntityTypePreCode"
-	TextEntityTypeTextURLType        TextEntityTypeEnum = "textEntityTypeTextURL"
+	TextEntityTypeTextURLType        TextEntityTypeEnum = "textEntityTypeTextUrl"
 	TextEntityTypeMentionNameType    TextEntityTypeEnum = "textEntityTypeMentionName"
 )
 
